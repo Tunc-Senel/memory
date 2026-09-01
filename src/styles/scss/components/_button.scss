@@ -1,19 +1,18 @@
 @use '../abstract/variables.scss' as variables;
 
 .btn {
-    padding: 8px;
     background-color: variables.$highlight-yellow;
 
     &__home {
-        width: 128px;
-        height: 40px;
+        font-size: 40px;
+        padding: 24px;
         color:variables.$theme-primary;
         text-decoration: none;
-        gap: 10px;
+        gap: 20px;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        align-items: center;
+        align-items: flex-end;
     }
 
     &:hover {

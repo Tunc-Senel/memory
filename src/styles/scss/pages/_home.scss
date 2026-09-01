@@ -2,7 +2,7 @@
 
 .home {
     margin: 0;
-    padding: 0 160px;
+    padding: 0;
     min-height: 100vh;
     background-color: variables.$theme-primary;
     color: variables.$white;
@@ -10,9 +10,30 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    &__controller-background {
+    position: absolute;
+    top: 256px;
+    left: -174px;
+    width: 300px;
+    height: auto;
+    }
+
+}
+
+.btn__home {
+    &__controller-img {
+        width: 44px;
+        height: 32px;
+    }
+    &__text {
+        font-size: 40px;
+        font-weight: 700;
+    }
 }
 
 main {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,13 +44,15 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
 
-p {
-    font-size: 48px;
-}
+    & p {
+        font-size: 48px;
+        margin: 0;
+    }
 
-h1 {
-    margin: 0;
-    font-size: 140px;
+    & h1 {
+        padding: 0 0 80px;
+        margin: 0;
+        font-size: 140px;
+    }
 }
