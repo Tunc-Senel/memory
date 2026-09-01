@@ -1,0 +1,11 @@
+@use '../abstract/variables.scss' as variables;
+
+body {
+    font-family: variables.$font-primary;
+    font-weight: variables.$font-weight-regular;
+}
+
+h1 {
+    font-family: variables.$font-primary;
+    font-weight: variables.$font-weight-bold;
+}
