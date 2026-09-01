@@ -4,6 +4,8 @@
     background-color: variables.$highlight-yellow;
 
     &__home {
+        position: relative;
+        z-index: 0;
         font-size: 40px;
         padding: 24px;
         color: variables.$theme-primary;
@@ -13,10 +15,57 @@
         flex-direction: row;
         justify-content: space-around;
         align-items: flex-end;
-    }
 
-    &:hover {
-        cursor: pointer;
-    }
+        &__controller-img,
+        &__text,
+        &__arrow-right {
+            transition: transform 0.2s ease;
+        }
 
+        &__arrow-right {
+            width: 33px;
+        }
+
+        &__arrow-right__big {
+            display: none;
+        }
+
+         &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: inherit;
+            z-index: -1;
+            transition: transform 0.275s ease;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            &::before {
+                transform: scaleX(1.10) scaleY(1.05);
+            }
+
+            .btn__home__controller-img {
+                transform: scale(1.15) rotate(-22.5deg);
+            }
+
+            .btn__home__text {
+                transform: translateX(6px) translateY(2px);
+            }
+
+            .btn__home__arrow-right {
+               transform: translateX(6px);
+               width: 36px;
+            }
+            
+            .btn__home__arrow-right__small {
+                display: none;
+            }
+
+            .btn__home__arrow-right__big {
+                display: flex;
+            }
+        }
+    }
 }
