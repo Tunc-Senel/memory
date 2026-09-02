@@ -5,92 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Settings</title>
 </head>
-<body>
-    <header>
-        <h1>
+<body class="settings-page">
+    <header class="settings-header">
+        <h1 class="settings-header__title">
             Settings
         </h1>
-        <img 
+        <img
              src="./public/assets/img/underline-accent-settings.png"
+             class="settings-header__underline"
              alt=""
         >
     </header>
-    <main>
-        <section>
-            <article>
-                <header>
+    <main class="settings-page__main">
+        
+        <section class="settings-page__options">
+
+            <article class="settings-option">
+                <header class="settings-option__header">
                     <img
                          src="./public/assets/img/icon-game-theme.png"
+                         class="settings-option__icon"
                          alt="Symbol für Themenauswahl"
                     >
-                    <h2>
+                    <h2 class="settings-option__title">
                         Game themes
                     </h2>
                 </header> 
-                <ul>
-                    <li>Code vibes theme</li>
-                    <li>Gaming theme</li>
+                <ul class="settings-option__list">
+                    <li class="settings-option__list-item settings-option__list-item--active">
+                        Code vibes theme
+                    </li>
+                    <li class="settings-option__list-item">
+                        Gaming theme
+                    </li>
                 </ul>
             </article>
 
-            <article>
-                <header>
+            <article class="settings-option">
+                <header class="settings-option__header">
                     <img
                          src="./public/assets/img/icon-choose-player.png"
+                         class="settings-option__icon"
                          alt="Symbol für Spielerauswahl"
                     >
-                    <h2>
+                    <h2 class="settings-option__title">
                         Choose Player
                     </h2>
                 </header>
-                <ul>
-                    <li>Blue</li>
-                    <li>Orange</li>
+                <ul class="settings-option__list">
+                    <li class="settings-option__list-item settings-option__list-item--active">Blue</li>
+                    <li class="settings-option__list-item">Orange</li>
                 </ul>
             </article>
 
-            <article>
-                <header>
+            <article class="settings-option">
+                <header class="settings-option__header">
                     <img
                          src="./public/assets/img/icon-board-size.png"
+                         class="settings-option__icon"
                          alt="Symbol für Spielfeldgröße"
                     >
-                    <h2>
+                    <h2 class="settings-option__title">
                         Board size
                     </h2>
                 </header>
-                <ul>
-                    <li>16 cards</li>
-                    <li>24 cards</li>
-                    <li>36 cards</li>
+                <ul class="settings-option__list">
+                    <li class="settings-option__list-item">16 cards</li>
+                    <li class="settings-option__list-item settings-option__list-item--active">24 cards</li>
+                    <li class="settings-option__list-item">36 cards</li>
                 </ul>
             </article>
 
         </section>
-        <section>
-            <article>
-                <figure>
+
+        <section class="settings-page__summary">
+
+                <figure class="settings-preview">
                     <img
                          src="./public/assets/img/theme-preview-code-vibes.png"
+                         class="settings-preview__image"
                          alt="Vorschau des Themes Code vibes mit Code- und Git-Symbol"
                     >
-                    <figcaption>
+                    <figcaption class="settings-preview__caption">
                         Theme-Vorschau: Code vibes
                     </figcaption>
                 </figure>
-            </article>
-            <ul>
-                <li>
+
+            <ul class="settings-progress">
+                <li class="settings-progress__step">
                     Game theme
                 </li>
-                <li>
+                <li class="settings-progress__step">
                     Player
                 </li>
-                <li>
+                <li class="settings-progress__step">
                     Board size
                 </li>
-                <li>
-                    <div>
+                <li class="settings-progress__step settings-progress__step--start">
+                    <button>
                         <img
                              src="./public/assets/img/icon-start-game.png"
                              alt=""
@@ -98,12 +110,10 @@
                         <span>
                             Start
                         </span>
-                    </div>
+                    </button>
                 </li>
             </ul>
-            <article>
 
-            </article>
         </section>
     </main>
     <script type="module" src="./src/main.ts"></script>

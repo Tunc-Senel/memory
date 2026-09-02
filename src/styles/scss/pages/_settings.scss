@@ -1,15 +1,56 @@
-body {
-    margin: 0;
-    padding: 0;
+@use '../abstract/variables.scss' as variables;
+
+.settings-page {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px 160px 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
+    &__main {
+        display: flex;
+        flex-direction: row;
+        gap: 200px;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
 }
 
-main {
+.settings-header {
     display: flex;
-    flex-direction: row;
-    gap: 200px;
-    justify-content: center;
+    flex-direction: column;
+
+    &__title {
+        margin: 0;
+    }
+
+    &__underline {
+        width: 251px;
+    }
+}
+
+.settings-option {
+    &__header {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    &__icon {
+        width: auto;
+        height: 26.5px; 
+    }
+
+    &__title {
+        margin: 0;
+        font-family: variables.$font-secondary;
+        font-weight: variables.$font-weight-bold;
+    }
+}
+
+.settings-preview {
+    margin: 0;
 }
