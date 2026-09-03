@@ -19,27 +19,41 @@
 }
 
 .settings-header {
+    position: relative;
     display: flex;
     flex-direction: column;
+    padding-bottom: 48px;
+    margin-left: -24px;
+    
 
     &__title {
         margin: 0;
+        font-size: 54px;
     }
 
     &__underline {
+        position: absolute;
+        top: 56px;
+        left: -18px;
         width: 251px;
+
     }
 }
 
 .settings-option {
+    position: relative;
     &__header {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
         gap: 12px;
+        padding-bottom: 16px;
     }
 
     &__icon {
+        top: 0;
+        left: -36px;
+        position: absolute;
         width: auto;
         height: 26.5px; 
     }
@@ -47,6 +61,28 @@
     &__title {
         margin: 0;
         font-family: variables.$font-secondary;
+        font-weight: variables.$font-weight-bold;
+    }
+
+    &__list {
+        margin: 0;
+        padding-bottom: 40px;
+        padding-inline-start: 8px;
+        list-style-type: none;
+    }
+
+    &:last-of-type .settings-option__list {
+        padding-bottom: 0;
+    }
+
+    &__list-item {
+        font-family: variables.$font-secondary;
+        font-weight: variables.$font-weight-regular;
+        font-size: 20px;
+        padding-bottom: 8px;
+    }
+
+    &__list-item--active {
         font-weight: variables.$font-weight-bold;
     }
 }
