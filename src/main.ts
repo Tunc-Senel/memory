@@ -1,11 +1,16 @@
 import '../src/styles/scss/style.scss';
 
 const GAME_THEMES_LIST = document.getElementById("game-themes") as HTMLElement;
+const CHOOSE_PLAYER_LIST = document.getElementById("choose-player") as HTMLElement;
+const BOARD_SIZE_LIST = document.getElementById("board-size") as HTMLElement;
+
 const HIDDEN_CLASS = "d-none";
 const ACTIVE_CLASS = "settings-option__list-item--active";
 
 function init(): void {
   initGameThemeListeners();
+  initChoosePlayerListeners();
+  initChooseBoardSizeListeners();
 }
 
 /**
@@ -19,7 +24,33 @@ function initGameThemeListeners(): void {
   listItems.forEach((listItem) => {
     listItem.addEventListener("mouseenter", () => previewRadioIcon(listItem, true));
     listItem.addEventListener("mouseleave", () => previewRadioIcon(listItem, false));
-    listItem.addEventListener("click", () => selectGameTheme(listItems, listItem));
+    listItem.addEventListener("click", () => selectOption(listItems, listItem));
+  });
+}
+
+/**
+ * Attaches click listeners to the two Player options.
+ */
+function initChoosePlayerListeners(): void {
+  const listItems = CHOOSE_PLAYER_LIST.querySelectorAll<HTMLLIElement>(
+    ".settings-option__list-item"
+  );
+
+  listItems.forEach((listItem) => {
+    listItem.addEventListener("click", () => selectOption(listItems, listItem));
+  });
+}
+
+/**
+ * Attaches click listeners to every board size option.
+ */
+function initChooseBoardSizeListeners(): void {
+  const listItems = BOARD_SIZE_LIST.querySelectorAll<HTMLLIElement>(
+    ".settings-option__list-item"
+  );
+
+  listItems.forEach((listItem) => {
+    listItem.addEventListener("click", () => selectOption(listItems, listItem));
   });
 }
 
@@ -39,7 +70,7 @@ function previewRadioIcon(listItem: HTMLLIElement, isHovered: boolean): void {
  * @param listItems - All options of the game theme group.
  * @param selectedItem - The option the user clicked.
  */
-function selectGameTheme(
+function selectOption(
   listItems: NodeListOf<HTMLLIElement>,
   selectedItem: HTMLLIElement
 ): void {
