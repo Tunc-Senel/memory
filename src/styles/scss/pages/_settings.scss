@@ -91,10 +91,9 @@
         font-weight: variables.$font-weight-regular;
         font-size: 20px;
         padding-bottom: 8px;
-    }
-
-    &__list-item--active {
-        font-weight: variables.$font-weight-bold;
+        &--highlighted {
+            font-weight: variables.$font-weight-bold;
+        }
     }
 }
 

@@ -6,68 +6,79 @@ const BOARD_SIZE_LIST = document.getElementById("board-size") as HTMLElement;
 
 const HIDDEN_CLASS = "d-none";
 const ACTIVE_CLASS = "settings-option__list-item--active";
+const HIGHLIGHT_CLASS = "settings-option__list-item--highlighted";
 
 function init(): void {
-  initGameThemeListeners();
-  initChoosePlayerListeners();
-  initChooseBoardSizeListeners();
+  initSelectOptionListeners(GAME_THEMES_LIST, true);
+  initSelectOptionListeners(CHOOSE_PLAYER_LIST, false);
+  initSelectOptionListeners(BOARD_SIZE_LIST, false);
 }
 
 /**
- * Attaches hover and click listeners to every game theme option.
+ * Attaches click listeners to every option of a group.
+ * Optionally adds a hover preview of the radio icons.
+ * @param optionList - The list element holding the options.
+ * @param withHoverPreview - True adds the hover preview behaviour.
  */
-function initGameThemeListeners(): void {
-  const listItems = GAME_THEMES_LIST.querySelectorAll<HTMLLIElement>(
-    ".settings-option__list-item"
-  );
-
-  listItems.forEach((listItem) => {
-    listItem.addEventListener("mouseenter", () => previewRadioIcon(listItem, true));
-    listItem.addEventListener("mouseleave", () => previewRadioIcon(listItem, false));
-    listItem.addEventListener("click", () => selectOption(listItems, listItem));
-  });
-}
-
-/**
- * Attaches click listeners to the two Player options.
- */
-function initChoosePlayerListeners(): void {
-  const listItems = CHOOSE_PLAYER_LIST.querySelectorAll<HTMLLIElement>(
+function initSelectOptionListeners(
+  optionList: HTMLElement,
+  withHoverPreview: boolean
+): void {
+  const listItems = optionList.querySelectorAll<HTMLLIElement>(
     ".settings-option__list-item"
   );
 
   listItems.forEach((listItem) => {
     listItem.addEventListener("click", () => selectOption(listItems, listItem));
+
+    if (withHoverPreview) {
+      addHoverPreviewListeners(listItems, listItem);
+    }
   });
 }
 
 /**
- * Attaches click listeners to every board size option.
+ * Adds the hover preview listeners to a single option.
+ * @param listItems - All options of the group.
+ * @param listItem - The option receiving the listeners.
  */
-function initChooseBoardSizeListeners(): void {
-  const listItems = BOARD_SIZE_LIST.querySelectorAll<HTMLLIElement>(
-    ".settings-option__list-item"
+function addHoverPreviewListeners(
+  listItems: NodeListOf<HTMLLIElement>,
+  listItem: HTMLLIElement
+): void {
+  listItem.addEventListener("mouseenter", () =>
+    previewOption(listItems, listItem)
   );
+  listItem.addEventListener("mouseleave", () => restoreSelectedOption(listItems));
+}
 
+/**
+ * Previews the hovered option without changing the actual selection.
+ * @param listItems - All options of the group.
+ * @param hoveredItem - The option the user hovers.
+ */
+function previewOption(
+  listItems: NodeListOf<HTMLLIElement>,
+  hoveredItem: HTMLLIElement
+): void {
   listItems.forEach((listItem) => {
-    listItem.addEventListener("click", () => selectOption(listItems, listItem));
+    setOptionState(listItem, listItem === hoveredItem);
   });
 }
 
 /**
- * Previews the checked icon on hover.
- * Does nothing if the option is already selected.
- * @param listItem - The hovered option.
- * @param isHovered - True on mouse enter, false on mouse leave.
+ * Restores the radio icons based on the currently selected option.
+ * @param listItems - All options of the group.
  */
-function previewRadioIcon(listItem: HTMLLIElement, isHovered: boolean): void {
-  if (listItem.classList.contains(ACTIVE_CLASS)) return;
-  setRadioIcon(listItem, isHovered);
+function restoreSelectedOption(listItems: NodeListOf<HTMLLIElement>): void {
+  listItems.forEach((listItem) => {
+    setOptionState(listItem, listItem.classList.contains(ACTIVE_CLASS));
+  });
 }
 
 /**
  * Selects the clicked option and resets all other options in the group.
- * @param listItems - All options of the game theme group.
+ * @param listItems - All options of the group.
  * @param selectedItem - The option the user clicked.
  */
 function selectOption(
@@ -77,16 +88,17 @@ function selectOption(
   listItems.forEach((listItem) => {
     const isSelected = listItem === selectedItem;
     listItem.classList.toggle(ACTIVE_CLASS, isSelected);
-    setRadioIcon(listItem, isSelected);
+      setOptionState(listItem, isSelected);
   });
 }
 
 /**
- * Swaps the checked and unchecked radio icons of a single option.
- * @param listItem - The option whose icons are updated.
- * @param isChecked - True shows the checked icon, false the unchecked one.
+ * Applies the visual state of a single option.
+ * Swaps the radio icons and toggles the highlight styling.
+ * @param listItem - The option whose appearance is updated.
+ * @param isHighlighted - True shows the option as chosen.
  */
-function setRadioIcon(listItem: HTMLLIElement, isChecked: boolean): void {
+function setOptionState(listItem: HTMLLIElement, isHighlighted: boolean): void {
   const checkedIcon = listItem.querySelector<HTMLImageElement>(
     ".settings-option__radio--checked"
   );
@@ -94,8 +106,9 @@ function setRadioIcon(listItem: HTMLLIElement, isChecked: boolean): void {
     ".settings-option__radio--unchecked"
   );
 
-  checkedIcon?.classList.toggle(HIDDEN_CLASS, !isChecked);
-  uncheckedIcon?.classList.toggle(HIDDEN_CLASS, isChecked);
+  checkedIcon?.classList.toggle(HIDDEN_CLASS, !isHighlighted);
+  uncheckedIcon?.classList.toggle(HIDDEN_CLASS, isHighlighted);
+  listItem.classList.toggle(HIGHLIGHT_CLASS, isHighlighted);
 }
 
 window.onload = init;
