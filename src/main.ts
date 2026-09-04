@@ -27,6 +27,7 @@ const PENDING_LABELS: Record<string, string> = {};
 const HIDDEN_CLASS = "d-none";
 const ACTIVE_CLASS = "settings-option__list-item--active";
 const HIGHLIGHT_CLASS = "settings-option__list-item--highlighted";
+const BOUNCE_CLASS = "settings-progress--bounce";
 
 function init(): void {
   initSelectOptionListeners(GAME_THEMES_LIST, true);
@@ -137,13 +138,52 @@ function rememberProgressLabel(
 }
 
 /**
+ * Applies the pending labels and swaps the dividers.
+ * Ignores clicks on the start button.
+ * @param event - The click event on the progress bar.
+ */
+function applyProgressLabels(event: MouseEvent): void {
+  const target = event.target as HTMLElement;
+  if (target.closest(".settings-progress__start-button")) return;
+
+  writePendingLabels();
+  swapProgressDividers();
+}
+
+/**
  * Writes all pending labels into their progress steps.
  */
-function applyProgressLabels(): void {
+function writePendingLabels(): void {
   Object.entries(PENDING_LABELS).forEach(([stepId, label]) => {
     const step = document.getElementById(stepId);
     if (step) step.textContent = label;
   });
+  restartBounce();
+}
+
+/**
+ * Restarts the bounce animation of the progress bar.
+ */
+function restartBounce(): void {
+  PROGRESS_LIST.classList.remove(BOUNCE_CLASS);
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => PROGRESS_LIST.classList.add(BOUNCE_CLASS));
+  });
+}
+
+/**
+ * Shows the bent dividers instead of the default ones.
+ */
+function swapProgressDividers(): void {
+  const defaults = PROGRESS_LIST.querySelectorAll<HTMLImageElement>(
+    ".settings-progress__divider-default"
+  );
+  const applied = PROGRESS_LIST.querySelectorAll<HTMLImageElement>(
+    ".settings-progress__divider-applied"
+  );
+
+  defaults.forEach((img) => img.classList.add(HIDDEN_CLASS));
+  applied.forEach((img) => img.classList.remove(HIDDEN_CLASS));
 }
 
 /**
@@ -179,5 +219,6 @@ function setOptionState(listItem: HTMLLIElement, isHighlighted: boolean): void {
   uncheckedIcon?.classList.toggle(HIDDEN_CLASS, isHighlighted);
   listItem.classList.toggle(HIGHLIGHT_CLASS, isHighlighted);
 }
+
 
 window.onload = init;
