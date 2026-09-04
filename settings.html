@@ -31,8 +31,11 @@
                         Game themes
                     </h2>
                 </header> 
-                <ul id="game-themes" class="settings-option__list">
-                    <li class="settings-option__list-item settings-option__list-item--active" data-theme="code-vibes">
+                <ul id="game-themes" class="settings-option__list" data-step="step-theme">
+                    <li class="settings-option__list-item settings-option__list-item--active"
+                        data-theme="code-vibes"
+                        data-label="Code vibes theme"
+                    >
                         <img
                              src="./public/assets/img/radio-checked.png"
                              class="settings-option__radio--checked"
@@ -45,7 +48,9 @@
                             Code vibes theme
                         </span>
                     </li>
-                    <li class="settings-option__list-item" data-theme="gaming">
+                    <li class="settings-option__list-item" 
+                        data-theme="gaming"
+                        data-label="Gaming theme">
                         <img
                              src="./public/assets/img/radio-checked.png"
                              class="settings-option__radio--checked d-none"
@@ -72,8 +77,8 @@
                         Choose Player
                     </h2>
                 </header>
-                <ul id="choose-player" class="settings-option__list">
-                    <li class="settings-option__list-item">
+                <ul id="choose-player" class="settings-option__list" data-step="step-player">
+                    <li class="settings-option__list-item" data-label="Blue Player">
                         <img
                              src="./public/assets/img/radio-checked.png"
                              class="settings-option__radio--checked d-none"
@@ -86,7 +91,7 @@
                             Blue
                         </span>
                     </li>
-                    <li class="settings-option__list-item">
+                    <li class="settings-option__list-item" data-label="Orange Player">
                         <img
                              src="./public/assets/img/radio-checked.png"
                              class="settings-option__radio--checked d-none"
@@ -113,8 +118,8 @@
                         Board size
                     </h2>
                 </header>
-                <ul id="board-size" class="settings-option__list">
-                    <li class="settings-option__list-item">
+                <ul id="board-size" class="settings-option__list" data-step="step-board">
+                    <li class="settings-option__list-item" data-label="Board-16 Cards">
                     <img
                             src="./public/assets/img/radio-checked.png"
                             class="settings-option__radio--checked d-none"
@@ -127,7 +132,7 @@
                         16 cards
                     </span>
                     </li>
-                    <li class="settings-option__list-item">
+                    <li class="settings-option__list-item" data-label="Board-24 Cards">
                         <img
                              src="./public/assets/img/radio-checked.png"
                              class="settings-option__radio--checked d-none"
@@ -140,7 +145,7 @@
                             24 cards
                         </span> 
                     </li>
-                    <li class="settings-option__list-item">
+                    <li class="settings-option__list-item" data-label="Board-36 Cards">
                         <img
                              src="./public/assets/img/radio-checked.png"
                              class="settings-option__radio--checked d-none"
@@ -170,19 +175,19 @@
                 </figure>
 
             <ul class="settings-progress">
-                <li class="settings-progress__step">
+                <li id="step-theme" class="settings-progress__step">
                     Game theme
                 </li>
                 <span>
                     <img src="./public/assets/img/divider-accent.png" alt="">
                 </span>
-                <li class="settings-progress__step">
+                <li id="step-player" class="settings-progress__step">
                     Player
                 </li>
                 <span>
                     <img src="./public/assets/img/divider-accent.png" alt="">
                 </span>
-                <li class="settings-progress__step">
+                <li id="step-board" class="settings-progress__step">
                     Board size
                 </li>
                 <li class="settings-progress__step settings-progress__step--start">

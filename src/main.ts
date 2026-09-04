@@ -1,10 +1,17 @@
 import '../src/styles/scss/style.scss';
 
+type ThemePreview = {
+  src: string;
+  alt: string;
+};
+
 const GAME_THEMES_LIST = document.getElementById("game-themes") as HTMLElement;
 const CHOOSE_PLAYER_LIST = document.getElementById("choose-player") as HTMLElement;
 const BOARD_SIZE_LIST = document.getElementById("board-size") as HTMLElement;
 const THEME_IMG = document.getElementById("theme-img") as HTMLImageElement;
-const THEME_PREVIEWS: Record<string, { src: string; alt: string }> = {
+const PROGRESS_LIST = document.querySelector(".settings-progress") as HTMLElement;
+
+const THEME_PREVIEWS: Record<string, ThemePreview> = {
   "code-vibes": {
     src: "./public/assets/img/theme-preview-code-vibes.png",
     alt: "Vorschau des Themes Code vibes mit Code- und Git-Symbol",
@@ -15,6 +22,8 @@ const THEME_PREVIEWS: Record<string, { src: string; alt: string }> = {
   },
 };
 
+const PENDING_LABELS: Record<string, string> = {};
+
 const HIDDEN_CLASS = "d-none";
 const ACTIVE_CLASS = "settings-option__list-item--active";
 const HIGHLIGHT_CLASS = "settings-option__list-item--highlighted";
@@ -23,6 +32,7 @@ function init(): void {
   initSelectOptionListeners(GAME_THEMES_LIST, true);
   initSelectOptionListeners(CHOOSE_PLAYER_LIST, false);
   initSelectOptionListeners(BOARD_SIZE_LIST, false);
+  PROGRESS_LIST.addEventListener("click", applyProgressLabels);
 }
 
 /**
@@ -40,7 +50,9 @@ function initSelectOptionListeners(
   );
 
   listItems.forEach((listItem) => {
-    listItem.addEventListener("click", () => selectOption(listItems, listItem));
+    listItem.addEventListener("click", () =>
+      selectOption(optionList, listItems, listItem)
+    );
 
     if (withHoverPreview) {
       addHoverPreviewListeners(listItems, listItem);
@@ -74,7 +86,6 @@ function previewOption(
 ): void {
   listItems.forEach((listItem) => {
     setOptionState(listItem, listItem === hoveredItem);
-
   });
   updateThemeImg(hoveredItem);
 }
@@ -87,30 +98,65 @@ function restoreSelectedOption(listItems: NodeListOf<HTMLLIElement>): void {
   listItems.forEach((listItem) => {
     const isActive = listItem.classList.contains(ACTIVE_CLASS);
     setOptionState(listItem, isActive);
-    if(isActive) updateThemeImg(listItem);
+    if (isActive) updateThemeImg(listItem);
   });
 }
 
 /**
  * Selects the clicked option and resets all other options in the group.
+ * @param optionList - The list element holding the options.
  * @param listItems - All options of the group.
  * @param selectedItem - The option the user clicked.
  */
 function selectOption(
+  optionList: HTMLElement,
   listItems: NodeListOf<HTMLLIElement>,
   selectedItem: HTMLLIElement
 ): void {
   listItems.forEach((listItem) => {
     const isSelected = listItem === selectedItem;
     listItem.classList.toggle(ACTIVE_CLASS, isSelected);
-      setOptionState(listItem, isSelected);
+    setOptionState(listItem, isSelected);
+  });
+  rememberProgressLabel(optionList, selectedItem);
+}
+
+/**
+ * Stores the label of the selected option until the progress bar is clicked.
+ * @param optionList - The list element holding the options.
+ * @param selectedItem - The option the user clicked.
+ */
+function rememberProgressLabel(
+  optionList: HTMLElement,
+  selectedItem: HTMLLIElement
+): void {
+  const stepId = optionList.dataset.step;
+  const label = selectedItem.dataset.label;
+  if (!stepId || !label) return;
+  PENDING_LABELS[stepId] = label;
+}
+
+/**
+ * Writes all pending labels into their progress steps.
+ */
+function applyProgressLabels(): void {
+  Object.entries(PENDING_LABELS).forEach(([stepId, label]) => {
+    const step = document.getElementById(stepId);
+    if (step) step.textContent = label;
   });
 }
 
-function updateThemeImg(listItem:HTMLElement) {
+/**
+ * Updates the preview image according to the theme of an option.
+ * @param listItem - The option holding the theme key.
+ */
+function updateThemeImg(listItem: HTMLElement): void {
   const themeKey = listItem.dataset.theme;
   if (!themeKey) return;
+
   const preview = THEME_PREVIEWS[themeKey];
+  if (!preview) return;
+
   THEME_IMG.src = preview.src;
   THEME_IMG.alt = preview.alt;
 }
