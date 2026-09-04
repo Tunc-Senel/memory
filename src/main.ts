@@ -4,9 +4,15 @@ const GAME_THEMES_LIST = document.getElementById("game-themes") as HTMLElement;
 const CHOOSE_PLAYER_LIST = document.getElementById("choose-player") as HTMLElement;
 const BOARD_SIZE_LIST = document.getElementById("board-size") as HTMLElement;
 const THEME_IMG = document.getElementById("theme-img") as HTMLImageElement;
-const THEME_PREVIEWS:Record<string, string> = {
-  "code-vibes": "/assets/img/theme-preview-code-vibes.png",
-  "gaming": "/assets/img/theme-preview-gaming.png",
+const THEME_PREVIEWS: Record<string, { src: string; alt: string }> = {
+  "code-vibes": {
+    src: "./public/assets/img/theme-preview-code-vibes.png",
+    alt: "Vorschau des Themes Code vibes mit Code- und Git-Symbol",
+  },
+  "gaming": {
+    src: "./public/assets/img/theme-preview-gaming.png",
+    alt: "Vorschau des Themes Gaming mit Spielkarte und Würfel",
+  },
 };
 
 const HIDDEN_CLASS = "d-none";
@@ -79,8 +85,9 @@ function previewOption(
  */
 function restoreSelectedOption(listItems: NodeListOf<HTMLLIElement>): void {
   listItems.forEach((listItem) => {
-    setOptionState(listItem, listItem.classList.contains(ACTIVE_CLASS));
-    
+    const isActive = listItem.classList.contains(ACTIVE_CLASS);
+    setOptionState(listItem, isActive);
+    if(isActive) updateThemeImg(listItem);
   });
 }
 
@@ -103,14 +110,9 @@ function selectOption(
 function updateThemeImg(listItem:HTMLElement) {
   const themeKey = listItem.dataset.theme;
   if (!themeKey) return;
-
-  if(themeKey === "code-vibes") {
-    THEME_IMG.src = "./public/assets/img/theme-preview-code-vibes.png"
-    THEME_IMG.alt = "Vorschau des Themes Code vibes mit Code- und Git-Symbol"
-  } else if (themeKey === "gaming") {
-    THEME_IMG.src = "./public/assets/img/theme-preview-gaming.png"
-    THEME_IMG.alt = "Vorschau des Themes Gaming mit Spielkarte und Würfel"
-  }
+  const preview = THEME_PREVIEWS[themeKey];
+  THEME_IMG.src = preview.src;
+  THEME_IMG.alt = preview.alt;
 }
 
 /**
