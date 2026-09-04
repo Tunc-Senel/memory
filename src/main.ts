@@ -28,12 +28,15 @@ const HIDDEN_CLASS = "d-none";
 const ACTIVE_CLASS = "settings-option__list-item--active";
 const HIGHLIGHT_CLASS = "settings-option__list-item--highlighted";
 const BOUNCE_CLASS = "settings-progress--bounce";
+const UNLOCKED_CLASS = "settings-progress--unlocked";
+
+let isProgressUnlocked = false;
 
 function init(): void {
   initSelectOptionListeners(GAME_THEMES_LIST, true);
   initSelectOptionListeners(CHOOSE_PLAYER_LIST, false);
   initSelectOptionListeners(BOARD_SIZE_LIST, false);
-  PROGRESS_LIST.addEventListener("click", applyProgressLabels);
+  PROGRESS_LIST.addEventListener("click", unlockProgressBar);
 }
 
 /**
@@ -123,7 +126,8 @@ function selectOption(
 }
 
 /**
- * Stores the label of the selected option until the progress bar is clicked.
+ * Stores the label of the selected option.
+ * Writes it through directly once the progress bar is unlocked.
  * @param optionList - The list element holding the options.
  * @param selectedItem - The option the user clicked.
  */
@@ -134,18 +138,24 @@ function rememberProgressLabel(
   const stepId = optionList.dataset.step;
   const label = selectedItem.dataset.label;
   if (!stepId || !label) return;
+
   PENDING_LABELS[stepId] = label;
+  if (isProgressUnlocked) writeProgressLabel(stepId, label);
 }
 
 /**
- * Applies the pending labels and swaps the dividers.
- * Ignores clicks on the start button.
+ * Unlocks the progress bar on the first click.
+ * Ignores clicks on the start button and every later click.
  * @param event - The click event on the progress bar.
  */
-function applyProgressLabels(event: MouseEvent): void {
+function unlockProgressBar(event: MouseEvent): void {
+  if (isProgressUnlocked) return;
+
   const target = event.target as HTMLElement;
   if (target.closest(".settings-progress__start-button")) return;
 
+  isProgressUnlocked = true;
+  PROGRESS_LIST.classList.add(UNLOCKED_CLASS);
   writePendingLabels();
   swapProgressDividers();
 }
@@ -155,10 +165,19 @@ function applyProgressLabels(event: MouseEvent): void {
  */
 function writePendingLabels(): void {
   Object.entries(PENDING_LABELS).forEach(([stepId, label]) => {
-    const step = document.getElementById(stepId);
-    if (step) step.textContent = label;
+    writeProgressLabel(stepId, label);
   });
   restartBounce();
+}
+
+/**
+ * Writes a single label into its progress step.
+ * @param stepId - The id of the progress step.
+ * @param label - The text to display.
+ */
+function writeProgressLabel(stepId: string, label: string): void {
+  const step = document.getElementById(stepId);
+  if (step) step.textContent = label;
 }
 
 /**
@@ -219,6 +238,5 @@ function setOptionState(listItem: HTMLLIElement, isHighlighted: boolean): void {
   uncheckedIcon?.classList.toggle(HIDDEN_CLASS, isHighlighted);
   listItem.classList.toggle(HIGHLIGHT_CLASS, isHighlighted);
 }
-
 
 window.onload = init;
