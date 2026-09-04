@@ -91,6 +91,8 @@
         font-weight: variables.$font-weight-regular;
         font-size: 20px;
         padding-bottom: 8px;
+        cursor: pointer;
+
         &--highlighted {
             font-weight: variables.$font-weight-bold;
         }
@@ -136,5 +138,11 @@
     &__start-button {
         background-color: variables.$highlight-yellow;
         padding: 16px;
+        transform-origin: right center;
+        transition: transform 0.275s ease;
+
+        &:hover {
+            transform: scaleX(1.15) scaleY(1.15);
+        }
     }
 }
