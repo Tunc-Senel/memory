@@ -10,15 +10,36 @@ const CHOOSE_PLAYER_LIST = document.getElementById("choose-player") as HTMLEleme
 const BOARD_SIZE_LIST = document.getElementById("board-size") as HTMLElement;
 const THEME_IMG = document.getElementById("theme-img") as HTMLImageElement;
 const PROGRESS_LIST = document.querySelector(".settings-progress") as HTMLElement;
+const GAME_BOARD = document.querySelector(".game-board") as HTMLElement | null;
+const CURRENT_PLAYER_MARKER = document.querySelector(
+  ".game-header__current-player-marker"
+) as HTMLImageElement | null;
+
+const SELECTED_THEME = "code-vibes";
+const SELECTED_PLAYER = "blue";
+const SELECTED_BOARD_SIZE = 16;
+
+const CARD_PATH = `./public/assets/img/cards/${SELECTED_THEME}`;
+
+const COLUMN_CLASSES: Record<number, string> = {
+  16: "game-board--4-columns",
+  24: "game-board--6-columns",
+  36: "game-board--6-columns",
+};
+
+const PLAYER_LABELS: Record<string, string> = {
+  blue: "Blau",
+  orange: "Orange",
+};
 
 const THEME_PREVIEWS: Record<string, ThemePreview> = {
   "code-vibes": {
     src: "./public/assets/img/theme-preview-code-vibes.png",
     alt: "Vorschau des Themes Code vibes mit Code- und Git-Symbol",
   },
-  "gaming": {
-    src: "./public/assets/img/theme-preview-gaming.png",
-    alt: "Vorschau des Themes Gaming mit Spielkarte und Würfel",
+  "da-projects": {
+    src: "./public/assets/img/theme-preview-da-projects.png",
+    alt: "Vorschau des Themes DA Projects mit Code- und Wellen-Symbol",
   },
 };
 
@@ -33,6 +54,11 @@ const UNLOCKED_CLASS = "settings-progress--unlocked";
 let isProgressUnlocked = false;
 
 function init(): void {
+  if (GAME_BOARD) {
+    setupGameBoard();
+    return;
+  }
+
   initSelectOptionListeners(GAME_THEMES_LIST, true);
   initSelectOptionListeners(CHOOSE_PLAYER_LIST, false);
   initSelectOptionListeners(BOARD_SIZE_LIST, false);
@@ -210,7 +236,7 @@ function swapProgressDividers(): void {
  * @param listItem - The option holding the theme key.
  */
 function updateThemeImg(listItem: HTMLElement): void {
-  const themeKey = listItem.dataset.theme;
+  const themeKey = listItem.dataset.value;
   if (!themeKey) return;
 
   const preview = THEME_PREVIEWS[themeKey];
@@ -237,6 +263,60 @@ function setOptionState(listItem: HTMLLIElement, isHighlighted: boolean): void {
   checkedIcon?.classList.toggle(HIDDEN_CLASS, !isHighlighted);
   uncheckedIcon?.classList.toggle(HIDDEN_CLASS, isHighlighted);
   listItem.classList.toggle(HIGHLIGHT_CLASS, isHighlighted);
+}
+
+/**
+ * Builds the game board for the selected settings.
+ */
+function setupGameBoard(): void {
+  if (!GAME_BOARD) return;
+
+  GAME_BOARD.classList.add(COLUMN_CLASSES[SELECTED_BOARD_SIZE]);
+  GAME_BOARD.innerHTML = renderCards(SELECTED_BOARD_SIZE);
+  updateCurrentPlayerMarker(SELECTED_PLAYER);
+}
+
+/**
+ * Returns the markup of all cards on the board.
+ * @param boardSize - The total number of cards.
+ * @returns The markup of every card as one string.
+ */
+function renderCards(boardSize: number): string {
+  let markup = "";
+
+  for (let i = 1; i <= boardSize; i++) {
+    markup += gameCardTemplate(i);
+  }
+  return markup;
+}
+
+/**
+ * Returns the markup of a single card.
+ * @param cardNumber - The motif number of the card.
+ * @returns The card markup as a string.
+ */
+function gameCardTemplate(cardNumber: number): string {
+  const motifId = String(cardNumber).padStart(2, "0");
+
+  return `
+    <button class="game-card" data-card="${cardNumber}">
+      <span class="game-card__inner">
+        <img class="game-card__front" src="${CARD_PATH}/card-${motifId}.png" alt="">
+        <img class="game-card__back" src="${CARD_PATH}/card-back.png" alt="">
+      </span>
+    </button>
+  `;
+}
+
+/**
+ * Shows the marker of the player who starts the game.
+ * @param player - The colour key of the player.
+ */
+function updateCurrentPlayerMarker(player: string): void {
+  if (!CURRENT_PLAYER_MARKER) return;
+
+  CURRENT_PLAYER_MARKER.src = `./public/assets/img/player-marker-${player}.png`;
+  CURRENT_PLAYER_MARKER.alt = PLAYER_LABELS[player] ?? "";
 }
 
 window.onload = init;
