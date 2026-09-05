@@ -1,0 +1,104 @@
+@use '../abstract/variables.scss' as variables;
+
+.game-page {
+    background-color: variables.$theme-primary;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px 160px 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: variables.$white;
+}
+
+.game-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__current-player {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px
+    }
+
+    &__current-player-label {
+        font-size: 26px;
+    }
+
+    &__current-player-marker {
+        width: 29px;
+        height: 24px;
+    }
+
+    &__exit {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0 24px;
+        border: 1px solid variables.$teal;
+        gap: 16px;
+        background-color: variables.$surface-translucent;
+        color: variables.$white;
+    }
+
+    &__exit-icon {
+        width: 25.75px;
+        height: 22.5px;
+    }
+
+    &__exit-label {
+        font-weight: variables.$font-weight-bold;
+        font-size: 24px;
+    }
+}
+
+ .game-score {
+    background-color: variables.$surface-translucent;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-inline-start: 0;
+    padding: 0 16px;
+    gap: 16px;
+    
+    &__player {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+
+        &--blue {
+            color: variables.$player-blue;
+        }
+        &--orange {
+            color: variables.$player-orange;
+        }
+    }
+
+    &__marker {
+        width: 24px;
+        height: 20px;
+    }
+
+    &__name,
+    &__points {
+        font-weight: variables.$font-weight-bold;
+        font-size: 24px;
+    }
+}
+
+.game-board {
+  display: grid;
+  gap: 8px;
+
+  &--4-columns {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &--6-columns {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

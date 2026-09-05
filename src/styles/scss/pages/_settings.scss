@@ -140,6 +140,9 @@
     }
 
     &__start-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         background-color: variables.$highlight-yellow;
         padding: 16px;
         transform-origin: right center;
@@ -147,7 +150,7 @@
         cursor: pointer;
 
         &:hover {
-            transform: scaleX(1.15) scaleY(1.15);
+            transform: scaleX(1.12) scaleY(1.12);
         }
     }
 }

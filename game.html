@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Play</title>
+</head>
+<body class="game-page">
+    <header class="game-header">
+        <ul class="game-score">
+            <li class="game-score__player game-score__player--blue">
+                <img 
+                     src="./public/assets/img/player-marker-blue.png"
+                     class="game-score__marker"
+                     alt=""
+                >
+                <span class="game-score__name">
+                    Blue
+                </span>
+                <span class="game-score__points">
+                    0
+                </span>
+            </li>
+            <li class="game-score__player game-score__player--orange">
+                <img 
+                     src="./public/assets/img/player-marker-orange.png"
+                     class="game-score__marker"
+                     alt=""
+                >
+                <span class="game-score__name">
+                    Orange
+                </span>
+                <span class="game-score__points">
+                    0
+                </span>
+            </li>
+        </ul>
+
+        <p class="game-header__current-player">
+            <span class="game-header__current-player-label">
+                Current player:
+            </span>
+            <img 
+                 src="./public/assets/img/player-marker-blue.png" 
+                 class="game-header__current-player-marker"
+                 alt=""
+            >
+        </p>
+
+        <a href="./index.html" class="game-header__exit">
+            <img 
+                 src="./public/assets/img/icon-exit-game.png"
+                 class="game-header__exit-icon"
+                 alt="">
+            <span class="game-header__exit-label">
+                Exit Game
+            </span>
+        </a>
+    </header>
+    <main class="game-page__main">
+        <section class="game-board game-board--4-columns">
+
+        </section>
+    </main>
+    <script type="module" src="./src/main.ts"></script>
+</body>
+</html>
