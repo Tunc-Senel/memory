@@ -56,6 +56,7 @@ let isProgressUnlocked = false;
 function init(): void {
   if (GAME_BOARD) {
     setupGameBoard();
+    flipGameCard();
     return;
   }
 
@@ -317,6 +318,17 @@ function updateCurrentPlayerMarker(player: string): void {
 
   CURRENT_PLAYER_MARKER.src = `./public/assets/img/player-marker-${player}.png`;
   CURRENT_PLAYER_MARKER.alt = PLAYER_LABELS[player] ?? "";
+}
+
+function flipGameCard() {
+    if (GAME_BOARD) {
+        GAME_BOARD.addEventListener("click", e => {
+            const card = (e.target as HTMLElement).closest(".game-card") as HTMLButtonElement
+            if (card) {
+                card.classList.toggle("is-flipped")
+            }
+        })
+    }
 }
 
 window.onload = init;
