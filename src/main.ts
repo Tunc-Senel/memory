@@ -308,9 +308,31 @@ function readSelectedValue(optionList: HTMLElement): string {
 function setupGameBoard(): void {
   if (!GAME_BOARD) return;
 
+  const cardNumbers = createCardNumbers(SELECTED_BOARD_SIZE);
   GAME_BOARD.classList.add(COLUMN_CLASSES[SELECTED_BOARD_SIZE]);
-  GAME_BOARD.innerHTML = renderCards(SELECTED_BOARD_SIZE);
+  GAME_BOARD.innerHTML = renderCards(cardNumbers);
   updateCurrentPlayerMarker(SELECTED_PLAYER);
+}
+
+function createCardNumbers(boardSize: number) : number[] {
+  const numbersArray: number[] = []
+
+  for (let i = 1; i <= boardSize; i++) {
+      if (i % (boardSize / 2) === 0) {
+       numbersArray.push(boardSize / 2);
+      } else {
+       numbersArray.push(i % (boardSize / 2));
+     }
+  }
+
+  const shuffledArray = [...numbersArray];
+  
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+
+  return shuffledArray
 }
 
 /**
@@ -318,12 +340,13 @@ function setupGameBoard(): void {
  * @param boardSize - The total number of cards.
  * @returns The markup of every card as one string.
  */
-function renderCards(boardSize: number): string {
+function renderCards(cardNumbers: number[]): string {
   let markup = "";
-
-  for (let i = 1; i <= boardSize; i++) {
-    markup += gameCardTemplate(i);
+  
+  for (const cardNumber of cardNumbers) {
+    markup += gameCardTemplate(cardNumber);
   }
+
   return markup;
 }
 
