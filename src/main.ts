@@ -67,12 +67,20 @@ const HIGHLIGHT_CLASS = "settings-option__list-item--highlighted";
 const BOUNCE_CLASS = "settings-progress--bounce";
 const UNLOCKED_CLASS = "settings-progress--unlocked";
 
+const FLIPPED_CARDS: HTMLButtonElement[] = [];
+const MAX_FLIPPED_CARDS = 2;
+const FLIP_BACK_DELAY = 800;
+const FLIPPED_CLASS = "is-flipped";
+const MATCHED_CLASS = "is-matched";
+
+let isBoardLocked = false;
+
 let isProgressUnlocked = false;
 
 function init(): void {
   if (GAME_BOARD) {
     setupGameBoard();
-    flipGameCard();
+    initBoardListener();
     return;
   }
 
@@ -379,15 +387,82 @@ function updateCurrentPlayerMarker(player: string): void {
   CURRENT_PLAYER_MARKER.alt = PLAYER_LABELS[player] ?? "";
 }
 
-function flipGameCard() {
-    if (GAME_BOARD) {
-        GAME_BOARD.addEventListener("click", e => {
-            const card = (e.target as HTMLElement).closest(".game-card") as HTMLButtonElement
-            if (card) {
-                card.classList.toggle("is-flipped")
-            }
-        })
-    }
+/**
+ * Attaches the delegated click listener to the game board.
+ */
+function initBoardListener(): void {
+  GAME_BOARD?.addEventListener("click", handleBoardClick);
+}
+
+/**
+ * Flips the clicked card and starts the comparison on the second card.
+ * @param event - The click event on the board.
+ */
+function handleBoardClick(event: MouseEvent): void {
+  const target = event.target as HTMLElement;
+  const card = target.closest<HTMLButtonElement>(".game-card");
+  if (!card || !isCardSelectable(card)) return;
+
+  card.classList.add(FLIPPED_CLASS);
+  FLIPPED_CARDS.push(card);
+
+  if (FLIPPED_CARDS.length === MAX_FLIPPED_CARDS) checkFlippedCards();
+}
+
+/**
+ * Checks whether the clicked card may be flipped right now.
+ * @param card - The clicked card.
+ * @returns True when the card is still face down and the board is free.
+ */
+function isCardSelectable(card: HTMLButtonElement): boolean {
+  if (isBoardLocked) return false;
+  return !card.classList.contains(FLIPPED_CLASS);
+}
+
+/**
+ * Compares the two flipped cards and resolves the turn.
+ */
+function checkFlippedCards(): void {
+  const [firstCard, secondCard] = FLIPPED_CARDS;
+
+  if (firstCard.dataset.card === secondCard.dataset.card) {
+    keepMatchedCards(firstCard, secondCard);
+    return;
+  }
+  hideUnmatchedCards(firstCard, secondCard);
+}
+
+/**
+ * Marks a found pair so both cards stay face up.
+ * @param firstCard - The first flipped card.
+ * @param secondCard - The second flipped card.
+ */
+function keepMatchedCards(
+  firstCard: HTMLButtonElement,
+  secondCard: HTMLButtonElement
+): void {
+  firstCard.classList.add(MATCHED_CLASS);
+  secondCard.classList.add(MATCHED_CLASS);
+  FLIPPED_CARDS.length = 0;
+}
+
+/**
+ * Flips two cards back after a short delay and unlocks the board.
+ * @param firstCard - The first flipped card.
+ * @param secondCard - The second flipped card.
+ */
+function hideUnmatchedCards(
+  firstCard: HTMLButtonElement,
+  secondCard: HTMLButtonElement
+): void {
+  isBoardLocked = true;
+
+  setTimeout(() => {
+    firstCard.classList.remove(FLIPPED_CLASS);
+    secondCard.classList.remove(FLIPPED_CLASS);
+    FLIPPED_CARDS.length = 0;
+    isBoardLocked = false;
+  }, FLIP_BACK_DELAY);
 }
 
 window.onload = init;
