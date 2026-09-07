@@ -14,10 +14,26 @@ const GAME_BOARD = document.querySelector(".game-board") as HTMLElement | null;
 const CURRENT_PLAYER_MARKER = document.querySelector(
   ".game-header__current-player-marker"
 ) as HTMLImageElement | null;
+const START_BUTTON = document.querySelector(
+  ".settings-progress__start-button"
+) as HTMLAnchorElement | null;
 
-const SELECTED_THEME = "code-vibes";
-const SELECTED_PLAYER = "blue";
-const SELECTED_BOARD_SIZE = 16;
+const STORAGE_KEYS = {
+  theme: "selectedTheme",
+  player: "selectedPlayer",
+  boardSize: "selectedBoardSize",
+};
+
+const DEFAULT_THEME = "code-vibes";
+const DEFAULT_PLAYER = "blue";
+const DEFAULT_BOARD_SIZE = 16;
+
+const SELECTED_THEME =
+  sessionStorage.getItem(STORAGE_KEYS.theme) ?? DEFAULT_THEME;
+const SELECTED_PLAYER =
+  sessionStorage.getItem(STORAGE_KEYS.player) ?? DEFAULT_PLAYER;
+const SELECTED_BOARD_SIZE =
+  Number(sessionStorage.getItem(STORAGE_KEYS.boardSize)) || DEFAULT_BOARD_SIZE;
 
 const CARD_PATH = `./public/assets/img/cards/${SELECTED_THEME}`;
 
@@ -64,6 +80,7 @@ function init(): void {
   initSelectOptionListeners(CHOOSE_PLAYER_LIST, false);
   initSelectOptionListeners(BOARD_SIZE_LIST, false);
   PROGRESS_LIST.addEventListener("click", unlockProgressBar);
+  START_BUTTON?.addEventListener("click", saveSelectedSettings);
 }
 
 /**
@@ -264,6 +281,25 @@ function setOptionState(listItem: HTMLLIElement, isHighlighted: boolean): void {
   checkedIcon?.classList.toggle(HIDDEN_CLASS, !isHighlighted);
   uncheckedIcon?.classList.toggle(HIDDEN_CLASS, isHighlighted);
   listItem.classList.toggle(HIGHLIGHT_CLASS, isHighlighted);
+}
+
+/**
+ * Saves the selected settings before leaving the page.
+ */
+function saveSelectedSettings(): void {
+  sessionStorage.setItem(STORAGE_KEYS.theme, readSelectedValue(GAME_THEMES_LIST));
+  sessionStorage.setItem(STORAGE_KEYS.player, readSelectedValue(CHOOSE_PLAYER_LIST));
+  sessionStorage.setItem(STORAGE_KEYS.boardSize, readSelectedValue(BOARD_SIZE_LIST));
+}
+
+/**
+ * Reads the data value of the active option of a group.
+ * @param optionList - The list element holding the options.
+ * @returns The value of the active option, or an empty string.
+ */
+function readSelectedValue(optionList: HTMLElement): string {
+  const activeItem = optionList.querySelector<HTMLLIElement>(`.${ACTIVE_CLASS}`);
+  return activeItem?.dataset.value ?? "";
 }
 
 /**
