@@ -77,6 +77,9 @@ let isBoardLocked = false;
 
 let isProgressUnlocked = false;
 
+let currentPlayer = SELECTED_PLAYER;
+const CHANGE_CURRENT_PLAYER_DELAY = 300;
+
 function init(): void {
   if (GAME_BOARD) {
     setupGameBoard();
@@ -430,6 +433,9 @@ function checkFlippedCards(): void {
     return;
   }
   hideUnmatchedCards(firstCard, secondCard);
+  setTimeout(() => {
+     changePlayer();
+  }, FLIP_BACK_DELAY + CHANGE_CURRENT_PLAYER_DELAY);
 }
 
 /**
@@ -463,6 +469,18 @@ function hideUnmatchedCards(
     FLIPPED_CARDS.length = 0;
     isBoardLocked = false;
   }, FLIP_BACK_DELAY);
+}
+
+/**
+ * Hands the turn over to the other player.
+ */
+function changePlayer(): void {
+  if (currentPlayer === "blue") {
+    currentPlayer = "orange";
+  } else {
+    currentPlayer = "blue";
+  }
+  updateCurrentPlayerMarker(currentPlayer);
 }
 
 window.onload = init;
