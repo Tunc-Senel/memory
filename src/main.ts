@@ -83,10 +83,16 @@ const CHANGE_CURRENT_PLAYER_DELAY = 300;
 const PLAYER_BLUE_POINTS = document.getElementById("blue-player-points") as HTMLSpanElement;
 const PLAYER_ORANGE_POINTS = document.getElementById("orange-player-points") as HTMLSpanElement;
 
+const GAME_OVER = document.querySelector(".game-over") as HTMLElement;
+const GAME_RESULT = document.querySelector(".game-result") as HTMLElement;
+const GAME_SCORE = document.querySelector(".game-score") as HTMLElement;
+const GAME_OVER_SCOREBOARD = document.querySelector(".game-over__scoreboard") as HTMLElement;
+
 function init(): void {
   if (GAME_BOARD) {
     setupGameBoard();
     initBoardListener();
+    revealOverlays();
     return;
   }
 
@@ -434,6 +440,9 @@ function checkFlippedCards(): void {
   if (firstCard.dataset.card === secondCard.dataset.card) {
     keepMatchedCards(firstCard, secondCard);
     addPointsToScore();
+    setTimeout(() => {
+      showGameOverScreen();
+    }, 300);
     return;
   }
   hideUnmatchedCards(firstCard, secondCard);
@@ -493,16 +502,35 @@ function addPointsToScore(): void {
     if (!bluePointsBeforeMatch) return;
     let currentPointsBlue = Number(bluePointsBeforeMatch) + 1;
     PLAYER_BLUE_POINTS.dataset.value = currentPointsBlue.toString();
-    PLAYER_BLUE_POINTS.textContent = currentPointsBlue.toString(); 
+    PLAYER_BLUE_POINTS.textContent = currentPointsBlue.toString();
   } else {
     let orangePointsBeforeMatch = PLAYER_ORANGE_POINTS.dataset.value;
     if (!orangePointsBeforeMatch) return;
     let currentPointsOrange = Number(orangePointsBeforeMatch) + 1;
     PLAYER_ORANGE_POINTS.dataset.value = currentPointsOrange.toString();
-    PLAYER_ORANGE_POINTS.textContent = currentPointsOrange.toString(); 
+    PLAYER_ORANGE_POINTS.textContent = currentPointsOrange.toString();
   }
-
 }
 
+/**
+ * Removes the initial hiding class once the layout is painted.
+ * Keeps the overlays out of sight until their transition can apply.
+ */
+function revealOverlays(): void {
+  requestAnimationFrame(() => {
+    GAME_OVER?.classList.remove(HIDDEN_CLASS);
+    GAME_RESULT?.classList.remove(HIDDEN_CLASS);
+  });
+}
+
+function showGameOverScreen(): void {
+  const PLAYER_BLUE_SCORE = Number(PLAYER_BLUE_POINTS.dataset.value);
+  const PLAYER_ORANGE_SCORE = Number(PLAYER_ORANGE_POINTS.dataset.value);
+  
+  if (SELECTED_BOARD_SIZE / 2 === PLAYER_BLUE_SCORE + PLAYER_ORANGE_SCORE) {
+    GAME_OVER_SCOREBOARD.appendChild(GAME_SCORE.cloneNode(true));
+    GAME_OVER.classList.add("game-over--visible");
+  }
+}
 
 window.onload = init;
