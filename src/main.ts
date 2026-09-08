@@ -80,6 +80,9 @@ let isProgressUnlocked = false;
 let currentPlayer = SELECTED_PLAYER;
 const CHANGE_CURRENT_PLAYER_DELAY = 300;
 
+const PLAYER_BLUE_POINTS = document.getElementById("blue-player-points") as HTMLSpanElement;
+const PLAYER_ORANGE_POINTS = document.getElementById("orange-player-points") as HTMLSpanElement;
+
 function init(): void {
   if (GAME_BOARD) {
     setupGameBoard();
@@ -430,6 +433,7 @@ function checkFlippedCards(): void {
 
   if (firstCard.dataset.card === secondCard.dataset.card) {
     keepMatchedCards(firstCard, secondCard);
+    addPointsToScore();
     return;
   }
   hideUnmatchedCards(firstCard, secondCard);
@@ -482,5 +486,23 @@ function changePlayer(): void {
   }
   updateCurrentPlayerMarker(currentPlayer);
 }
+
+function addPointsToScore(): void {
+  if(currentPlayer === "blue") {
+    let bluePointsBeforeMatch = PLAYER_BLUE_POINTS.dataset.value;
+    if (!bluePointsBeforeMatch) return;
+    let currentPointsBlue = Number(bluePointsBeforeMatch) + 1;
+    PLAYER_BLUE_POINTS.dataset.value = currentPointsBlue.toString();
+    PLAYER_BLUE_POINTS.textContent = currentPointsBlue.toString(); 
+  } else {
+    let orangePointsBeforeMatch = PLAYER_ORANGE_POINTS.dataset.value;
+    if (!orangePointsBeforeMatch) return;
+    let currentPointsOrange = Number(orangePointsBeforeMatch) + 1;
+    PLAYER_ORANGE_POINTS.dataset.value = currentPointsOrange.toString();
+    PLAYER_ORANGE_POINTS.textContent = currentPointsOrange.toString(); 
+  }
+
+}
+
 
 window.onload = init;
