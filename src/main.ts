@@ -5,6 +5,34 @@ type ThemePreview = {
   alt: string;
 };
 
+type GameResult = {
+  intro: string;
+  winner: string;
+  winnerImg: string | null;
+  icon: string;
+};
+
+const GAME_RESULTS: Record<string, GameResult> = {
+  blue: {
+    intro: "The winner is",
+    winner: "Blue Player",
+    winnerImg: null,
+    icon: "./public/assets/img/result-icon-blue.png",
+  },
+  orange: {
+    intro: "The winner is",
+    winner: "Orange Player",
+    winnerImg: null,
+    icon: "./public/assets/img/result-icon-orange.png",
+  },
+  draw: {
+    intro: "It's a",
+    winner: "Draw",
+    winnerImg: "./public/assets/img/draw-text.png",
+    icon: "./public/assets/img/result-icon-draw.png",
+  },
+};
+
 const GAME_THEMES_LIST = document.getElementById("game-themes") as HTMLElement;
 const CHOOSE_PLAYER_LIST = document.getElementById("choose-player") as HTMLElement;
 const BOARD_SIZE_LIST = document.getElementById("board-size") as HTMLElement;
@@ -87,6 +115,23 @@ const GAME_OVER = document.querySelector(".game-over") as HTMLElement;
 const GAME_RESULT = document.querySelector(".game-result") as HTMLElement;
 const GAME_SCORE = document.querySelector(".game-score") as HTMLElement;
 const GAME_OVER_SCOREBOARD = document.querySelector(".game-over__scoreboard") as HTMLElement;
+const GAME_OVER_DURATION = 1000;
+
+const RESULT_INTRO = document.querySelector(
+  ".game-result__intro"
+) as HTMLParagraphElement | null;
+const RESULT_WINNER = document.querySelector(
+  ".game-result__winner"
+) as HTMLParagraphElement | null;
+const RESULT_WINNER_IMG = document.querySelector(
+  ".game-result__winner-img"
+) as HTMLImageElement | null;
+const RESULT_ICON = document.querySelector(
+  ".game-result__icon"
+) as HTMLImageElement | null;
+
+const GAME_RESULT_DELAY = 2500;
+
 
 function init(): void {
   if (GAME_BOARD) {
@@ -352,7 +397,7 @@ function createCardNumbers(boardSize: number) : number[] {
     [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
   }
 
-  return shuffledArray
+  return numbersArray
 }
 
 /**
@@ -530,7 +575,61 @@ function showGameOverScreen(): void {
   if (SELECTED_BOARD_SIZE / 2 === PLAYER_BLUE_SCORE + PLAYER_ORANGE_SCORE) {
     GAME_OVER_SCOREBOARD.appendChild(GAME_SCORE.cloneNode(true));
     GAME_OVER.classList.add("game-over--visible");
+    setTimeout(showGameResultScreen, GAME_OVER_DURATION);
   }
+}
+
+/**
+ * Returns the key of the game result.
+ * @param blueScore - The final score of the blue player.
+ * @param orangeScore - The final score of the orange player.
+ * @returns The result key: blue, orange or draw.
+ */
+function getResultKey(blueScore: number, orangeScore: number): string {
+  if (blueScore > orangeScore) return "blue";
+  if (orangeScore > blueScore) return "orange";
+  return "draw";
+}
+
+/**
+ * Writes the texts and the icon of a game result.
+ * @param resultKey - The result key: blue, orange or draw.
+ */
+function applyGameResult(resultKey: string): void {
+  const result = GAME_RESULTS[resultKey];
+  if (!result || !RESULT_INTRO || !RESULT_ICON) return;
+
+  RESULT_INTRO.textContent = result.intro;
+  RESULT_ICON.src = result.icon;
+  applyWinnerLabel(result);
+  GAME_RESULT?.classList.add(`game-result--${resultKey}`);
+}
+
+/**
+ * Shows the winner either as text or as an image.
+ * @param result - The result entry holding both variants.
+ */
+function applyWinnerLabel(result: GameResult): void {
+  if (!RESULT_WINNER || !RESULT_WINNER_IMG) return;
+
+  const hasImage = Boolean(result.winnerImg);
+  RESULT_WINNER.classList.toggle(HIDDEN_CLASS, hasImage);
+  RESULT_WINNER_IMG.classList.toggle(HIDDEN_CLASS, !hasImage);
+
+  if (result.winnerImg) RESULT_WINNER_IMG.src = result.winnerImg;
+  RESULT_WINNER.textContent = result.winner;
+}
+
+/**
+ * Swaps the game over screen for the result screen.
+ */
+function showGameResultScreen(): void {
+  const blueScore = Number(PLAYER_BLUE_POINTS.dataset.value);
+  const orangeScore = Number(PLAYER_ORANGE_POINTS.dataset.value);
+
+  applyGameResult(getResultKey(blueScore, orangeScore));
+  GAME_OVER?.classList.remove("game-over--visible");
+  GAME_RESULT?.classList.add("game-result--visible");
 }
 
 window.onload = init;
