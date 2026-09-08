@@ -628,7 +628,6 @@ function showGameResultScreen(): void {
   const orangeScore = Number(PLAYER_ORANGE_POINTS.dataset.value);
 
   applyGameResult(getResultKey(blueScore, orangeScore));
-  GAME_OVER?.classList.remove("game-over--visible");
   GAME_RESULT?.classList.add("game-result--visible");
 }
 
