@@ -62,6 +62,7 @@ const SELECTED_PLAYER =
   sessionStorage.getItem(STORAGE_KEYS.player) ?? DEFAULT_PLAYER;
 const SELECTED_BOARD_SIZE =
   Number(sessionStorage.getItem(STORAGE_KEYS.boardSize)) || DEFAULT_BOARD_SIZE;
+const OPTION_GROUP_COUNT = 3;
 
 const CARD_PATH = `./public/assets/img/cards/${SELECTED_THEME}`;
 
@@ -94,6 +95,7 @@ const ACTIVE_CLASS = "settings-option__list-item--active";
 const HIGHLIGHT_CLASS = "settings-option__list-item--highlighted";
 const BOUNCE_CLASS = "settings-progress--bounce";
 const UNLOCKED_CLASS = "settings-progress--unlocked";
+const READY_CLASS = "settings-progress--ready";
 
 const FLIPPED_CARDS: HTMLButtonElement[] = [];
 const MAX_FLIPPED_CARDS = 2;
@@ -144,6 +146,7 @@ function init(): void {
   initSelectOptionListeners(GAME_THEMES_LIST, true);
   initSelectOptionListeners(CHOOSE_PLAYER_LIST, false);
   initSelectOptionListeners(BOARD_SIZE_LIST, false);
+  initPendingLabels();
   PROGRESS_LIST.addEventListener("click", unlockProgressBar);
   START_BUTTON?.addEventListener("click", saveSelectedSettings);
 }
@@ -235,6 +238,18 @@ function selectOption(
 }
 
 /**
+ * Fills the pending labels with the options preselected in the markup.
+ */
+function initPendingLabels(): void {
+  const optionLists = [GAME_THEMES_LIST, CHOOSE_PLAYER_LIST, BOARD_SIZE_LIST];
+
+  optionLists.forEach((optionList) => {
+    const activeItem = optionList.querySelector<HTMLLIElement>(`.${ACTIVE_CLASS}`);
+    if (activeItem) rememberProgressLabel(optionList, activeItem);
+  });
+}
+
+/**
  * Stores the label of the selected option.
  * Writes it through directly once the progress bar is unlocked.
  * @param optionList - The list element holding the options.
@@ -249,16 +264,27 @@ function rememberProgressLabel(
   if (!stepId || !label) return;
 
   PENDING_LABELS[stepId] = label;
+  markProgressReady();
   if (isProgressUnlocked) writeProgressLabel(stepId, label);
 }
 
 /**
- * Unlocks the progress bar on the first click.
+ * Marks the progress bar as clickable once every group has a selection.
+ */
+function markProgressReady(): void {
+  if (Object.keys(PENDING_LABELS).length < OPTION_GROUP_COUNT) return;
+
+  PROGRESS_LIST.classList.add(READY_CLASS);
+}
+
+/**
+ * Unlocks the progress bar on a click once every group has a selection.
  * Ignores clicks on the start button and every later click.
  * @param event - The click event on the progress bar.
  */
 function unlockProgressBar(event: MouseEvent): void {
   if (isProgressUnlocked) return;
+  if (Object.keys(PENDING_LABELS).length < OPTION_GROUP_COUNT) return;
 
   const target = event.target as HTMLElement;
   if (target.closest(".settings-progress__start-button")) return;
@@ -267,19 +293,24 @@ function unlockProgressBar(event: MouseEvent): void {
   PROGRESS_LIST.classList.add(UNLOCKED_CLASS);
   writePendingLabels();
   swapProgressDividers();
-  const SETTINGS_PRGORESS_LIST = document.querySelectorAll<HTMLLIElement>(".settings-progress__step");
-  SETTINGS_PRGORESS_LIST.forEach(setting => {
-    setting.classList.add("settings-progress__step--option")
-  })
+  markProgressSteps();
+}
+
+/**
+ * Gives every progress step the width reserved for its label.
+ */
+function markProgressSteps(): void {
+  const steps = PROGRESS_LIST.querySelectorAll<HTMLLIElement>(
+    ".settings-progress__step"
+  );
+
+  steps.forEach((step) => step.classList.add("settings-progress__step--option"));
 }
 
 /**
  * Writes all pending labels into their progress steps.
  */
 function writePendingLabels(): void {
-  if (PENDING_LABELS["step theme"] === "Code vibes theme") {
-    PENDING_LABELS["step theme"] = "Code vibes theme"
-  }
   Object.entries(PENDING_LABELS).forEach(([stepId, label]) => {
     writeProgressLabel(stepId, label);
   });
