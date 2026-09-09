@@ -53,15 +53,15 @@
             >
         </p>
 
-        <a href="./index.html" class="game-header__exit">
-            <img 
-                 src="./public/assets/img/icon-exit-game.png"
-                 class="game-header__exit-icon"
-                 alt="">
+        <button type="button" class="game-header__exit">
+            <img
+                src="./public/assets/img/icon-exit-game.png"
+                class="game-header__exit-icon"
+                alt="">
             <span class="game-header__exit-label">
                 Exit Game
             </span>
-        </a>
+        </button>
     </header>
     <main class="game-page__main">
         <section class="game-board">
@@ -100,6 +100,19 @@
             </a>
         </section>
 
+        <dialog class="exit-dialog">
+            <p class="exit-dialog__question">
+                Are you sure you want to quit the game?
+            </p>
+            <div class="exit-dialog__actions">
+                <button type="button" class="exit-dialog__button exit-dialog__button--back">
+                    Back to game
+                </button>
+                <a href="./settings.html" class="exit-dialog__button exit-dialog__button--exit">
+                    Exit game
+                </a>
+            </div>
+        </dialog>
     </main>
     <script type="module" src="./src/main.ts"></script>
 </body>

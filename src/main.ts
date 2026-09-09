@@ -135,12 +135,27 @@ const RESULT_ICON = document.querySelector(
 
 const GAME_RESULT_DELAY = 2500;
 
+const EXIT_BUTTON = document.querySelector(
+  ".game-header__exit"
+) as HTMLButtonElement | null;
+const EXIT_DIALOG = document.querySelector(
+  ".exit-dialog"
+) as HTMLDialogElement | null;
+const BACK_TO_GAME_BUTTON = document.querySelector(
+  ".exit-dialog__button--back"
+) as HTMLButtonElement | null;
+
+const DIALOG_OPEN_CLASS = "exit-dialog--open";
+const DIALOG_SLIDE_DURATION = 400;
+const DIALOG_CLOSE_DELAY = 150;
+
 
 function init(): void {
   if (GAME_BOARD) {
     setupGameBoard();
     initBoardListener();
     revealOverlays();
+    initExitDialog();
     return;
   }
 
@@ -682,6 +697,54 @@ function showGameResultScreen(): void {
 
   applyGameResult(getResultKey(blueScore, orangeScore));
   GAME_RESULT?.classList.add("game-result--visible");
+}
+
+/**
+ * Attaches the listeners of the exit dialog.
+ */
+function initExitDialog(): void {
+  EXIT_BUTTON?.addEventListener("click", openExitDialog);
+  BACK_TO_GAME_BUTTON?.addEventListener("click", closeExitDialogInstantly);
+  EXIT_DIALOG?.addEventListener("click", handleDialogBackdropClick);
+}
+
+/**
+ * Opens the dialog and lets it slide in from the top.
+ */
+function openExitDialog(): void {
+  if (!EXIT_DIALOG) return;
+
+  EXIT_DIALOG.showModal();
+  requestAnimationFrame(() => {
+    EXIT_DIALOG.classList.add(DIALOG_OPEN_CLASS);
+  });
+}
+
+/**
+ * Closes the dialog when the click hits the backdrop, not the content.
+ * @param event - The click event on the dialog.
+ */
+function handleDialogBackdropClick(event: MouseEvent): void {
+  if (event.target !== EXIT_DIALOG) return;
+
+  slideOutExitDialog();
+}
+
+/**
+ * Lets the dialog slide back up before closing it.
+ */
+function slideOutExitDialog(): void {
+  if (!EXIT_DIALOG) return;
+
+  EXIT_DIALOG.classList.remove(DIALOG_OPEN_CLASS);
+  setTimeout(() => EXIT_DIALOG.close(), DIALOG_SLIDE_DURATION);
+}
+
+/**
+ * Closes the dialog without the slide animation.
+ */
+function closeExitDialogInstantly(): void {
+  setTimeout(() => EXIT_DIALOG?.close(), DIALOG_CLOSE_DELAY);
 }
 
 window.onload = init;
