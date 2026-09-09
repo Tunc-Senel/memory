@@ -267,12 +267,19 @@ function unlockProgressBar(event: MouseEvent): void {
   PROGRESS_LIST.classList.add(UNLOCKED_CLASS);
   writePendingLabels();
   swapProgressDividers();
+  const SETTINGS_PRGORESS_LIST = document.querySelectorAll<HTMLLIElement>(".settings-progress__step");
+  SETTINGS_PRGORESS_LIST.forEach(setting => {
+    setting.classList.add("settings-progress__step--option")
+  })
 }
 
 /**
  * Writes all pending labels into their progress steps.
  */
 function writePendingLabels(): void {
+  if (PENDING_LABELS["step theme"] === "Code vibes theme") {
+    PENDING_LABELS["step theme"] = "Code vibes theme"
+  }
   Object.entries(PENDING_LABELS).forEach(([stepId, label]) => {
     writeProgressLabel(stepId, label);
   });

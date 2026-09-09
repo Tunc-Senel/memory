@@ -92,6 +92,7 @@
         font-size: 20px;
         padding-bottom: 8px;
         cursor: pointer;
+        line-height: 1.5;
 
         &--highlighted {
             font-weight: variables.$font-weight-bold;
@@ -120,6 +121,14 @@
     transform-origin: right center;
     cursor: pointer;
 
+    &__step {
+        text-align: center;
+    }
+
+    &__step--option {
+          min-width: 160px;
+    }
+
     &--bounce {
         animation: bounce-left 0.6s ease-out;
     }
@@ -141,6 +150,7 @@
 
     &__start-button {
         display: flex;
+        justify-content: center;
         align-items: center;
         gap: 8px;
         background-color: variables.$highlight-yellow;
