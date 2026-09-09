@@ -96,6 +96,7 @@ const HIGHLIGHT_CLASS = "settings-option__list-item--highlighted";
 const BOUNCE_CLASS = "settings-progress--bounce";
 const UNLOCKED_CLASS = "settings-progress--unlocked";
 const READY_CLASS = "settings-progress--ready";
+const DISABLED_CLASS = "settings-progress__start-button--disabled";
 
 const FLIPPED_CARDS: HTMLButtonElement[] = [];
 const MAX_FLIPPED_CARDS = 2;
@@ -148,7 +149,7 @@ function init(): void {
   initSelectOptionListeners(BOARD_SIZE_LIST, false);
   initPendingLabels();
   PROGRESS_LIST.addEventListener("click", unlockProgressBar);
-  START_BUTTON?.addEventListener("click", saveSelectedSettings);
+  START_BUTTON?.addEventListener("click", handleStartClick);
 }
 
 /**
@@ -270,11 +271,13 @@ function rememberProgressLabel(
 
 /**
  * Marks the progress bar as clickable once every group has a selection.
+ * Enables the start button at the same time.
  */
 function markProgressReady(): void {
   if (Object.keys(PENDING_LABELS).length < OPTION_GROUP_COUNT) return;
 
   PROGRESS_LIST.classList.add(READY_CLASS);
+  START_BUTTON?.classList.remove(DISABLED_CLASS);
 }
 
 /**
@@ -387,6 +390,18 @@ function setOptionState(listItem: HTMLLIElement, isHighlighted: boolean): void {
 }
 
 /**
+ * Blocks the navigation while options are missing, saves them otherwise.
+ * @param event - The click event on the start button.
+ */
+function handleStartClick(event: MouseEvent): void {
+  if (START_BUTTON?.classList.contains(DISABLED_CLASS)) {
+    event.preventDefault();
+    return;
+  }
+  saveSelectedSettings();
+}
+
+/**
  * Saves the selected settings before leaving the page.
  */
 function saveSelectedSettings(): void {
@@ -435,7 +450,7 @@ function createCardNumbers(boardSize: number) : number[] {
     [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
   }
 
-  return numbersArray
+  return shuffledArray
 }
 
 /**

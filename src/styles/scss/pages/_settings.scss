@@ -151,6 +151,10 @@
         font-size: 20px;
     }
 
+    &__step--start {
+    position: relative;
+    }
+
     &__start-button {
         display: flex;
         justify-content: center;
@@ -165,6 +169,43 @@
         &:hover {
             transform: scaleX(1.12) scaleY(1.12);
         }
+
+        &--disabled {
+            background-color: #e0e0e0;
+            color: #9e9e9e;
+            cursor: default;
+
+            &:hover {
+                transform: none;
+            }
+        }
+    }
+
+    &__start-icon {
+        width: 20px;
+        height: auto;
+    }
+
+    &__start-button--disabled &__start-icon {
+        opacity: 0.4;
+    }
+
+    &__start-hint {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        white-space: nowrap;
+        padding: 8px 12px;
+        background-color: #333;
+        color: #fff;
+        font-size: 14px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+    }
+
+    &__start-button--disabled:hover + &__start-hint {
+        opacity: 1;
     }
 }
 @keyframes bounce-left {
