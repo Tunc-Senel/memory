@@ -209,60 +209,6 @@
     }
 }
 
-.exit-dialog {
-    border: none;
-    padding: 40px;
-    max-width: 540px;
-    background-color: #fff;
-    text-align: center;
-    transform: translateY(-120%);
-    transition: transform 0.4s ease-out;
-
-    &::backdrop {
-        background-color: rgba(0, 0, 0, 0.6);
-        opacity: 0;
-        transition: opacity 0.4s ease-out;
-    }
-
-    &--open {
-        transform: translateY(0);
-
-        &::backdrop {
-            opacity: 1;
-        }
-    }
-
-    &__question {
-        margin: 0 0 32px;
-        font-size: 28px;
-        font-weight: variables.$font-weight-bold;
-    }
-
-    &__actions {
-        display: flex;
-        justify-content: center;
-        gap: 16px;
-    }
-
-    &__button {
-        padding: 12px 24px;
-        font-weight: variables.$font-weight-bold;
-        cursor: pointer;
-    }
-
-    &--back {
-        border: none;
-        background-color: variables.$teal;
-        color: #fff;
-    }
-
-    &--exit {
-        border: 1px solid variables.$teal;
-        background-color: transparent;
-        color: variables.$teal;
-    }
-}
-
 @keyframes bounce-left {
     0%   { transform: scaleX(0.9); }
     35%  { transform: scaleX(1.12); }

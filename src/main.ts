@@ -704,7 +704,7 @@ function showGameResultScreen(): void {
  */
 function initExitDialog(): void {
   EXIT_BUTTON?.addEventListener("click", openExitDialog);
-  BACK_TO_GAME_BUTTON?.addEventListener("click", closeExitDialogInstantly);
+  BACK_TO_GAME_BUTTON?.addEventListener("click", slideOutExitDialog);
   EXIT_DIALOG?.addEventListener("click", handleDialogBackdropClick);
 }
 
@@ -738,13 +738,6 @@ function slideOutExitDialog(): void {
 
   EXIT_DIALOG.classList.remove(DIALOG_OPEN_CLASS);
   setTimeout(() => EXIT_DIALOG.close(), DIALOG_SLIDE_DURATION);
-}
-
-/**
- * Closes the dialog without the slide animation.
- */
-function closeExitDialogInstantly(): void {
-  setTimeout(() => EXIT_DIALOG?.close(), DIALOG_CLOSE_DELAY);
 }
 
 window.onload = init;

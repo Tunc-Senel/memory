@@ -41,6 +41,16 @@
         gap: 16px;
         background-color: variables.$surface-translucent;
         color: variables.$white;
+        transition: background-color 0.2s ease, border-color 0.2s ease,
+              box-shadow 0.2s ease;
+
+        &:hover {
+            background-color: rgba(134, 233, 214, 0.26);
+            border-color: #4dd5bc;
+            box-shadow: 
+            inset 0 0 0 2px #4dd5bc,
+            4px 4px 6px 0 rgba(77, 213, 188, 0.2);
+        }
     }
 
     &__exit-icon {
@@ -236,5 +246,83 @@
     color: variables.$white;
     font-size: 24px;
     font-weight: variables.$font-weight-bold;
+    }
+}
+
+.exit-dialog {
+    border: none;
+    padding: 40px;
+    max-width: 540px;
+    background-color: #fff;
+    text-align: center;
+    transform: translateY(-250%);
+    transition: transform 0.4s ease-out;
+
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity 0.4s ease-out;
+    }
+
+    &--open {
+        transform: translateY(0);
+
+        &::backdrop {
+            opacity: 1;
+        }
+    }
+
+    &__question {
+        margin: 0 0 32px;
+        font-size: 36px;
+        font-weight: variables.$font-weight-bold;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    &__button {
+        font-family: variables.$font-primary;
+        font-weight: variables.$font-weight-bold;
+        font-size: 20px;
+        padding: 12px 24px;
+        font-weight: variables.$font-weight-bold;
+        cursor: pointer;
+
+        &--back {
+            border: none;
+            background-color: variables.$teal;
+            color: #fff;
+            transition: background-color 0.2s ease, border-color 0.2s ease,
+            box-shadow 0.2s ease;
+
+            &:hover {
+                background-color: rgba(134, 233, 214);
+                border-color: #4dd5bc;
+                box-shadow: 
+                inset 0 0 0 2px #4dd5bc,
+                4px 4px 6px 0 rgba(77, 213, 188, 0.2);
+            }
+        }
+
+        &--exit {
+            border: 1px solid variables.$teal;
+            background-color: transparent;
+            color: variables.$teal;
+            transition: background-color 0.2s ease, border-color 0.2s ease,
+            box-shadow 0.2s ease;
+
+            &:hover {
+                background-color: rgba(134, 233, 214, 0.26);
+                border-color: #4dd5bc;
+                box-shadow: 
+                inset 0 0 0 2px #4dd5bc,
+                4px 4px 6px 0 rgba(77, 213, 188, 0.2);
+            }
+
+        }
     }
 }
