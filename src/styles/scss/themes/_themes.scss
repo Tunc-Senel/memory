@@ -1,0 +1,41 @@
+@use "sass:map";
+@use "../abstract/variables.scss" as variables;
+
+$themes: (
+  "code-vibes": (
+    page-bg: #303131,
+    header-bg: transparent,
+    score-bg: variables.$surface-translucent,
+    card-bg: variables.$teal,
+    card-radius: 0,
+    text: variables.$white,
+    accent: variables.$teal,
+    exit-bg: transparent,
+    exit-text: variables.$white,
+  ),
+  "da-projects": (
+    page-bg: variables.$white,
+    header-bg: #eef2f4,
+    score-bg: variables.$white,
+    card-bg: #1b7f9e,
+    card-radius: 8px,
+    text: variables.$theme-secondary,
+    accent: variables.$theme-secondary,
+    exit-bg: variables.$theme-secondary,
+    exit-text: variables.$white,
+  ),
+);
+
+@each $name, $values in $themes {
+  .theme-#{$name} {
+    --page-bg: #{map.get($values, page-bg)};
+    --header-bg: #{map.get($values, header-bg)};
+    --score-bg: #{map.get($values, score-bg)};
+    --card-bg: #{map.get($values, card-bg)};
+    --card-radius: #{map.get($values, card-radius)};
+    --text: #{map.get($values, text)};
+    --accent: #{map.get($values, accent)};
+    --exit-bg: #{map.get($values, exit-bg)};
+    --exit-text: #{map.get($values, exit-text)};
+  }
+}

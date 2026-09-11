@@ -152,6 +152,7 @@ const DIALOG_CLOSE_DELAY = 150;
 
 function init(): void {
   if (GAME_BOARD) {
+    applyThemeClass();
     setupGameBoard();
     initBoardListener();
     revealOverlays();
@@ -738,6 +739,13 @@ function slideOutExitDialog(): void {
 
   EXIT_DIALOG.classList.remove(DIALOG_OPEN_CLASS);
   setTimeout(() => EXIT_DIALOG.close(), DIALOG_SLIDE_DURATION);
+}
+
+/**
+ * Applies the theme class of the selected theme to the page.
+ */
+function applyThemeClass(): void {
+  document.body.classList.add(`theme-${SELECTED_THEME}`);
 }
 
 window.onload = init;
