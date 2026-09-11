@@ -33,6 +33,28 @@ const GAME_RESULTS: Record<string, GameResult> = {
   },
 };
 
+type ThemeAssets = {
+  cardPath: string;
+  markerBlue: string;
+  markerOrange: string;
+  currentMarker: string;
+};
+
+const THEME_ASSETS: Record<string, ThemeAssets> = {
+  "code-vibes": {
+    cardPath: "./public/assets/img/cards/code-vibes",
+    markerBlue: "./public/assets/img/player-marker-blue.png",
+    markerOrange: "./public/assets/img/player-marker-orange.png",
+    currentMarker: ""
+  },
+  "da-projects": {
+    cardPath: "./public/assets/img/cards/da-projects",
+    markerBlue: "./public/assets/img/pawn-blue.png",
+    markerOrange: "./public/assets/img/pawn-orange.png",
+    currentMarker: "./public/assets/img/pawn-white.png"
+  }
+};
+
 const GAME_THEMES_LIST = document.getElementById("game-themes") as HTMLElement;
 const CHOOSE_PLAYER_LIST = document.getElementById("choose-player") as HTMLElement;
 const BOARD_SIZE_LIST = document.getElementById("board-size") as HTMLElement;
@@ -64,7 +86,7 @@ const SELECTED_BOARD_SIZE =
   Number(sessionStorage.getItem(STORAGE_KEYS.boardSize)) || DEFAULT_BOARD_SIZE;
 const OPTION_GROUP_COUNT = 3;
 
-const CARD_PATH = `./public/assets/img/cards/${SELECTED_THEME}`;
+const ASSETS = THEME_ASSETS[SELECTED_THEME] ?? THEME_ASSETS[DEFAULT_THEME];
 
 const COLUMN_CLASSES: Record<number, string> = {
   16: "game-board--4-columns",
@@ -446,6 +468,7 @@ function setupGameBoard(): void {
   GAME_BOARD.classList.add(COLUMN_CLASSES[SELECTED_BOARD_SIZE]);
   GAME_BOARD.innerHTML = renderCards(cardNumbers);
   updateCurrentPlayerMarker(SELECTED_PLAYER);
+  updateScoreMarkers();
 }
 
 function createCardNumbers(boardSize: number) : number[] {
@@ -495,22 +518,44 @@ function gameCardTemplate(cardNumber: number): string {
   return `
     <button class="game-card" data-card="${cardNumber}">
       <span class="game-card__inner">
-        <img class="game-card__front" src="${CARD_PATH}/card-${motifId}.png" alt="">
-        <img class="game-card__back" src="${CARD_PATH}/card-back.png" alt="">
+        <img class="game-card__front" src="${ASSETS.cardPath}/card-${motifId}.png" alt="">
+        <img class="game-card__back" src="${ASSETS.cardPath}/card-back.png" alt="">
       </span>
     </button>
   `;
 }
 
+
 /**
- * Shows the marker of the player who starts the game.
+ * Returns the marker image path of a player.
+ * @param player - The colour key of the player.
+ * @returns The path to the marker image.
+ */
+function getMarkerPath(player: string): string {
+  return player === "blue" ? ASSETS.markerBlue : ASSETS.markerOrange;
+}
+
+/**
+ * Shows the marker of the player whose turn it is.
  * @param player - The colour key of the player.
  */
 function updateCurrentPlayerMarker(player: string): void {
   if (!CURRENT_PLAYER_MARKER) return;
 
-  CURRENT_PLAYER_MARKER.src = `./public/assets/img/player-marker-${player}.png`;
+  CURRENT_PLAYER_MARKER.src = ASSETS.currentMarker || getMarkerPath(player);
   CURRENT_PLAYER_MARKER.alt = PLAYER_LABELS[player] ?? "";
+  CURRENT_PLAYER_MARKER.dataset.player = player;
+}
+
+/**
+ * Sets the marker images of both players in the score display.
+ */
+function updateScoreMarkers(): void {
+  const markers = document.querySelectorAll<HTMLImageElement>(".game-score__marker");
+
+  markers.forEach((marker, index) => {
+    marker.src = index === 0 ? ASSETS.markerBlue : ASSETS.markerOrange;
+  });
 }
 
 /**
