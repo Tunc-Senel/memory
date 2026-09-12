@@ -469,6 +469,7 @@ function setupGameBoard(): void {
   GAME_BOARD.innerHTML = renderCards(cardNumbers);
   updateCurrentPlayerMarker(SELECTED_PLAYER);
   updateScoreMarkers();
+  setupGameOverScreen();
 }
 
 function createCardNumbers(boardSize: number) : number[] {
@@ -791,6 +792,18 @@ function slideOutExitDialog(): void {
  */
 function applyThemeClass(): void {
   document.body.classList.add(`theme-${SELECTED_THEME}`);
+}
+
+function setupGameOverScreen(): void {
+  const GAME_OVER_SCREEN = document.getElementById("game-over-screen");
+  const GAME_OVER_MESSAGE = document.getElementById("game-over-message");
+  if (SELECTED_THEME === "code-vibes") {
+    GAME_OVER_SCREEN?.classList.remove("d-none");
+    GAME_OVER_MESSAGE?.classList.add("d-none");
+  } else if (SELECTED_THEME === "da-projects") {
+    GAME_OVER_MESSAGE?.classList.remove("d-none");
+    GAME_OVER_SCREEN?.classList.add("d-none");
+  }
 }
 
 window.onload = init;

@@ -194,6 +194,12 @@
     & .game-score {
         padding: 12px 16px
     }
+
+    &__message {
+        color: #FD5B4F;
+        font-size: 130px;
+        font-weight: variables.$font-weight-extra-bold;
+    }
 }
 
 .game-result {
@@ -440,5 +446,15 @@
         &__button--back:hover {
             color: variables.$white;
         }
-}
+    }
+
+    .game-over,
+    .game-result {
+        background-color: variables.$theme-secondary;
+    }
+
+    .game-over__scoreboard--text {
+        color: variables.$white;
+    }
+
 }
