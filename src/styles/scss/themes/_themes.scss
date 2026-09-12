@@ -16,7 +16,11 @@ $themes: (
     exit-border-width: 1px,
     exit-bg-hover: rgba(134, 233, 214, 0.26),
     exit-text-hover: variables.$white,
-    exit-shadow-hover: (inset 0 0 0 2px #4dd5bc, 4px 4px 6px 0 rgba(77, 213, 188, 0.2))
+    exit-shadow-hover: (inset 0 0 0 2px #4dd5bc, 4px 4px 6px 0 rgba(77, 213, 188, 0.2)),
+    exit-dialog-back-to-game-color: variables.$white,
+    exit-dialog-back-to-game-bg: variables.$teal,
+    exit-dialog-back-to-game-hover: (inset 0 0 0 2px #4dd5bc, 4px 4px 6px 0 rgba(77, 213, 188, 0.2)),
+    exit-dialog-back-to-game-hover-bg-color: rgba(134, 233, 214)
   ),
   "da-projects": (
     page-bg: variables.$white,
@@ -33,6 +37,10 @@ $themes: (
     exit-bg-hover: variables.$theme-secondary,
     exit-text-hover: variables.$white,
     exit-shadow-hover: none,
+    exit-dialog-back-to-game-color: variables.$theme-secondary,
+    exit-dialog-back-to-game-bg: #BFE5F2,
+    exit-dialog-back-to-game-hover: none,
+    exit-dialog-back-to-game-hover-bg-color: variables.$theme-secondary,
   ),
 );
 
@@ -52,5 +60,9 @@ $themes: (
     --exit-bg-hover: #{map.get($values, exit-bg-hover)};
     --exit-text-hover: #{map.get($values, exit-text-hover)};
     --exit-shadow-hover: #{map.get($values, exit-shadow-hover)};
+    --exit-dialog-back-to-game-color: #{map.get($values, exit-dialog-back-to-game-color)};
+    --exit-dialog-back-to-game-bg: #{map.get($values, exit-dialog-back-to-game-bg)};
+    --exit-dialog-back-to-game-hover: #{map.get($values, exit-dialog-back-to-game-hover)};
+    --exit-dialog-back-to-game-hover-bg-color: #{map.get($values, exit-dialog-back-to-game-hover-bg-color)};
   }
 }

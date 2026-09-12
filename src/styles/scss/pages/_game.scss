@@ -259,6 +259,7 @@
 
 .exit-dialog {
     border: none;
+    border-radius: var(--card-radius);
     padding: 40px;
     max-width: 540px;
     background-color: #fff;
@@ -293,6 +294,7 @@
     }
 
     &__button {
+        border-radius: var(--card-radius);
         font-family: variables.$font-primary;
         font-weight: variables.$font-weight-bold;
         font-size: 20px;
@@ -302,17 +304,15 @@
 
         &--back {
             border: none;
-            background-color: variables.$teal;
-            color: #fff;
+            background-color: var(--exit-dialog-back-to-game-bg);
+            color: var(--exit-dialog-back-to-game-color);
             transition: background-color 0.2s ease, border-color 0.2s ease,
             box-shadow 0.2s ease;
 
             &:hover {
-                background-color: rgba(134, 233, 214);
+                background-color: var(--exit-dialog-back-to-game-hover-bg-color);
                 border-color: #4dd5bc;
-                box-shadow: 
-                inset 0 0 0 2px #4dd5bc,
-                4px 4px 6px 0 rgba(77, 213, 188, 0.2);
+                box-shadow: var(--exit-dialog-back-to-game-hover);
             }
         }
 
@@ -418,5 +418,27 @@
             width: 20px;
             height: 25px;
         }
-    }  
+    }
+
+    .exit-dialog {
+        &__question {
+            color: #294F60;
+        }
+        
+
+        &__button--exit {
+            background-color: #FD8A81;
+            color: variables.$white;
+            border: none;
+
+            &:hover {
+                background-color: #ED5B50;
+                box-shadow: none;
+            }
+        }
+
+        &__button--back:hover {
+            color: variables.$white;
+        }
+}
 }
