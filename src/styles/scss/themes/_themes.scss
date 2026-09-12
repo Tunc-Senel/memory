@@ -10,8 +10,13 @@ $themes: (
     card-radius: 0,
     text: variables.$white,
     accent: variables.$teal,
-    exit-bg: transparent,
+    exit-bg: variables.$surface-translucent,
     exit-text: variables.$white,
+    exit-border: variables.$teal,
+    exit-border-width: 1px,
+    exit-bg-hover: rgba(134, 233, 214, 0.26),
+    exit-text-hover: variables.$white,
+    exit-shadow-hover: (inset 0 0 0 2px #4dd5bc, 4px 4px 6px 0 rgba(77, 213, 188, 0.2))
   ),
   "da-projects": (
     page-bg: variables.$white,
@@ -21,8 +26,13 @@ $themes: (
     card-radius: 8px,
     text: variables.$theme-secondary,
     accent: variables.$theme-secondary,
-    exit-bg: variables.$theme-secondary,
-    exit-text: variables.$white,
+    exit-bg: #BFE5F2,
+    exit-text: variables.$theme-secondary,
+    exit-border: transparent,
+    exit-border-width: 1px,
+    exit-bg-hover: variables.$theme-secondary,
+    exit-text-hover: variables.$white,
+    exit-shadow-hover: none,
   ),
 );
 
@@ -37,5 +47,10 @@ $themes: (
     --accent: #{map.get($values, accent)};
     --exit-bg: #{map.get($values, exit-bg)};
     --exit-text: #{map.get($values, exit-text)};
+    --exit-border: #{map.get($values, exit-border)};
+    --exit-border-width: #{map.get($values, exit-border-width)};
+    --exit-bg-hover: #{map.get($values, exit-bg-hover)};
+    --exit-text-hover: #{map.get($values, exit-text-hover)};
+    --exit-shadow-hover: #{map.get($values, exit-shadow-hover)};
   }
 }

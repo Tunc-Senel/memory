@@ -36,27 +36,27 @@
     }
 
     &__exit {
-        background-color: var(--exit-bg);
-        color: var(--exit-text);
-        border-radius: var(--card-radius);
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 0 24px;
-        border: 1px solid variables.$teal;
-        gap: 16px;
-        background-color: variables.$surface-translucent;
-        color: variables.$white;
-        transition: background-color 0.2s ease, border-color 0.2s ease,
-              box-shadow 0.2s ease;
+        gap: 10px;
+        padding: 16px 24px;
+        background-color: var(--exit-bg);
+        color: var(--exit-text);
+        border: var(--exit-border-width) solid var(--exit-border);
+        border-radius: var(--card-radius);
+        transition: background-color 0.2s ease, color 0.2s ease,
+                    box-shadow 0.2s ease;
 
         &:hover {
-            background-color: rgba(134, 233, 214, 0.26);
-            border-color: #4dd5bc;
-            box-shadow: 
-            inset 0 0 0 2px #4dd5bc,
-            4px 4px 6px 0 rgba(77, 213, 188, 0.2);
+            background-color: var(--exit-bg-hover);
+            color: var(--exit-text-hover);
+            box-shadow: var(--exit-shadow-hover);
         }
+    }
+
+    &__exit-icon-alt {
+        display: none;
     }
 
     &__exit-icon {
@@ -65,6 +65,7 @@
     }
 
     &__exit-label {
+        font-family: variables.$font-primary;
         font-weight: variables.$font-weight-bold;
         font-size: 24px;
     }
@@ -342,60 +343,80 @@
     .game-header {
         padding: 16px 24px;
         margin: 0 0 64px;
+
+        &__current-player-marker {
+            width: 25px;
+            height: 32px;
+            border-radius: 6px;
+            padding: 4px 8px;
+
+            &[data-player="blue"] {
+                background-color: #097FC5;
+            }
+
+            &[data-player="orange"] {
+                background-color: #EA6900;
+            }
+        }
+
+        &__exit-icon {
+            display: none;
+        }
+
+        &__exit-icon-alt {
+            display: block;
+        }
+
+        &__current-player {
+            gap: 20px;
+        }
+
+        &__current-player-label {
+            font-size: 32px;
+            color: var(--text);
+            font-weight: variables.$font-weight-bold;
+        }  
     }
 
-    .game-score__name {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        clip-path: inset(50%);
+    .game-header__exit:hover {
+        .game-header__exit-icon {
+            display: block;
+        }
+
+        .game-header__exit-icon-alt {
+            display: none;
+        }
     }
 
-    .game-score__points {
-        font-size: 30px;
-        color: var(--text);
-    }
+    .game-score {
+        &__name {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+        }
 
-    .game-score__player {
-        align-items: center;
-    }
-    
-    .game-score__player--blue .game-score__points {
-        color: #097FC5;
-    }
+        &__points {
+            font-size: 30px;
+            color: var(--text);
+        }
 
-    .game-score__player--orange .game-score__points {
-        color: #EA6900;
-    }
+        &__player {
+            align-items: center;
+        }
+        
+        &__player--blue &__points {
+            color: #097FC5;
+        }
 
-    .game-header__current-player {
-        gap: 20px;
-    }
+        &__player--orange &__points {
+            color: #EA6900;
+        }
 
-    .game-header__current-player-label {
-        font-size: 32px;
-        color: var(--text);
-        font-weight: variables.$font-weight-bold;
+        &__marker {
+            width: 20px;
+            height: 25px;
+        }
     }  
-
-    .game-score__marker {
-        width: 20px;
-        height: 25px;
-    }
-
-    .game-header__current-player-marker {
-        width: 25px;
-        height: 32px;
-        border-radius: 6px;
-        padding: 4px 8px;
-
-        &[data-player="blue"] {
-            background-color: #097FC5;
-        }
-
-        &[data-player="orange"] {
-            background-color: #EA6900;
-        }
-    }
 }
