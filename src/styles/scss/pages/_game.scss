@@ -457,4 +457,15 @@
         color: variables.$white;
     }
 
-}
+    .game-result {
+        &__intro {
+            color: variables.$white;
+        }
+
+        &__winner {
+            color: variables.$white;
+            font-size: 80px;
+        }
+    }
+
+} 

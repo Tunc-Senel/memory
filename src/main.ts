@@ -6,30 +6,38 @@ type ThemePreview = {
 };
 
 type GameResult = {
-  intro: string;
   winner: string;
   winnerImg: string | null;
-  icon: string;
+  iconCodeVibes: string;
+  iconDaProjects: string;
+  CodeVibeButtonText: string;
+  DaProjectsButtonText: string;
 };
 
 const GAME_RESULTS: Record<string, GameResult> = {
   blue: {
-    intro: "The winner is",
     winner: "Blue Player",
     winnerImg: null,
-    icon: "./public/assets/img/result-icon-blue.png",
+    iconCodeVibes: "./public/assets/img/result-icon-blue.png",
+    iconDaProjects: "./public/assets/img/result-icon-blue-da-projects.png",
+    CodeVibeButtonText: "Back to start",
+    DaProjectsButtonText: "Home",
   },
   orange: {
-    intro: "The winner is",
     winner: "Orange Player",
     winnerImg: null,
-    icon: "./public/assets/img/result-icon-orange.png",
+    iconCodeVibes: "./public/assets/img/result-icon-orange.png",
+    iconDaProjects: "./public/assets/img/result-icon-orange-da-projects.png",
+    CodeVibeButtonText: "Back to start",
+    DaProjectsButtonText: "Home",
   },
   draw: {
-    intro: "It's a",
     winner: "Draw",
     winnerImg: "./public/assets/img/draw-text.png",
-    icon: "./public/assets/img/result-icon-draw.png",
+    iconCodeVibes: "./public/assets/img/result-icon-draw.png",
+    iconDaProjects: "./public/assets/img/result-icon-draw-da-projects.png",
+    CodeVibeButtonText: "Back to start",
+    DaProjectsButtonText: "Home",
   },
 };
 
@@ -706,17 +714,15 @@ function getResultKey(blueScore: number, orangeScore: number): string {
   return "draw";
 }
 
-/**
- * Writes the texts and the icon of a game result.
- * @param resultKey - The result key: blue, orange or draw.
- */
 function applyGameResult(resultKey: string): void {
   const result = GAME_RESULTS[resultKey];
-  if (!result || !RESULT_INTRO || !RESULT_ICON) return;
+  if (!result) return;
 
-  RESULT_INTRO.textContent = result.intro;
-  RESULT_ICON.src = result.icon;
-  applyWinnerLabel(result);
+  if (SELECTED_THEME === "code-vibes") { 
+    setupGameResultScreen(result.winner, result.iconCodeVibes, result.CodeVibeButtonText);
+  } else {
+    setupGameResultScreen(result.winner, result.iconDaProjects, result.DaProjectsButtonText);
+  }
   GAME_RESULT?.classList.add(`game-result--${resultKey}`);
 }
 
@@ -804,6 +810,31 @@ function setupGameOverScreen(): void {
     GAME_OVER_MESSAGE?.classList.remove("d-none");
     GAME_OVER_SCREEN?.classList.add("d-none");
   }
+}
+
+function setupGameResultScreen(winner: string, icon: string, buttonText: string): void {
+  GAME_RESULT?.insertAdjacentHTML("beforeend", gameResultTemplate(winner, icon, buttonText));
+}
+
+function gameResultTemplate(winner: string, icon: string, buttonText: string): string {
+  return `
+              <p class="game-result__winner">
+                ${winner}
+            </p>
+            <img
+                src="./public/assets/img/draw-text.png"
+                class="game-result__winner-img d-none"
+                alt="Draw"
+            >
+            <img
+                src="${icon}"
+                class="game-result__icon"
+                alt=""
+            >
+            <a href="./index.html" class="game-result__button">
+                ${buttonText}
+            </a>
+  `;
 }
 
 window.onload = init;
