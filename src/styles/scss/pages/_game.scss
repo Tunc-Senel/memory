@@ -1,4 +1,5 @@
 @use '../abstract/variables.scss' as variables;
+@use '../abstract/breakpoints.scss' as bp;
 
 .game-page {
     background-color: var(--page-bg);
@@ -463,7 +464,7 @@
 
     .game-result {
         justify-content: center;
-        
+
         &__confetti {
             display: none;
         }

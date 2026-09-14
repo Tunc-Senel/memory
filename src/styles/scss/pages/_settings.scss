@@ -1,4 +1,5 @@
 @use '../abstract/variables.scss' as variables;
+@use '../abstract/breakpoints.scss' as bp;
 
 .settings-page {
     max-width: 1440px;
