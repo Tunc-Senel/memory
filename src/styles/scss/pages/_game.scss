@@ -206,13 +206,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   &__confetti {
-    position: absolute;
-    top: 0;
-    left: 0;
+    display: block;
     width: 100%;
+    height: auto;
+    margin: 0 0 64px;
   }
 
   &__intro {
@@ -243,6 +243,10 @@
 
   &--orange &__winner {
     color: variables.$player-orange;
+  }
+
+   &--draw {
+    justify-content: center;
   }
 
   &--draw &__confetti {
@@ -458,6 +462,12 @@
     }
 
     .game-result {
+        justify-content: center;
+        
+        &__confetti {
+            display: none;
+        }
+        
         &__intro {
             color: variables.$white;
         }
