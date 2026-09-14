@@ -7,7 +7,6 @@ type ThemePreview = {
 
 type GameResult = {
   winner: string;
-  winnerImg: string | null;
   iconCodeVibes: string;
   iconDaProjects: string;
   CodeVibeButtonText: string;
@@ -17,7 +16,6 @@ type GameResult = {
 const GAME_RESULTS: Record<string, GameResult> = {
   blue: {
     winner: "Blue Player",
-    winnerImg: null,
     iconCodeVibes: "./public/assets/img/result-icon-blue.png",
     iconDaProjects: "./public/assets/img/result-icon-blue-da-projects.png",
     CodeVibeButtonText: "Back to start",
@@ -25,7 +23,6 @@ const GAME_RESULTS: Record<string, GameResult> = {
   },
   orange: {
     winner: "Orange Player",
-    winnerImg: null,
     iconCodeVibes: "./public/assets/img/result-icon-orange.png",
     iconDaProjects: "./public/assets/img/result-icon-orange-da-projects.png",
     CodeVibeButtonText: "Back to start",
@@ -33,7 +30,6 @@ const GAME_RESULTS: Record<string, GameResult> = {
   },
   draw: {
     winner: "Draw",
-    winnerImg: "./public/assets/img/draw-text.png",
     iconCodeVibes: "./public/assets/img/result-icon-draw.png",
     iconDaProjects: "./public/assets/img/result-icon-draw-da-projects.png",
     CodeVibeButtonText: "Back to start",
@@ -498,7 +494,7 @@ function createCardNumbers(boardSize: number) : number[] {
     [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
   }
 
-  return shuffledArray
+  return numbersArray
 }
 
 /**
@@ -695,7 +691,7 @@ function showGameOverScreen(): void {
   const PLAYER_BLUE_SCORE = Number(PLAYER_BLUE_POINTS.dataset.value);
   const PLAYER_ORANGE_SCORE = Number(PLAYER_ORANGE_POINTS.dataset.value);
   
-  if (SELECTED_BOARD_SIZE / 2 === PLAYER_BLUE_SCORE + PLAYER_ORANGE_SCORE) {
+  if (2 === PLAYER_BLUE_SCORE + PLAYER_ORANGE_SCORE) {
     GAME_OVER_SCOREBOARD.appendChild(GAME_SCORE.cloneNode(true));
     GAME_OVER.classList.add("game-over--visible");
     setTimeout(showGameResultScreen, GAME_OVER_DURATION);
@@ -717,28 +713,19 @@ function getResultKey(blueScore: number, orangeScore: number): string {
 function applyGameResult(resultKey: string): void {
   const result = GAME_RESULTS[resultKey];
   if (!result) return;
+  const hasWinner = resultKey !== "draw";
+  
+    if (SELECTED_THEME === "code-vibes" && hasWinner) { 
+      setupGameResultScreen(result.iconCodeVibes, result.CodeVibeButtonText, hasWinner, result.winner);
+      } else if (SELECTED_THEME === "code-vibes" && !hasWinner) {
+        setupGameResultScreen(result.iconCodeVibes, result.DaProjectsButtonText, hasWinner, result.winner, "", "d-none");
+      } else if (SELECTED_THEME === "da-projects" && hasWinner) {
+        setupGameResultScreen(result.iconDaProjects, result.DaProjectsButtonText, hasWinner, result.winner,);
+    } else if (SELECTED_THEME === "da-projects" && !hasWinner) {
+        setupGameResultScreen(result.iconDaProjects, result.DaProjectsButtonText, hasWinner, result.winner, "d-none", "");
+    }
 
-  if (SELECTED_THEME === "code-vibes") { 
-    setupGameResultScreen(result.winner, result.iconCodeVibes, result.CodeVibeButtonText);
-  } else {
-    setupGameResultScreen(result.winner, result.iconDaProjects, result.DaProjectsButtonText);
-  }
   GAME_RESULT?.classList.add(`game-result--${resultKey}`);
-}
-
-/**
- * Shows the winner either as text or as an image.
- * @param result - The result entry holding both variants.
- */
-function applyWinnerLabel(result: GameResult): void {
-  if (!RESULT_WINNER || !RESULT_WINNER_IMG) return;
-
-  const hasImage = Boolean(result.winnerImg);
-  RESULT_WINNER.classList.toggle(HIDDEN_CLASS, hasImage);
-  RESULT_WINNER_IMG.classList.toggle(HIDDEN_CLASS, !hasImage);
-
-  if (result.winnerImg) RESULT_WINNER_IMG.src = result.winnerImg;
-  RESULT_WINNER.textContent = result.winner;
 }
 
 /**
@@ -812,20 +799,46 @@ function setupGameOverScreen(): void {
   }
 }
 
-function setupGameResultScreen(winner: string, icon: string, buttonText: string): void {
-  GAME_RESULT?.insertAdjacentHTML("beforeend", gameResultTemplate(winner, icon, buttonText));
+function setupGameResultScreen(icon: string, buttonText: string, hasWinner: boolean, winner?: string, displayImage?: string, displayText?: string): void {
+  if (hasWinner) {
+    GAME_RESULT?.insertAdjacentHTML("beforeend", gameResultTemplate(icon, buttonText, winner, displayImage, displayText));
+  } else {
+    GAME_RESULT?.insertAdjacentHTML("beforeend", gameResultDrawTemplate(icon, buttonText, winner, displayImage, displayText));
+  }
 }
 
-function gameResultTemplate(winner: string, icon: string, buttonText: string): string {
+function gameResultTemplate(icon: string, buttonText: string, winner?: string, displayImage?: string, displayText?: string): string {
   return `
-              <p class="game-result__winner">
+            <p class="game-result__intro">
+                The winner is
+            </p>
+            <p class="game-result__winner">
                 ${winner}
             </p>
             <img
+                src="${icon}"
+                class="game-result__icon"
+                alt=""
+            >
+            <a href="./index.html" class="game-result__button">
+                ${buttonText}
+            </a>
+  `;
+}
+
+function gameResultDrawTemplate(icon: string, buttonText: string, winner?: string, displayImage?: string, displayText?: string): string {
+  return `
+            <p class="game-result__intro">
+                It's a
+            </p>
+            <img
                 src="./public/assets/img/draw-text.png"
-                class="game-result__winner-img d-none"
+                class="game-result__winner-img ${displayImage}"
                 alt="Draw"
             >
+            <p class="game-result__winner ${displayText} ">
+                DRAW
+            </p>
             <img
                 src="${icon}"
                 class="game-result__icon"
