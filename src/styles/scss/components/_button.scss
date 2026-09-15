@@ -1,4 +1,6 @@
-@use '../abstract/variables.scss' as variables;
+@use '../abstract/_variables.scss' as variables;
+@use '../abstract/_breakpoints.scss' as bp;
+@use '../abstract/_functions.scss' as fct;
 
 .btn {
     background-color: variables.$highlight-yellow;
@@ -66,6 +68,20 @@
             .btn__home__arrow-right__big {
                 display: flex;
             }
+        }
+    }
+
+    @include bp.respond("tablet") {
+        &__home {
+            font-size: fct.px-to-rem(24);
+            padding: fct.px-to-rem(16);
+        }
+    }
+
+        @include bp.respond("mobile") {
+        &__home {
+            font-size: fct.px-to-rem(16);
+            padding: fct.px-to-rem(8);
         }
     }
 }

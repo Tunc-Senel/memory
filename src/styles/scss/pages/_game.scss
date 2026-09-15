@@ -1,5 +1,5 @@
-@use '../abstract/variables.scss' as variables;
-@use '../abstract/breakpoints.scss' as bp;
+@use '../abstract/_variables.scss' as variables;
+@use '../abstract/_breakpoints.scss' as bp;
 
 .game-page {
     background-color: var(--page-bg);
