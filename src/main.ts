@@ -287,8 +287,11 @@ function initPendingLabels(): void {
   const optionLists = [GAME_THEMES_LIST, CHOOSE_PLAYER_LIST, BOARD_SIZE_LIST];
 
   optionLists.forEach((optionList) => {
-    const activeItem = optionList.querySelector<HTMLLIElement>(`.${ACTIVE_CLASS}`);
-    if (activeItem) rememberProgressLabel(optionList, activeItem);
+      const activeItem = optionList.querySelector<HTMLLIElement>(`.${ACTIVE_CLASS}`);
+      if (activeItem) {
+        setOptionState(activeItem, true);
+        rememberProgressLabel(optionList, activeItem);
+      }
   });
 }
 

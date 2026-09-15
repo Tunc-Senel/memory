@@ -1,9 +1,8 @@
 @use '../abstract/_variables.scss' as variables;
 @use '../abstract/_breakpoints.scss' as bp;
+@use '../abstract/_functions.scss' as fct;
 
 .settings-page {
-    max-width: 1440px;
-    margin: 0 auto;
     padding: 40px 160px 0;
     min-height: 100vh;
     display: flex;
@@ -12,7 +11,6 @@
     &__main {
         display: flex;
         flex-direction: row;
-        gap: 200px;
         justify-content: space-between;
         align-items: flex-start;
     }
@@ -97,12 +95,43 @@
 
         &--highlighted {
             font-weight: variables.$font-weight-bold;
+
+            &::after {
+                content: "";
+                display: inline-block;
+                width: 40px;
+                height: 16px;
+                margin-left: 4px;
+                vertical-align: middle;
+                background-image: url("/assets/img/pointer-active-option.png");
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
         }
+    }
+
+    &__radio--checked {
+        width: 20px;
+        height: auto;
+    }
+
+    &__radio--unchecked {
+        width: 20px;
+        height: auto;
+    }
+
+    .settings-option__list-item:last-of-type {
+        padding-bottom: 0;
     }
 }
 
 .settings-preview {
     margin: 0;
+
+    &__image {
+        width: 369px;
+        height: auto;
+    }
 }
 
 .settings-progress {
