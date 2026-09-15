@@ -3,29 +3,52 @@
 @use '../abstract/_functions.scss' as fct;
 
 .settings-page {
-    padding: 40px 160px 0;
+    padding: 40px 40px 0 76px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+
+    @include bp.respond("wide") {
+        padding: 40px 40px 0 76px;
+    }
+
+    @include bp.respond("mobile") {
+        padding: 20px 8px 0 44px;
+    }
 
     &__main {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
+
+        @include bp.respond("desktop") {
+            flex-direction: column;
+            align-items: center;
+            gap: 48px;
+        }
     }
 
      &__options {
-       display: flex;
-       flex-direction: column;
+        display: flex;
+        flex-direction: column;
+        
+        @include bp.respond("wide") {
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;  
+        }
     }
 
     &__summary {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-    }
 
+        @include bp.respond("desktop") {
+            align-items: center;
+        }
+    }
 }
 
 .settings-header {
@@ -34,11 +57,19 @@
     flex-direction: column;
     padding-bottom: 48px;
     margin-left: -24px;
+
+    @include bp.respond("desktop") {
+        align-items: center;
+    }
     
 
     &__title {
         margin: 0;
         font-size: 54px;
+
+        @include bp.respond("desktop") {
+            position: relative;
+        }
     }
 
     &__underline {
@@ -47,17 +78,25 @@
         left: -18px;
         width: 251px;
 
+        @include bp.respond("desktop") {
+            left: calc(50% - 134px);
+        }
     }
 }
 
 .settings-option {
     position: relative;
+
     &__header {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
         gap: 12px;
         padding-bottom: 16px;
+
+        @include bp.respond("mobile") {
+            padding-bottom: 4px;
+        }
     }
 
     &__icon {
@@ -72,6 +111,7 @@
         margin: 0;
         font-family: variables.$font-secondary;
         font-weight: variables.$font-weight-bold;
+        font-size: fct.px-to-rem(24); 
     }
 
     &__list {
@@ -79,6 +119,10 @@
         padding-bottom: 40px;
         padding-inline-start: 8px;
         list-style-type: none;
+
+        @include bp.respond("mobile") {
+            padding-bottom: 24px;
+        }
     }
 
     &:last-of-type .settings-option__list {
@@ -120,6 +164,14 @@
         height: auto;
     }
 
+    &__label { 
+        font-size: fct.px-to-rem(20);
+
+        @include bp.respond("mobile") {
+            font-size: fct.px-to-rem(16);
+        }
+    }
+
     .settings-option__list-item:last-of-type {
         padding-bottom: 0;
     }
@@ -129,8 +181,15 @@
     margin: 0;
 
     &__image {
-        width: 369px;
+        width: 400px;
         height: auto;
+    }
+
+    @include bp.respond("mobile") {
+        &__image {
+            width: 224px;
+            height: auto;
+        }
     }
 }
 
@@ -140,8 +199,8 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    margin: 40px 0 0;
-    padding: 24px 16px;
+    margin: 25px 0 0;
+    padding: 16px 16px;
     padding-inline-start: 24px;
     gap: 24px;
     list-style: none;
@@ -150,16 +209,53 @@
     font-size: 20px;
     transform-origin: right center;
 
+    @include bp.respond("wide") {
+        margin: 40px 0 0;
+        padding: 8px 24px;
+        padding-inline-start: 20px;
+        gap: 8px;
+        font-size: fct.px-to-rem(16);
+    }
+
+    @include bp.respond("tablet") {
+        justify-content: center;
+        gap: 0;
+        margin: 24px 0 0;
+        padding: 0;
+        background-color: transparent;
+        animation: none;
+        cursor: default;
+    }
+
     &__step {
         text-align: center;
+
+        @include bp.respond("tablet") {
+            display: none;
+        }
+    }
+
+    &__divider {
+        @include bp.respond("tablet") {
+            display: none;
+        }
     }
 
     &__step--option {
           min-width: 160px;
+              
+        @include bp.respond("wide") {
+            min-width: 120px;
+        }
     }
+
 
     &--bounce {
         animation: bounce-left 0.6s ease-out;
+
+        @include bp.respond("tablet") {
+            animation: none;
+        }
     }
 
     &--ready {
@@ -198,6 +294,10 @@
 
         &:hover {
             transform: scaleX(1.12) scaleY(1.12);
+
+            @include bp.respond("tablet") {
+                transform: none;
+            }
         }
 
         &--disabled {
@@ -232,6 +332,18 @@
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.2s ease;
+
+        &--visible {
+            @include bp.respond("tablet") {
+                opacity: 1;
+            }
+        }
+
+        @include bp.respond("tablet") {
+            right: auto;
+            left: 50%;
+            transform: translateX(-50%);
+        }
     }
 
     &__start-button--disabled:hover + &__start-hint {

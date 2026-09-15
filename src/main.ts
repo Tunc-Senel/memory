@@ -146,6 +146,9 @@ const GAME_SCORE = document.querySelector(".game-score") as HTMLElement;
 const GAME_OVER_SCOREBOARD = document.querySelector(".game-over__scoreboard") as HTMLElement;
 const GAME_OVER_DURATION = 1000;
 
+const HINT_VISIBLE_CLASS = "settings-progress__start-hint--visible";
+const HINT_VISIBLE_DURATION = 1500;
+
 const RESULT_INTRO = document.querySelector(
   ".game-result__intro"
 ) as HTMLParagraphElement | null;
@@ -173,7 +176,10 @@ const BACK_TO_GAME_BUTTON = document.querySelector(
 
 const DIALOG_OPEN_CLASS = "exit-dialog--open";
 const DIALOG_SLIDE_DURATION = 400;
-const DIALOG_CLOSE_DELAY = 150;
+
+const START_HINT = document.querySelector(
+  ".settings-progress__start-hint"
+) as HTMLSpanElement | null;
 
 
 function init(): void {
@@ -441,9 +447,24 @@ function setOptionState(listItem: HTMLLIElement, isHighlighted: boolean): void {
 function handleStartClick(event: MouseEvent): void {
   if (START_BUTTON?.classList.contains(DISABLED_CLASS)) {
     event.preventDefault();
+    flashStartHint();
     return;
   }
   saveSelectedSettings();
+}
+
+/**
+ * Shows the hint for a short moment and restarts it on every click.
+ */
+function flashStartHint(): void {
+  if (!START_HINT) return;
+
+  START_HINT.classList.remove(HINT_VISIBLE_CLASS);
+  requestAnimationFrame(() => {
+    START_HINT.classList.add(HINT_VISIBLE_CLASS);
+  });
+
+  setTimeout(() => START_HINT.classList.remove(HINT_VISIBLE_CLASS), HINT_VISIBLE_DURATION);
 }
 
 /**
