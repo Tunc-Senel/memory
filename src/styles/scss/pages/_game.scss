@@ -379,6 +379,11 @@
         padding: 16px;
     }
 
+    @include bp.respond("mobile") {
+        max-width: 294px;
+        padding: 8px 0;
+    }
+
     &::backdrop {
         background-color: rgba(0, 0, 0, 0.3);
         opacity: 0;
@@ -464,11 +469,33 @@
 .theme-da-projects {
     font-family: variables.$font-tertiary;
     padding: 8px 160px 0;
+
+    @include bp.respond("desktop") {
+        padding: 8px 80px 0;
+    }
+
+    @include bp.respond("tablet") {
+        padding: 8px 40px 0;
+    }
+
+     @include bp.respond("mobile") {
+        padding: 8px 8px 0;
+    }
   
 
     .game-header {
         padding: 16px 24px;
         margin: 0 0 64px;
+
+        @include bp.respond("desktop") {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        @include bp.respond("mobile") {
+            padding: 16px;
+        }
 
         &__current-player-marker {
             width: 25px;
@@ -484,23 +511,62 @@
                 background-color: #EA6900;
             }
         }
+        
+        &__exit {
+            @include bp.respond("desktop") {
+                gap: 20px;
+                padding: 20px;
+            }
+
+            @include bp.respond("tablet") {
+                padding: 8px;
+            }
+        }
 
         &__exit-icon {
             display: none;
+
+            @include bp.respond("tablet") {
+                display: none !important;
+            }
         }
 
         &__exit-icon-alt {
             display: block;
+
+            @include bp.respond("tablet") {
+                display: none;
+            }
         }
 
         &__current-player {
             gap: 20px;
+
+            @include bp.respond("tablet") {
+                flex-direction: row;
+                gap: 8px;
+            }
+
+             @include bp.respond("mobile") {
+                flex-direction: column;
+                justify-content: center;
+            }
+
         }
 
         &__current-player-label {
             font-size: 32px;
             color: var(--text);
             font-weight: variables.$font-weight-bold;
+
+            @include bp.respond("desktop") {
+                font-size: fct.px-to-rem(24);
+                text-align: center;
+            }
+
+            @include bp.respond("tablet") {
+                font-size: fct.px-to-rem(16);
+            }
         }  
     }
 
@@ -515,6 +581,9 @@
     }
 
     .game-score {
+        @include bp.respond("tablet") {
+            padding: 8px;
+        }
         &__name {
             position: absolute;
             width: 1px;
