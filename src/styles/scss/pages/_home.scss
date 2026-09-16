@@ -27,7 +27,6 @@
 
     @include bp.respond("tablet") {
         width: 160px;
-        height: auto;
     }
 }
 
@@ -60,7 +59,6 @@
 
     @include bp.respond("tablet") {
         font-size: fct.px-to-rem(24);
-        font-weight: variables.$font-weight-bold;
     }
 }
 

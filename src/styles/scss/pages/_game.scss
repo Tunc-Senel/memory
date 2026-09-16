@@ -70,11 +70,6 @@
         box-shadow variables.$transition-fast;
 
     @include bp.respond("tablet") {
-        gap: 10px;
-        padding: 12px;
-    }
-
-    @include bp.respond("tablet") {
         padding: 12px;
     }
 
@@ -124,11 +119,6 @@
     border-radius: var(--card-radius);
     padding-inline-start: 0;
     padding: 0 16px;
-
-    @include bp.respond("desktop") {
-        padding: 0 16px;
-        gap: 16px;
-    }
 
     @include bp.respond("tablet") {
         flex-direction: column;

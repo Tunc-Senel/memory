@@ -9,10 +9,6 @@
     padding: 40px 40px 0 76px;
     min-height: 100vh;
 
-    @include bp.respond("wide") {
-        padding: 40px 40px 0 76px;
-    }
-
     @include bp.respond("mobile") {
         padding: 20px 8px 0 44px;
     }
@@ -34,7 +30,6 @@
     @include mixins.flex(column);
 
     @include bp.respond("wide") {
-        @include mixins.flex(column);
         flex-shrink: 0;
     }
 }
@@ -186,7 +181,6 @@
 
     @include bp.respond("mobile") {
         width: 224px;
-        height: auto;
     }
 }
 
@@ -303,11 +297,6 @@
     &:hover {
         transform: none;
     }
-}
-
-.settings-progress__start-icon {
-    width: 20px;
-    height: auto;
 }
 
 .settings-progress__start-button--disabled .settings-progress__start-icon {
