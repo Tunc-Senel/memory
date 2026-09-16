@@ -16,8 +16,12 @@
         padding: 40px 80px 0;
     }
 
-     @include bp.respond("tablet") {
+    @include bp.respond("tablet") {
         padding: 40px 40px 0;
+    }
+
+     @include bp.respond("mobile") {
+        padding: 40px 8px 0;
     }
 }
 
@@ -39,8 +43,6 @@
             flex-direction: column;
             margin: 4px;
         }
-        
-
     }
 
     &__current-player-label {
@@ -52,6 +54,10 @@
 
         @include bp.respond("desktop") {
             font-size: fct.px-to-rem(16);
+        }
+
+        @include bp.respond("mobile") {
+            text-align: center;
         }
     }
 
@@ -83,6 +89,10 @@
             padding: 12px;
         }
 
+        @include bp.respond("tablet") {
+            padding: 12px;
+        }
+
         &:hover {
             background-color: var(--exit-bg-hover);
             color: var(--exit-text-hover);
@@ -101,6 +111,10 @@
         @include bp.respond("desktop") {
             width: 21.75px;
             height: 18.9583px;
+        }
+
+        @include bp.respond("mobile") {
+            display: none;
         }
     }
 
@@ -140,6 +154,11 @@
         align-items: flex-start;
         padding: 8px 12px;
         gap: 8px;
+    }
+
+    @include bp.respond("mobile") {
+        padding: 4px;
+        gap: 4px;
     }
     
     &__player {
@@ -183,15 +202,15 @@
 
 .game-board {
     display: grid;
-    gap: 16px;
+    gap: clamp(6px, 1.2vw, 16px);
     width: fit-content;
 
     &--4-columns {
-        grid-template-columns: repeat(4, 120px);
+        grid-template-columns: repeat(4, clamp(60px, 18vw, 120px));
     }
 
     &--6-columns {
-        grid-template-columns: repeat(6, 120px);
+        grid-template-columns: repeat(6, clamp(44px, 12vw, 120px));
     }
 }
 
