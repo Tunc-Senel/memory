@@ -5,7 +5,7 @@
 /* === GAME PAGE === */
 .game-page {
     background-color: var(--page-bg);
-    max-width: 1440px;
+    max-width: variables.$content-max-width;
     margin: 0 auto;
     padding: 40px 160px 0;
     min-height: 100vh;
@@ -85,8 +85,8 @@
         color: var(--exit-text);
         border: var(--exit-border-width) solid var(--exit-border);
         border-radius: var(--card-radius);
-        transition: background-color 0.2s ease, color 0.2s ease,
-                    box-shadow 0.2s ease;
+        transition: background-color variables.$transition-fast, color variables.$transition-fast,
+                    box-shadow variables.$transition-fast;
 
         @include bp.respond("tablet") {
             gap: 10px;

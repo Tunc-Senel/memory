@@ -23,7 +23,7 @@
         &__controller-img,
         &__text,
         &__arrow-right {
-            transition: transform 0.2s ease;
+            transition: transform variables.$transition-fast;
         }
 
         &__arrow-right {
@@ -41,7 +41,7 @@
             inset: 0;
             background: inherit;
             z-index: -1;
-            transition: transform 0.275s ease;
+            transition: transform variables.$transition-scale;
         }
 
         /* === PLAY-BUTTON HOVER === */

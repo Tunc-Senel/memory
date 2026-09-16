@@ -3,7 +3,7 @@
 /* === GLOBAL === */
 body {
     color: variables.$theme-primary;
-    max-width: 1440px;
+    max-width: variables.$content-max-width;
     margin: 0 auto;
 }
 

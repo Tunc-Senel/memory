@@ -308,7 +308,7 @@
         background-color: variables.$highlight-yellow;
         padding: 16px;
         transform-origin: right center;
-        transition: transform 0.275s ease;
+        transition: transform variables.$transition-scale;
         cursor: pointer;
 
         &:hover {
@@ -347,11 +347,11 @@
         white-space: nowrap;
         padding: 8px 12px;
         background-color: #333;
-        color: #fff;
+        color: variables.$white;
         font-size: 14px;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.2s ease;
+        transition: opacity variables.$transition-fast;
 
         &--visible {
             @include bp.respond("tablet") {

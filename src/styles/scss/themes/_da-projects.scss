@@ -43,11 +43,11 @@
             padding: 4px 8px;
 
             &[data-player="blue"] {
-                background-color: #097FC5;
+                background-color: variables.$player-blue-dark;
             }
 
             &[data-player="orange"] {
-                background-color: #EA6900;
+                background-color: variables.$player-orange-dark;
             }
         }
         
@@ -145,11 +145,11 @@
         }
         
         &__player--blue &__points {
-            color: #097FC5;
+            color: variables.$player-blue-dark;
         }
 
         &__player--orange &__points {
-            color: #EA6900;
+            color: variables.$player-orange-dark;
         }
 
         &__marker {

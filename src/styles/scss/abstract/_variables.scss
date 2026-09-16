@@ -7,10 +7,14 @@ $orange: #f5a623;
 $white: #fff;
 $surface-translucent: rgba(134, 233, 214, 0.2);
 $teal: rgba(77, 213, 188, 1);
+$light-blue: #BFE5F2;
+$surface-translucent-hover: rgba(134, 233, 214, 0.26);
 
 /* === PLAYER COLORS === */
 $player-blue: $blue;
 $player-orange: $orange;
+$player-blue-dark: #097FC5;
+$player-orange-dark: #EA6900;
 
 /* === FONTS === */
 $font-primary: 'Red Rose', sans-serif;
@@ -22,3 +26,14 @@ $font-weight-regular: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
 $font-weight-extra-bold: 800;
+
+/* === SHADOWS === */
+$shadow-teal-hover: (inset 0 0 0 2px $teal, 4px 4px 6px 0 rgba(77, 213, 188, 0.2));
+
+/* === TRANSITIONS === */
+$transition-fast: 0.2s ease;
+$transition-scale: 0.275s ease;
+$transition-dialog-slide: 0.4s ease-out;
+
+/* === LAYOUT === */
+$content-max-width: 1440px;

@@ -59,7 +59,7 @@
 
     &__text {
         font-size: 40px;
-        font-weight: 700;
+        font-weight: variables.$font-weight-bold;
     }
 
     @include bp.respond("tablet") {
@@ -71,7 +71,7 @@
         
         &__text {
             font-size: fct.px-to-rem(24);
-            font-weight: 700;
+            font-weight: variables.$font-weight-bold;
         }
     }
 }

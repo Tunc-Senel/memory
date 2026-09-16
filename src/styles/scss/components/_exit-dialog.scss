@@ -8,10 +8,10 @@
     border-radius: var(--card-radius);
     padding: 40px;
     max-width: 540px;
-    background-color: #fff;
+    background-color: variables.$white;
     text-align: center;
     transform: translateY(-250%);
-    transition: transform 0.4s ease-out;
+    transition: transform variables.$transition-dialog-slide;
 
     @include bp.respond("tablet") {
         max-width: 400px;
@@ -32,7 +32,7 @@
     &::backdrop {
         background-color: rgba(0, 0, 0, 0.3);
         opacity: 0;
-        transition: opacity 0.4s ease-out;
+        transition: opacity variables.$transition-dialog-slide;
     }
 
     &--open {
@@ -85,12 +85,12 @@
             border: none;
             background-color: var(--exit-dialog-back-to-game-bg);
             color: var(--exit-dialog-back-to-game-color);
-            transition: background-color 0.2s ease, border-color 0.2s ease,
-            box-shadow 0.2s ease;
+            transition: background-color variables.$transition-fast, border-color variables.$transition-fast,
+            box-shadow variables.$transition-fast;
 
             &:hover {
                 background-color: var(--exit-dialog-back-to-game-hover-bg-color);
-                border-color: #4dd5bc;
+                border-color: variables.$teal;
                 box-shadow: var(--exit-dialog-back-to-game-hover);
             }
         }
@@ -100,15 +100,13 @@
             border: 1px solid variables.$teal;
             background-color: transparent;
             color: variables.$teal;
-            transition: background-color 0.2s ease, border-color 0.2s ease,
-            box-shadow 0.2s ease;
+            transition: background-color variables.$transition-fast, border-color variables.$transition-fast,
+            box-shadow variables.$transition-fast;
 
             &:hover {
-                background-color: rgba(134, 233, 214, 0.26);
-                border-color: #4dd5bc;
-                box-shadow: 
-                inset 0 0 0 2px #4dd5bc,
-                4px 4px 6px 0 rgba(77, 213, 188, 0.2);
+                background-color: variables.$surface-translucent-hover;
+                border-color: variables.$teal;
+                box-shadow: variables.$shadow-teal-hover;
             }
 
         }
