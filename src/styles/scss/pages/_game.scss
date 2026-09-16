@@ -369,6 +369,16 @@
     transform: translateY(-250%);
     transition: transform 0.4s ease-out;
 
+    @include bp.respond("tablet") {
+        max-width: 400px;
+        padding: 16px;
+    }
+
+    @include bp.respond("tablet") {
+        max-width: 294px;
+        padding: 16px;
+    }
+
     &::backdrop {
         background-color: rgba(0, 0, 0, 0.3);
         opacity: 0;
@@ -387,6 +397,15 @@
         margin: 0 0 32px;
         font-size: 36px;
         font-weight: variables.$font-weight-bold;
+
+        @include bp.respond("tablet") {
+            font-size: fct.px-to-rem(24);
+        }
+
+        @include bp.respond("mobile") {
+            font-size: fct.px-to-rem(16);
+            margin: 0 0 16px;
+        }
     }
 
     &__actions {
@@ -403,6 +422,11 @@
         padding: 12px 24px;
         font-weight: variables.$font-weight-bold;
         cursor: pointer;
+
+        @include bp.respond("mobile") {
+            font-size: fct.px-to-rem(16);
+            padding: 8px 12px;
+        }
 
         &--back {
             border: none;
