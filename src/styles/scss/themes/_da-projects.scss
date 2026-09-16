@@ -7,190 +7,183 @@
 .theme-da-projects {
     font-family: variables.$font-tertiary;
     @include mixins.page-padding(8px);
-  
+}
 
-    /* === GAME-HEADER === */
-    .game-header {
-        padding: 16px 24px;
-        margin: 0 0 64px;
+/* === GAME-HEADER === */
+.theme-da-projects .game-header {
+    padding: 16px 24px;
+    margin: 0 0 64px;
 
-        @include bp.respond("desktop") {
-            @include mixins.flex(row, $justify: space-between);
-        }
-
-        @include bp.respond("mobile") {
-            padding: 16px;
-        }
-
-        /* === CURRENT PLAYER MARKER === */
-        &__current-player-marker {
-            width: 25px;
-            height: 32px;
-            border-radius: 6px;
-            padding: 4px 8px;
-
-            &[data-player="blue"] {
-                background-color: variables.$player-blue-dark;
-            }
-
-            &[data-player="orange"] {
-                background-color: variables.$player-orange-dark;
-            }
-        }
-        
-        /* === EXIT-BUTTON === */
-        &__exit {
-            @include bp.respond("desktop") {
-                gap: 20px;
-                padding: 20px;
-            }
-
-            @include bp.respond("tablet") {
-                padding: 8px;
-            }
-        }
-
-        &__exit-icon {
-            display: none;
-
-            @include bp.respond("tablet") {
-                display: none !important;
-            }
-        }
-
-        &__exit-icon-alt {
-            display: block;
-
-            @include bp.respond("tablet") {
-                display: none;
-            }
-        }
-
-        /* === CURRENT PLAYER === */
-        &__current-player {
-            gap: 20px;
-
-            @include bp.respond("tablet") {
-                flex-direction: row;
-                gap: 8px;
-            }
-
-             @include bp.respond("mobile") {
-                flex-direction: column;
-                justify-content: center;
-            }
-
-        }
-
-        &__current-player-label {
-            font-size: 32px;
-            color: var(--text);
-            font-weight: variables.$font-weight-bold;
-
-            @include bp.respond("desktop") {
-                font-size: fct.px-to-rem(24);
-                text-align: center;
-            }
-
-            @include bp.respond("tablet") {
-                font-size: fct.px-to-rem(16);
-            }
-        }  
+    @include bp.respond("desktop") {
+        @include mixins.flex(row, $justify: space-between);
     }
 
-    /* === EXIT-BUTTON HOVER === */
-    .game-header__exit:hover {
-        .game-header__exit-icon {
-            display: block;
-        }
+    @include bp.respond("mobile") {
+        padding: 16px;
+    }
+}
 
-        .game-header__exit-icon-alt {
-            display: none;
-        }
+/* === CURRENT PLAYER MARKER === */
+.theme-da-projects .game-header__current-player-marker {
+    width: 25px;
+    height: 32px;
+    border-radius: 6px;
+    padding: 4px 8px;
+
+    &[data-player="blue"] {
+        background-color: variables.$player-blue-dark;
     }
 
-    /* === SCOREBOARD === */
-    .game-score {
-        @include bp.respond("tablet") {
-            padding: 8px;
-        }
-        &__name {
-            @include mixins.visually-hidden;
-        }
+    &[data-player="orange"] {
+        background-color: variables.$player-orange-dark;
+    }
+}
 
-        &__points {
-            font-size: 30px;
-            color: var(--text);
-        }
-
-        &__player {
-            align-items: center;
-        }
-        
-        &__player--blue &__points {
-            color: variables.$player-blue-dark;
-        }
-
-        &__player--orange &__points {
-            color: variables.$player-orange-dark;
-        }
-
-        &__marker {
-            width: 20px;
-            height: 25px;
-        }
+/* === EXIT-BUTTON === */
+.theme-da-projects .game-header__exit {
+    @include bp.respond("desktop") {
+        gap: 20px;
+        padding: 20px;
     }
 
-    /* === EXIT DIALOG === */
-    .exit-dialog {
-        &__question {
-            color: #294F60;
-        }
-        
+    @include bp.respond("tablet") {
+        padding: 8px;
+    }
+}
 
-        &__button--exit {
-            background-color: #FD8A81;
-            color: variables.$white;
-            border: none;
+.theme-da-projects .game-header__exit-icon {
+    display: none;
 
-            &:hover {
-                background-color: #ED5B50;
-                box-shadow: none;
-            }
-        }
+    @include bp.respond("tablet") {
+        display: none !important;
+    }
+}
 
-        &__button--back:hover {
-            color: variables.$white;
-        }
+.theme-da-projects .game-header__exit-icon-alt {
+    display: block;
+
+    @include bp.respond("tablet") {
+        display: none;
+    }
+}
+
+/* === CURRENT PLAYER === */
+.theme-da-projects .game-header__current-player {
+    gap: 20px;
+
+    @include bp.respond("tablet") {
+        flex-direction: row;
+        gap: 8px;
     }
 
-    /* === GAME OVER & GAME RESULT OVERLAYS === */
-    .game-over,
-    .game-result {
-        background-color: variables.$theme-secondary;
-    }
-
-    /* === FINAL SCORE === */
-    .game-over__scoreboard--text {
-        color: variables.$white;
-    }
-
-    /* === GAME RESULT OVERLAY === */
-    .game-result {
+    @include bp.respond("mobile") {
+        flex-direction: column;
         justify-content: center;
+    }
+}
 
-        &__confetti {
-            display: none;
-        }
-        
-        &__intro {
-            color: variables.$white;
-        }
+.theme-da-projects .game-header__current-player-label {
+    font-size: 32px;
+    color: var(--text);
+    font-weight: variables.$font-weight-bold;
 
-        &__winner {
-            color: variables.$white;
-            font-size: 80px;
-        }
+    @include bp.respond("desktop") {
+        font-size: fct.px-to-rem(24);
+        text-align: center;
     }
 
+    @include bp.respond("tablet") {
+        font-size: fct.px-to-rem(16);
+    }
+}
+
+/* === EXIT-BUTTON HOVER === */
+.theme-da-projects .game-header__exit:hover .game-header__exit-icon {
+    display: block;
+}
+
+.theme-da-projects .game-header__exit:hover .game-header__exit-icon-alt {
+    display: none;
+}
+
+/* === SCOREBOARD === */
+.theme-da-projects .game-score {
+    @include bp.respond("tablet") {
+        padding: 8px;
+    }
+}
+
+.theme-da-projects .game-score__name {
+    @include mixins.visually-hidden;
+}
+
+.theme-da-projects .game-score__points {
+    font-size: 30px;
+    color: var(--text);
+}
+
+.theme-da-projects .game-score__player {
+    align-items: center;
+}
+
+.theme-da-projects .game-score__player--blue .game-score__points {
+    color: variables.$player-blue-dark;
+}
+
+.theme-da-projects .game-score__player--orange .game-score__points {
+    color: variables.$player-orange-dark;
+}
+
+.theme-da-projects .game-score__marker {
+    width: 20px;
+    height: 25px;
+}
+
+/* === EXIT DIALOG === */
+.theme-da-projects .exit-dialog__question {
+    color: #294F60;
+}
+
+.theme-da-projects .exit-dialog__button--exit {
+    background-color: #FD8A81;
+    color: variables.$white;
+    border: none;
+
+    &:hover {
+        background-color: #ED5B50;
+        box-shadow: none;
+    }
+}
+
+.theme-da-projects .exit-dialog__button--back:hover {
+    color: variables.$white;
+}
+
+/* === GAME OVER & GAME RESULT OVERLAYS === */
+.theme-da-projects .game-over,
+.theme-da-projects .game-result {
+    background-color: variables.$theme-secondary;
+}
+
+/* === FINAL SCORE === */
+.theme-da-projects .game-over__scoreboard--text {
+    color: variables.$white;
+}
+
+/* === GAME RESULT OVERLAY === */
+.theme-da-projects .game-result {
+    justify-content: center;
+}
+
+.theme-da-projects .game-result__confetti {
+    display: none;
+}
+
+.theme-da-projects .game-result__intro {
+    color: variables.$white;
+}
+
+.theme-da-projects .game-result__winner {
+    color: variables.$white;
+    font-size: 80px;
 }

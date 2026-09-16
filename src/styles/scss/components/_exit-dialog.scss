@@ -35,79 +35,78 @@
         opacity: 0;
         transition: opacity variables.$transition-dialog-slide;
     }
+}
 
-    &--open {
-        transform: translateY(0);
+.exit-dialog--open {
+    transform: translateY(0);
 
-        &::backdrop {
-            opacity: 1;
-        }
+    &::backdrop {
+        opacity: 1;
+    }
+}
+
+/* === QUESTION === */
+.exit-dialog__question {
+    margin: 0 0 32px;
+    font-size: 36px;
+    font-weight: variables.$font-weight-bold;
+
+    @include bp.respond("tablet") {
+        font-size: fct.px-to-rem(24);
     }
 
-    /* === QUESTION === */
-    &__question {
-        margin: 0 0 32px;
-        font-size: 36px;
-        font-weight: variables.$font-weight-bold;
-
-        @include bp.respond("tablet") {
-            font-size: fct.px-to-rem(24);
-        }
-
-        @include bp.respond("mobile") {
-            font-size: fct.px-to-rem(16);
-            margin: 0 0 16px;
-        }
+    @include bp.respond("mobile") {
+        font-size: fct.px-to-rem(16);
+        margin: 0 0 16px;
     }
+}
 
-    /* === DIALOG ACTIONS === */
-    &__actions {
-        @include mixins.flex($justify: center, $gap: 16px);
+/* === DIALOG ACTIONS === */
+.exit-dialog__actions {
+    @include mixins.flex($justify: center, $gap: 16px);
+}
+
+.exit-dialog__button {
+    border-radius: var(--card-radius);
+    font-family: variables.$font-primary;
+    font-weight: variables.$font-weight-bold;
+    font-size: 20px;
+    padding: 12px 24px;
+    font-weight: variables.$font-weight-bold;
+    cursor: pointer;
+
+    @include bp.respond("mobile") {
+        font-size: fct.px-to-rem(16);
+        padding: 8px 12px;
     }
+}
 
-    &__button {
-        border-radius: var(--card-radius);
-        font-family: variables.$font-primary;
-        font-weight: variables.$font-weight-bold;
-        font-size: 20px;
-        padding: 12px 24px;
-        font-weight: variables.$font-weight-bold;
-        cursor: pointer;
+/* === BACK TO GAME BUTTON === */
+.exit-dialog__button--back {
+    border: none;
+    background-color: var(--exit-dialog-back-to-game-bg);
+    color: var(--exit-dialog-back-to-game-color);
+    transition: background-color variables.$transition-fast, border-color variables.$transition-fast,
+        box-shadow variables.$transition-fast;
 
-        @include bp.respond("mobile") {
-            font-size: fct.px-to-rem(16);
-            padding: 8px 12px;
-        }
+    &:hover {
+        background-color: var(--exit-dialog-back-to-game-hover-bg-color);
+        border-color: variables.$teal;
+        box-shadow: var(--exit-dialog-back-to-game-hover);
+    }
+}
 
-        /* === BACK TO GAME BUTTON === */
-        &--back {
-            border: none;
-            background-color: var(--exit-dialog-back-to-game-bg);
-            color: var(--exit-dialog-back-to-game-color);
-            transition: background-color variables.$transition-fast, border-color variables.$transition-fast,
-            box-shadow variables.$transition-fast;
+/* === EXIT GAME BUTTON === */
+.exit-dialog__button--exit {
+    border: 1px solid variables.$teal;
+    background-color: transparent;
+    color: variables.$teal;
+    transition: background-color variables.$transition-fast, border-color variables.$transition-fast,
+        box-shadow variables.$transition-fast;
 
-            &:hover {
-                background-color: var(--exit-dialog-back-to-game-hover-bg-color);
-                border-color: variables.$teal;
-                box-shadow: var(--exit-dialog-back-to-game-hover);
-            }
-        }
-
-        /* === EXIT GAME BUTTON === */
-        &--exit {
-            border: 1px solid variables.$teal;
-            background-color: transparent;
-            color: variables.$teal;
-            transition: background-color variables.$transition-fast, border-color variables.$transition-fast,
-            box-shadow variables.$transition-fast;
-
-            &:hover {
-                background-color: variables.$surface-translucent-hover;
-                border-color: variables.$teal;
-                box-shadow: variables.$shadow-teal-hover;
-            }
-
-        }
+    &:hover {
+        background-color: variables.$surface-translucent-hover;
+        border-color: variables.$teal;
+        box-shadow: variables.$shadow-teal-hover;
     }
 }

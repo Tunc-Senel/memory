@@ -20,105 +20,105 @@
     background-color: var(--header-bg);
     border-radius: var(--card-radius);
     padding: 0 0 56px;
+}
 
-    /* === CURRENT PLAYER === */
-    &__current-player {
-        @include mixins.flex(row, $align: center, $gap: 8px);
+/* === CURRENT PLAYER === */
+.game-header__current-player {
+    @include mixins.flex(row, $align: center, $gap: 8px);
 
-        @include bp.respond("tablet") {
-            flex-direction: column;
-            margin: 4px;
-        }
+    @include bp.respond("tablet") {
+        flex-direction: column;
+        margin: 4px;
+    }
+}
+
+.game-header__current-player-label {
+    font-size: 26px;
+
+    @include bp.respond("wide") {
+        font-size: fct.px-to-rem(20);
     }
 
-    &__current-player-label {
-        font-size: 26px;
-
-        @include bp.respond("wide") {
-            font-size: fct.px-to-rem(20);
-        }
-
-        @include bp.respond("desktop") {
-            font-size: fct.px-to-rem(16);
-        }
-
-        @include bp.respond("mobile") {
-            text-align: center;
-        }
+    @include bp.respond("desktop") {
+        font-size: fct.px-to-rem(16);
     }
 
-    &__current-player-marker {
-        width: 29px;
-        height: 24px;
+    @include bp.respond("mobile") {
+        text-align: center;
+    }
+}
 
-        @include bp.respond("desktop") {
-            width: 25px;
-            height: 20.8333px;
-        }
+.game-header__current-player-marker {
+    width: 29px;
+    height: 24px;
+
+    @include bp.respond("desktop") {
+        width: 25px;
+        height: 20.8333px;
+    }
+}
+
+/* === EXIT-BUTTON === */
+.game-header__exit {
+    @include mixins.flex(row, $align: center, $gap: 10px);
+    padding: 16px 24px;
+    background-color: var(--exit-bg);
+    color: var(--exit-text);
+    border: var(--exit-border-width) solid var(--exit-border);
+    border-radius: var(--card-radius);
+    transition: background-color variables.$transition-fast, color variables.$transition-fast,
+        box-shadow variables.$transition-fast;
+
+    @include bp.respond("tablet") {
+        gap: 10px;
+        padding: 12px;
     }
 
-    /* === EXIT-BUTTON === */
-    &__exit {
-        @include mixins.flex(row, $align: center, $gap: 10px);
-        padding: 16px 24px;
-        background-color: var(--exit-bg);
-        color: var(--exit-text);
-        border: var(--exit-border-width) solid var(--exit-border);
-        border-radius: var(--card-radius);
-        transition: background-color variables.$transition-fast, color variables.$transition-fast,
-                    box-shadow variables.$transition-fast;
-
-        @include bp.respond("tablet") {
-            gap: 10px;
-            padding: 12px;
-        }
-
-        @include bp.respond("tablet") {
-            padding: 12px;
-        }
-
-        &:hover {
-            background-color: var(--exit-bg-hover);
-            color: var(--exit-text-hover);
-            box-shadow: var(--exit-shadow-hover);
-        }
+    @include bp.respond("tablet") {
+        padding: 12px;
     }
 
-    &__exit-icon-alt {
+    &:hover {
+        background-color: var(--exit-bg-hover);
+        color: var(--exit-text-hover);
+        box-shadow: var(--exit-shadow-hover);
+    }
+}
+
+.game-header__exit-icon-alt {
+    display: none;
+}
+
+.game-header__exit-icon {
+    width: 25.75px;
+    height: 22.5px;
+
+    @include bp.respond("desktop") {
+        width: 21.75px;
+        height: 18.9583px;
+    }
+
+    @include bp.respond("mobile") {
         display: none;
     }
+}
 
-    &__exit-icon {
-        width: 25.75px;
-        height: 22.5px;
+.game-header__exit-label {
+    font-family: variables.$font-primary;
+    font-weight: variables.$font-weight-bold;
+    font-size: 24px;
 
-        @include bp.respond("desktop") {
-            width: 21.75px;
-            height: 18.9583px;
-        }
-
-        @include bp.respond("mobile") {
-            display: none;
-        }
+    @include bp.respond("wide") {
+        font-size: fct.px-to-rem(20);
     }
 
-    &__exit-label {
-        font-family: variables.$font-primary;
-        font-weight: variables.$font-weight-bold;
-        font-size: 24px;
-
-        @include bp.respond("wide") {
-            font-size: fct.px-to-rem(20);
-        }
-
-        @include bp.respond("desktop") {
-            font-size: fct.px-to-rem(16);
-        }
+    @include bp.respond("desktop") {
+        font-size: fct.px-to-rem(16);
     }
 }
 
 /* === SCOREBOARD === */
- .game-score {
+.game-score {
     @include mixins.flex-center(row, $gap: 16px);
     background-color: var(--score-bg);
     border-radius: var(--card-radius);
@@ -141,40 +141,41 @@
         padding: 4px;
         gap: 4px;
     }
-    
-    &__player {
-        @include mixins.flex(row, $align: center, $gap: 4px);
+}
 
-        &--blue {
-            color: variables.$player-blue;
-        }
-        &--orange {
-            color: variables.$player-orange;
-        }
+.game-score__player {
+    @include mixins.flex(row, $align: center, $gap: 4px);
+}
+
+.game-score__player--blue {
+    color: variables.$player-blue;
+}
+
+.game-score__player--orange {
+    color: variables.$player-orange;
+}
+
+.game-score__marker {
+    width: 24px;
+    height: 20px;
+
+    @include bp.respond("desktop") {
+        width: 20px;
+        height: 16.6667px;
+    }
+}
+
+.game-score__name,
+.game-score__points {
+    font-weight: variables.$font-weight-bold;
+    font-size: 24px;
+
+    @include bp.respond("wide") {
+        font-size: fct.px-to-rem(20);
     }
 
-    &__marker {
-        width: 24px;
-        height: 20px;
-
-        @include bp.respond("desktop") {
-            width: 20px;
-            height: 16.6667px;
-        }
-    }
-
-    &__name,
-    &__points {
-        font-weight: variables.$font-weight-bold;
-        font-size: 24px;
-
-        @include bp.respond("wide") {
-            font-size: fct.px-to-rem(20);
-        }
-
-        @include bp.respond("desktop") {
-            font-size: fct.px-to-rem(16);
-        }
+    @include bp.respond("desktop") {
+        font-size: fct.px-to-rem(16);
     }
 }
 
@@ -183,14 +184,14 @@
     display: grid;
     gap: clamp(6px, 1.2vw, 16px);
     width: fit-content;
+}
 
-    &--4-columns {
-        grid-template-columns: repeat(4, clamp(60px, 18vw, 120px));
-    }
+.game-board--4-columns {
+    grid-template-columns: repeat(4, clamp(60px, 18vw, 120px));
+}
 
-    &--6-columns {
-        grid-template-columns: repeat(6, clamp(44px, 12vw, 120px));
-    }
+.game-board--6-columns {
+    grid-template-columns: repeat(6, clamp(44px, 12vw, 120px));
 }
 
 /* === GAME CARD === */
@@ -201,31 +202,31 @@
     background: none;
     perspective: 1000px;
     @include mixins.focus-ring(var(--accent));
+}
 
-    /* === CARD FLIP === */
-    &__inner {
+/* === CARD FLIP === */
+.game-card__inner {
     display: flex;
     position: relative;
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
     transition: all 300ms ease-in-out;
-    }
+}
 
-    &__front,
-    &__back {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-    }
+.game-card__front,
+.game-card__back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
 
-    &__front {
+.game-card__front {
     transform: rotateY(180deg);
-    }
+}
 
-    &.is-flipped .game-card__inner {
+.game-card.is-flipped .game-card__inner {
     transform: rotateY(180deg);
-    }
 }

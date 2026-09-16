@@ -10,67 +10,57 @@
     min-height: 100vh;
     background-color: variables.$theme-primary;
     color: variables.$white;
+}
 
-    /* === BACKGROUND DECORATION === */
-    &__controller-background {
-        display: none;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 300px;
-        height: auto;
-    }
-
-    &__controller-background-wide {
-        position: absolute;
-        top: 50%;
-        left: -225px;;
-        width: 300px;
-        height: auto;
-    }
+/* === BACKGROUND DECORATION === */
+.home__controller-background {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 300px;
+    height: auto;
 
     @include bp.respond("wide") {
-        &__controller-background {
-            display: block;
-        }
-
-        &__controller-background-wide {
-            display: none;
-        }
+        display: block;
     }
 
     @include bp.respond("tablet") {
-        &__controller-background {
-            width: 160px;
-            height: auto;
-        }
+        width: 160px;
+        height: auto;
     }
+}
 
+.home__controller-background-wide {
+    position: absolute;
+    top: 50%;
+    left: -225px;
+    width: 300px;
+    height: auto;
+
+    @include bp.respond("wide") {
+        display: none;
+    }
 }
 
 /* === PLAY-BUTTON === */
-.btn__home {
-    &__controller-img {
-        width: 44px;
-        height: 32px;
-    }
-
-    &__text {
-        font-size: 40px;
-        font-weight: variables.$font-weight-bold;
-    }
+.btn__home__controller-img {
+    width: 44px;
+    height: 32px;
 
     @include bp.respond("tablet") {
-        &__controller-img {
-            width: 24px;
+        width: 24px;
+        height: auto;
+    }
+}
 
-            height: auto;
-        }
-        
-        &__text {
-            font-size: fct.px-to-rem(24);
-            font-weight: variables.$font-weight-bold;
-        }
+.btn__home__text {
+    font-size: 40px;
+    font-weight: variables.$font-weight-bold;
+
+    @include bp.respond("tablet") {
+        font-size: fct.px-to-rem(24);
+        font-weight: variables.$font-weight-bold;
     }
 }
 
@@ -83,42 +73,39 @@ main {
 /* === INTRO TEXT === */
 .home-text {
     @include mixins.flex(column, $justify: center);
+}
 
-    & p {
-        font-size: fct.px-to-rem(48);
-        margin: 0;
-    }
-
-    & h1 {
-        padding: 0 0 80px;
-        margin: 0;
-        font-size: fct.px-to-rem(140);
-    }
+.home-text p {
+    font-size: fct.px-to-rem(48);
+    margin: 0;
 
     @include bp.respond("wide") {
-        & h1 {
-            font-size: fct.px-to-rem(100);
-        }
-        & p {
-            font-size: fct.px-to-rem(36);
-        }
+        font-size: fct.px-to-rem(36);
     }
 
     @include bp.respond("tablet") {
-        & h1 {
-            font-size: fct.px-to-rem(60);
-        }
-        & p {
-            font-size: fct.px-to-rem(32);
-        }
+        font-size: fct.px-to-rem(32);
     }
 
-     @include bp.respond("mobile") {
-        & h1 {
-            font-size: fct.px-to-rem(32);
-        }
-        & p {
-            font-size: fct.px-to-rem(24);
-        }
+    @include bp.respond("mobile") {
+        font-size: fct.px-to-rem(24);
+    }
+}
+
+.home-text h1 {
+    padding: 0 0 80px;
+    margin: 0;
+    font-size: fct.px-to-rem(140);
+
+    @include bp.respond("wide") {
+        font-size: fct.px-to-rem(100);
+    }
+
+    @include bp.respond("tablet") {
+        font-size: fct.px-to-rem(60);
+    }
+
+    @include bp.respond("mobile") {
+        font-size: fct.px-to-rem(32);
     }
 }

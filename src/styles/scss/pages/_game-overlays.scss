@@ -11,95 +11,97 @@
     transform: translateY(-100%);
     transition: transform 0.5s ease-out;
     pointer-events: none;
+}
 
-    &--visible {
+.game-over--visible,
+.game-result--visible {
     transform: translateY(0);
     pointer-events: auto;
-    }
 }
 
 /* === GAME OVER OVERLAY === */
 .game-over {
     @include mixins.flex-center(column, $gap: 112px);
+}
 
-    /* === FINAL SCORE === */
-    &__scoreboard {
-        @include mixins.flex-center(column, $gap: 16px);
+/* === FINAL SCORE === */
+.game-over__scoreboard {
+    @include mixins.flex-center(column, $gap: 16px);
+}
 
-        &--text {
-            margin: 0;
-            font-size: 26px;
-        }
-    }
+.game-over__scoreboard--text {
+    margin: 0;
+    font-size: 26px;
+}
 
-    & .game-score {
-        padding: 12px 16px
-    }
+.game-over .game-score {
+    padding: 12px 16px;
+}
 
-    /* === GAME OVER MESSAGE === */
-    &__message {
-        margin: 0;
-        text-transform: uppercase;
-        color: #FD5B4F;
-        font-size: 130px;
-        font-weight: variables.$font-weight-extra-bold;
-    }
+/* === GAME OVER MESSAGE === */
+.game-over__message {
+    margin: 0;
+    text-transform: uppercase;
+    color: #FD5B4F;
+    font-size: 130px;
+    font-weight: variables.$font-weight-extra-bold;
 }
 
 /* === GAME RESULT OVERLAY === */
 .game-result {
-  @include mixins.flex(column, $justify: flex-start, $align: center);
+    @include mixins.flex(column, $justify: flex-start, $align: center);
+}
 
-  &__confetti {
+.game-result__confetti {
     display: block;
     width: 100%;
     height: auto;
     margin: 0 0 64px;
-  }
+}
 
 /* === WINNER === */
-  &__intro {
+.game-result__intro {
     font-size: 40px;
     margin: 0;
-  }
+}
 
-  &__winner {
+.game-result__winner {
     font-size: 60px;
     font-weight: variables.$font-weight-bold;
     text-transform: uppercase;
     margin: 0;
-  }
+}
 
-  &__winner-img {
+.game-result__winner-img {
     width: 320px;
-  }
+}
 
-  &__icon {
+.game-result__icon {
     padding: 40px 0;
     width: 200px;
     height: 250px;
-  }
+}
 
 /* === PLAYER COLORS === */
-  &--blue &__winner {
+.game-result--blue .game-result__winner {
     color: variables.$player-blue;
-  }
+}
 
-  &--orange &__winner {
+.game-result--orange .game-result__winner {
     color: variables.$player-orange;
-  }
+}
 
 /* === DRAW === */
-   &--draw {
+.game-result--draw {
     justify-content: center;
-  }
+}
 
-  &--draw &__confetti {
+.game-result--draw .game-result__confetti {
     display: none;
-  }
+}
 
 /* === BACK TO START BUTTON === */
-  &__button {
+.game-result__button {
     @include mixins.flex(row, $align: center, $gap: 16px);
     padding: 12px 20px;
     border: 1px solid variables.$teal;
@@ -107,5 +109,4 @@
     color: variables.$white;
     font-size: 24px;
     font-weight: variables.$font-weight-bold;
-    }
 }

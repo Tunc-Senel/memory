@@ -16,35 +16,35 @@
     @include bp.respond("mobile") {
         padding: 20px 8px 0 44px;
     }
+}
 
-    /* === SETTINGS-CONTENT === */
-    &__main {
-        @include mixins.flex(row, $justify: space-between, $align: flex-start);
+/* === SETTINGS-CONTENT === */
+.settings-page__main {
+    @include mixins.flex(row, $justify: space-between, $align: flex-start);
 
-        @include bp.respond("desktop") {
-            flex-direction: column;
-            align-items: center;
-            gap: 48px;
-        }
+    @include bp.respond("desktop") {
+        flex-direction: column;
+        align-items: center;
+        gap: 48px;
     }
+}
 
-    /* === LEFT COLUMN: OPTIONS === */
-     &__options {
+/* === LEFT COLUMN: OPTIONS === */
+.settings-page__options {
+    @include mixins.flex(column);
+
+    @include bp.respond("wide") {
         @include mixins.flex(column);
-        
-        @include bp.respond("wide") {
-            @include mixins.flex(column);
-            flex-shrink: 0;  
-        }
+        flex-shrink: 0;
     }
+}
 
-    /* === RIGHT COLUMN: SUMMARY === */
-    &__summary {
-        @include mixins.flex(column, $align: flex-end);
+/* === RIGHT COLUMN: SUMMARY === */
+.settings-page__summary {
+    @include mixins.flex(column, $align: flex-end);
 
-        @include bp.respond("desktop") {
-            align-items: center;
-        }
+    @include bp.respond("desktop") {
+        align-items: center;
     }
 }
 
@@ -58,138 +58,135 @@
     @include bp.respond("desktop") {
         align-items: center;
     }
-    
+}
 
-    &__title {
-        margin: 0;
-        font-size: 54px;
+.settings-header__title {
+    margin: 0;
+    font-size: 54px;
 
-        @include bp.respond("desktop") {
-            position: relative;
-        }
+    @include bp.respond("desktop") {
+        position: relative;
     }
+}
 
-    &__underline {
-        position: absolute;
-        top: 56px;
-        left: -18px;
-        width: 251px;
+.settings-header__underline {
+    position: absolute;
+    top: 56px;
+    left: -18px;
+    width: 251px;
 
-        @include bp.respond("desktop") {
-            left: calc(50% - 134px);
-        }
+    @include bp.respond("desktop") {
+        left: calc(50% - 134px);
     }
 }
 
 /* === SETTINGS OPTIONS === */
 .settings-option {
     position: relative;
+}
 
-    &__header {
-        @include mixins.flex(row, $align: flex-start, $gap: 12px);
-        padding-bottom: 16px;
+.settings-option__header {
+    @include mixins.flex(row, $align: flex-start, $gap: 12px);
+    padding-bottom: 16px;
 
-        @include bp.respond("mobile") {
-            padding-bottom: 4px;
-        }
+    @include bp.respond("mobile") {
+        padding-bottom: 4px;
     }
+}
 
-    &__icon {
-        top: 0;
-        left: -36px;
-        position: absolute;
-        width: auto;
-        height: 26.5px; 
+.settings-option__icon {
+    top: 0;
+    left: -36px;
+    position: absolute;
+    width: auto;
+    height: 26.5px;
+}
+
+.settings-option__title {
+    margin: 0;
+    font-family: variables.$font-secondary;
+    font-weight: variables.$font-weight-bold;
+    font-size: fct.px-to-rem(24);
+}
+
+/* === OPTION LIST === */
+.settings-option__list {
+    margin: 0;
+    padding-bottom: 40px;
+    padding-inline-start: 8px;
+    list-style-type: none;
+
+    @include bp.respond("mobile") {
+        padding-bottom: 24px;
     }
+}
 
-    &__title {
-        margin: 0;
-        font-family: variables.$font-secondary;
-        font-weight: variables.$font-weight-bold;
-        font-size: fct.px-to-rem(24); 
+.settings-option:last-of-type .settings-option__list {
+    padding-bottom: 0;
+}
+
+/* === OPTION ITEM === */
+.settings-option__list-item {
+    font-family: variables.$font-secondary;
+    font-weight: variables.$font-weight-regular;
+    font-size: 20px;
+    padding-bottom: 8px;
+    cursor: pointer;
+    line-height: 1.5;
+    @include mixins.focus-ring(variables.$theme-primary);
+}
+
+.settings-option__list-item--highlighted {
+    font-weight: variables.$font-weight-bold;
+
+    &::after {
+        content: "";
+        display: inline-block;
+        width: 40px;
+        height: 16px;
+        margin-left: 4px;
+        vertical-align: middle;
+        background-image: url("/assets/img/pointer-active-option.png");
+        background-repeat: no-repeat;
+        background-size: contain;
     }
+}
 
-    /* === OPTION LIST === */
-    &__list {
-        margin: 0;
-        padding-bottom: 40px;
-        padding-inline-start: 8px;
-        list-style-type: none;
+/* === RADIO ICONS === */
+.settings-option__radio--checked {
+    width: 20px;
+    height: auto;
+}
 
-        @include bp.respond("mobile") {
-            padding-bottom: 24px;
-        }
+.settings-option__radio--unchecked {
+    width: 20px;
+    height: auto;
+}
+
+.settings-option__label {
+    font-size: fct.px-to-rem(20);
+
+    @include bp.respond("mobile") {
+        font-size: fct.px-to-rem(16);
     }
+}
 
-    &:last-of-type .settings-option__list {
-        padding-bottom: 0;
-    }
-
-    /* === OPTION ITEM === */
-    &__list-item {
-        font-family: variables.$font-secondary;
-        font-weight: variables.$font-weight-regular;
-        font-size: 20px;
-        padding-bottom: 8px;
-        cursor: pointer;
-        line-height: 1.5;
-        @include mixins.focus-ring(variables.$theme-primary);
-
-        &--highlighted {
-            font-weight: variables.$font-weight-bold;
-
-            &::after {
-                content: "";
-                display: inline-block;
-                width: 40px;
-                height: 16px;
-                margin-left: 4px;
-                vertical-align: middle;
-                background-image: url("/assets/img/pointer-active-option.png");
-                background-repeat: no-repeat;
-                background-size: contain;
-            }
-        }
-    }
-
-    /* === RADIO ICONS === */
-    &__radio--checked {
-        width: 20px;
-        height: auto;
-    }
-
-    &__radio--unchecked {
-        width: 20px;
-        height: auto;
-    }
-
-    &__label { 
-        font-size: fct.px-to-rem(20);
-
-        @include bp.respond("mobile") {
-            font-size: fct.px-to-rem(16);
-        }
-    }
-
-    .settings-option__list-item:last-of-type {
-        padding-bottom: 0;
-    }
+.settings-option .settings-option__list-item:last-of-type {
+    padding-bottom: 0;
 }
 
 /* === THEME PREVIEW === */
 .settings-preview {
     margin: 0;
+}
 
-    &__image {
-        width: 400px;
-        height: auto;
-    }
+.settings-preview__image {
+    width: 400px;
+    height: auto;
 
     @include bp.respond("mobile") {
-        &__image {
-            width: 224px;
-            height: auto;
-        }
+        width: 224px;
+        height: auto;
     }
 }
 
@@ -223,139 +220,155 @@
         animation: none;
         cursor: default;
     }
+}
 
-    /* === PROGRESS STEPS === */
-    &__step {
-        text-align: center;
+/* === PROGRESS STEPS === */
+.settings-progress__step {
+    text-align: center;
 
-        @include bp.respond("tablet") {
-            display: none;
-        }
+    @include bp.respond("tablet") {
+        display: none;
     }
+}
 
-    &__divider {
-        @include bp.respond("tablet") {
-            display: none;
-        }
+.settings-progress__divider {
+    @include bp.respond("tablet") {
+        display: none;
     }
+}
 
-    &__step--option {
-          min-width: 160px;
-              
-        @include bp.respond("wide") {
-            min-width: 120px;
-        }
+.settings-progress__step--option {
+    min-width: 160px;
+
+    @include bp.respond("wide") {
+        min-width: 120px;
     }
+}
 
+/* === PROGRESS STATES === */
+.settings-progress--bounce {
+    animation: bounce-left 0.6s ease-out;
 
-    /* === PROGRESS STATES === */
-    &--bounce {
-        animation: bounce-left 0.6s ease-out;
-
-        @include bp.respond("tablet") {
-            animation: none;
-        }
+    @include bp.respond("tablet") {
+        animation: none;
     }
+}
 
-    &--ready {
-        cursor: pointer;
-    }
+.settings-progress--ready {
+    cursor: pointer;
+}
 
-    &--unlocked {
-        cursor: default;
-    }
+.settings-progress--unlocked {
+    cursor: default;
+}
 
-    /* === START-BUTTON === */
-    &__start-icon {
-        width: 20px;
-        height: auto;
-    }
+/* === START-BUTTON === */
+.settings-progress__start-icon {
+    width: 20px;
+    height: auto;
+}
 
-    &__start-label {
-        font-family: variables.$font-primary;
-        font-weight: variables.$font-weight-bold;
-        font-size: 20px;
-    }
+.settings-progress__start-label {
+    font-family: variables.$font-primary;
+    font-weight: variables.$font-weight-bold;
+    font-size: 20px;
+}
 
-    &__step--start {
+.settings-progress__step--start {
     position: relative;
+}
+
+.settings-progress__start-button {
+    @include mixins.flex-center($gap: 8px);
+    background-color: variables.$highlight-yellow;
+    padding: 16px;
+    transform-origin: right center;
+    transition: transform variables.$transition-scale;
+    cursor: pointer;
+}
+
+.settings-progress__start-button:hover {
+    transform: scaleX(1.12) scaleY(1.12);
+
+    @include bp.respond("tablet") {
+        transform: none;
     }
+}
 
-    &__start-button {
-        @include mixins.flex-center($gap: 8px);
-        background-color: variables.$highlight-yellow;
-        padding: 16px;
-        transform-origin: right center;
-        transition: transform variables.$transition-scale;
-        cursor: pointer;
+.settings-progress__start-button--disabled {
+    background-color: #e0e0e0;
+    color: #9e9e9e;
+    cursor: default;
 
-        &:hover {
-            transform: scaleX(1.12) scaleY(1.12);
-
-            @include bp.respond("tablet") {
-                transform: none;
-            }
-        }
-
-        &--disabled {
-            background-color: #e0e0e0;
-            color: #9e9e9e;
-            cursor: default;
-
-            &:hover {
-                transform: none;
-            }
-        }
+    &:hover {
+        transform: none;
     }
+}
 
-    &__start-icon {
-        width: 20px;
-        height: auto;
+.settings-progress__start-icon {
+    width: 20px;
+    height: auto;
+}
+
+.settings-progress__start-button--disabled .settings-progress__start-icon {
+    opacity: 0.4;
+}
+
+/* === START HINT === */
+.settings-progress__start-hint {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    white-space: nowrap;
+    padding: 8px 12px;
+    background-color: #333;
+    color: variables.$white;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity variables.$transition-fast;
+
+    @include bp.respond("tablet") {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
     }
+}
 
-    &__start-button--disabled &__start-icon {
-        opacity: 0.4;
-    }
-
-    /* === START HINT === */
-    &__start-hint {
-        position: absolute;
-        top: calc(100% + 8px);
-        right: 0;
-        white-space: nowrap;
-        padding: 8px 12px;
-        background-color: #333;
-        color: variables.$white;
-        font-size: 14px;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity variables.$transition-fast;
-
-        &--visible {
-            @include bp.respond("tablet") {
-                opacity: 1;
-            }
-        }
-
-        @include bp.respond("tablet") {
-            right: auto;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-    }
-
-    &__start-button--disabled:hover + &__start-hint,
-    &__start-button--disabled:focus-visible + &__start-hint {
+.settings-progress__start-hint--visible {
+    @include bp.respond("tablet") {
         opacity: 1;
     }
 }
 
+.settings-progress__start-button--disabled:hover + .settings-progress__start-hint,
+.settings-progress__start-button--disabled:focus-visible + .settings-progress__start-hint {
+    opacity: 1;
+}
+
 /* === ANIMATIONS === */
 @keyframes bounce-left {
-    0%   { transform: scaleX(0.9); }
-    35%  { transform: scaleX(1.12); }
-    55%  { transform: scaleX(0.96); }
-    72%  { transform: scaleX(1.04); }
-    86%  { transform: scaleX(0.99); }
-    100% { transform: scaleX(1); }
+    0% {
+        transform: scaleX(0.9);
+    }
+
+    35% {
+        transform: scaleX(1.12);
+    }
+
+    55% {
+        transform: scaleX(0.96);
+    }
+
+    72% {
+        transform: scaleX(1.04);
+    }
+
+    86% {
+        transform: scaleX(0.99);
+    }
+
+    100% {
+        transform: scaleX(1);
+    }
 }
