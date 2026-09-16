@@ -137,6 +137,11 @@
         cursor: pointer;
         line-height: 1.5;
 
+        &:focus-visible {
+            outline: 2px solid variables.$theme-primary;
+            outline-offset: 4px;
+        }
+
         &--highlighted {
             font-weight: variables.$font-weight-bold;
 
@@ -346,7 +351,8 @@
         }
     }
 
-    &__start-button--disabled:hover + &__start-hint {
+    &__start-button--disabled:hover + &__start-hint,
+    &__start-button--disabled:focus-visible + &__start-hint {
         opacity: 1;
     }
 }

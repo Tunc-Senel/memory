@@ -99,18 +99,18 @@ const COLUMN_CLASSES: Record<number, string> = {
 };
 
 const PLAYER_LABELS: Record<string, string> = {
-  blue: "Blau",
+  blue: "Blue",
   orange: "Orange",
 };
 
 const THEME_PREVIEWS: Record<string, ThemePreview> = {
   "code-vibes": {
     src: "./public/assets/img/theme-preview-code-vibes.png",
-    alt: "Vorschau des Themes Code vibes mit Code- und Git-Symbol",
+    alt: "Preview of the Code vibes theme with code and Git icons",
   },
   "da-projects": {
     src: "./public/assets/img/theme-preview-da-projects.png",
-    alt: "Vorschau des Themes DA Projects mit Code- und Wellen-Symbol",
+    alt: "Preview of the DA Projects theme with code and wave icons",
   },
 };
 
@@ -218,11 +218,24 @@ function initSelectOptionListeners(
     listItem.addEventListener("click", () =>
       selectOption(optionList, listItems, listItem)
     );
+    listItem.addEventListener("keydown", handleOptionKeydown);
 
     if (withHoverPreview) {
       addHoverPreviewListeners(listItems, listItem);
     }
   });
+}
+
+/**
+ * Lets keyboard users select an option with Enter or Space.
+ * Reuses the click logic of the option.
+ * @param event - The keydown event on an option.
+ */
+function handleOptionKeydown(event: KeyboardEvent): void {
+  if (event.key !== "Enter" && event.key !== " ") return;
+
+  event.preventDefault();
+  (event.currentTarget as HTMLLIElement).click();
 }
 
 /**
@@ -281,6 +294,7 @@ function selectOption(
   listItems.forEach((listItem) => {
     const isSelected = listItem === selectedItem;
     listItem.classList.toggle(ACTIVE_CLASS, isSelected);
+    listItem.setAttribute("aria-checked", String(isSelected));
     setOptionState(listItem, isSelected);
   });
   rememberProgressLabel(optionList, selectedItem);
@@ -329,6 +343,8 @@ function markProgressReady(): void {
 
   PROGRESS_LIST.classList.add(READY_CLASS);
   START_BUTTON?.classList.remove(DISABLED_CLASS);
+  START_BUTTON?.setAttribute("aria-disabled", "false");
+  START_BUTTON?.removeAttribute("aria-describedby");
 }
 
 /**
@@ -545,7 +561,7 @@ function gameCardTemplate(cardNumber: number): string {
   const motifId = String(cardNumber).padStart(2, "0");
 
   return `
-    <button class="game-card" data-card="${cardNumber}">
+    <button type="button" class="game-card" aria-label="Memory card" data-card="${cardNumber}">
       <span class="game-card__inner">
         <img class="game-card__front" src="${ASSETS.cardPath}/card-${motifId}.png" alt="">
         <img class="game-card__back" src="${ASSETS.cardPath}/card-back.png" alt="">
@@ -861,7 +877,7 @@ function gameResultDrawTemplate(icon: string, buttonText: string, winner?: strin
                 alt="Draw"
             >
             <p class="game-result__winner ${displayText} ">
-                DRAW
+                Draw
             </p>
             <img
                 src="${icon}"

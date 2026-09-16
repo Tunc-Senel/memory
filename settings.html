@@ -3,217 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Settings</title>
+    <link rel="icon" type="image/png" href="./public/assets/img/favicon.png">
+    <title>Memory – Settings</title>
 </head>
 <body class="settings-page">
+
+    <!-- SETTINGS-HEADER -->
     <header class="settings-header">
         <h1 class="settings-header__title">
             Settings
         </h1>
         <img
-             src="./public/assets/img/underline-accent-settings.png"
-             class="settings-header__underline"
-             alt=""
+            src="./public/assets/img/underline-accent-settings.png"
+            class="settings-header__underline"
+            alt=""
         >
     </header>
-    <main class="settings-page__main">
-        
-        <section class="settings-page__options">
 
-            <article class="settings-option">
+    <!-- SETTINGS-CONTENT -->
+    <main class="settings-page__main">
+
+        <!-- LEFT COLUMN: OPTIONS -->
+        <div class="settings-page__options">
+
+            <!-- GAME THEMES -->
+            <section class="settings-option">
                 <header class="settings-option__header">
                     <img
-                         src="./public/assets/img/icon-game-theme.png"
-                         class="settings-option__icon"
-                         alt="Symbol für Themenauswahl"
+                        src="./public/assets/img/icon-game-theme.png"
+                        class="settings-option__icon"
+                        alt=""
                     >
-                    <h2 class="settings-option__title">
+                    <h2 id="game-themes-title" class="settings-option__title">
                         Game themes
                     </h2>
-                </header> 
-                <ul id="game-themes" class="settings-option__list" data-step="step-theme">
+                </header>
+                <ul id="game-themes"
+                    class="settings-option__list"
+                    role="radiogroup"
+                    aria-labelledby="game-themes-title"
+                    data-step="step-theme">
+
+                    <!-- THEME-CODE-VIBES -->
                     <li class="settings-option__list-item settings-option__list-item--active"
+                        role="radio"
+                        aria-checked="true"
+                        tabindex="0"
                         data-value="code-vibes"
-                        data-label="Code vibes theme"
-                    >
+                        data-label="Code vibes theme">
                         <img
-                             src="./public/assets/img/radio-checked.png"
-                             class="settings-option__radio--checked"
-                             alt="">
-                        <img 
-                             src="./public/assets/img/radio-unchecked.png"
-                             class="settings-option__radio--unchecked d-none"
-                             alt="">
+                            src="./public/assets/img/radio-checked.png"
+                            class="settings-option__radio--checked"
+                            alt="">
+                        <img
+                            src="./public/assets/img/radio-unchecked.png"
+                            class="settings-option__radio--unchecked d-none"
+                            alt="">
                         <span class="settings-option__label">
                             Code vibes theme
                         </span>
                     </li>
-                    <li class="settings-option__list-item" 
+
+                    <!-- THEME-DA-PROJECTS -->
+                    <li class="settings-option__list-item"
+                        role="radio"
+                        aria-checked="false"
+                        tabindex="0"
                         data-value="da-projects"
                         data-label="DA Projects theme">
                         <img
-                             src="./public/assets/img/radio-checked.png"
-                             class="settings-option__radio--checked d-none"
-                             alt="">
-                        <img 
-                             src="./public/assets/img/radio-unchecked.png"
-                             class="settings-option__radio--unchecked"
-                             alt="">
+                            src="./public/assets/img/radio-checked.png"
+                            class="settings-option__radio--checked d-none"
+                            alt="">
+                        <img
+                            src="./public/assets/img/radio-unchecked.png"
+                            class="settings-option__radio--unchecked"
+                            alt="">
                         <span class="settings-option__label">
                             DA Projects theme
                         </span>
                     </li>
                 </ul>
-            </article>
+            </section>
 
-            <article class="settings-option">
+            <!-- CHOOSE PLAYER -->
+            <section class="settings-option">
                 <header class="settings-option__header">
                     <img
-                         src="./public/assets/img/icon-choose-player.png"
-                         class="settings-option__icon"
-                         alt="Symbol für Spielerauswahl"
+                        src="./public/assets/img/icon-choose-player.png"
+                        class="settings-option__icon"
+                        alt=""
                     >
-                    <h2 class="settings-option__title">
-                        Choose Player
+                    <h2 id="choose-player-title" class="settings-option__title">
+                        Choose player
                     </h2>
                 </header>
-                <ul id="choose-player" class="settings-option__list" data-step="step-player">
+                <ul id="choose-player"
+                    class="settings-option__list"
+                    role="radiogroup"
+                    aria-labelledby="choose-player-title"
+                    data-step="step-player">
+
+                    <!-- PLAYER-BLUE -->
                     <li class="settings-option__list-item"
+                        role="radio"
+                        aria-checked="false"
+                        tabindex="0"
                         data-value="blue"
                         data-label="Blue Player">
                         <img
-                             src="./public/assets/img/radio-checked.png"
-                             class="settings-option__radio--checked d-none"
-                             alt="">
-                        <img 
-                             src="./public/assets/img/radio-unchecked.png"
-                             class="settings-option__radio--unchecked"
-                             alt="">
+                            src="./public/assets/img/radio-checked.png"
+                            class="settings-option__radio--checked d-none"
+                            alt="">
+                        <img
+                            src="./public/assets/img/radio-unchecked.png"
+                            class="settings-option__radio--unchecked"
+                            alt="">
                         <span class="settings-option__label">
                             Blue
                         </span>
                     </li>
+
+                    <!-- PLAYER-ORANGE -->
                     <li class="settings-option__list-item"
+                        role="radio"
+                        aria-checked="false"
+                        tabindex="0"
                         data-value="orange"
                         data-label="Orange Player">
                         <img
-                             src="./public/assets/img/radio-checked.png"
-                             class="settings-option__radio--checked d-none"
-                             alt="">
-                        <img 
-                             src="./public/assets/img/radio-unchecked.png"
-                             class="settings-option__radio--unchecked"
-                             alt="">
+                            src="./public/assets/img/radio-checked.png"
+                            class="settings-option__radio--checked d-none"
+                            alt="">
+                        <img
+                            src="./public/assets/img/radio-unchecked.png"
+                            class="settings-option__radio--unchecked"
+                            alt="">
                         <span class="settings-option__label">
                             Orange
                         </span>
                     </li>
                 </ul>
-            </article>
+            </section>
 
-            <article class="settings-option">
+            <!-- BOARD SIZE -->
+            <section class="settings-option">
                 <header class="settings-option__header">
                     <img
-                         src="./public/assets/img/icon-board-size.png"
-                         class="settings-option__icon"
-                         alt="Symbol für Spielfeldgröße"
+                        src="./public/assets/img/icon-board-size.png"
+                        class="settings-option__icon"
+                        alt=""
                     >
-                    <h2 class="settings-option__title">
+                    <h2 id="board-size-title" class="settings-option__title">
                         Board size
                     </h2>
                 </header>
-                <ul id="board-size" class="settings-option__list" data-step="step-board">
+                <ul id="board-size"
+                    class="settings-option__list"
+                    role="radiogroup"
+                    aria-labelledby="board-size-title"
+                    data-step="step-board">
+
+                    <!-- BOARD-16-CARDS -->
                     <li class="settings-option__list-item"
+                        role="radio"
+                        aria-checked="false"
+                        tabindex="0"
                         data-value="16"
                         data-label="Board-16 Cards">
-                    <img
+                        <img
                             src="./public/assets/img/radio-checked.png"
                             class="settings-option__radio--checked d-none"
                             alt="">
-                    <img 
+                        <img
                             src="./public/assets/img/radio-unchecked.png"
                             class="settings-option__radio--unchecked"
                             alt="">
-                    <span class="settings-option__label">
-                        16 cards
-                    </span>
+                        <span class="settings-option__label">
+                            16 cards
+                        </span>
                     </li>
+
+                    <!-- BOARD-24-CARDS -->
                     <li class="settings-option__list-item"
+                        role="radio"
+                        aria-checked="false"
+                        tabindex="0"
                         data-value="24"
                         data-label="Board-24 Cards">
                         <img
-                             src="./public/assets/img/radio-checked.png"
-                             class="settings-option__radio--checked d-none"
-                             alt="">
-                        <img 
-                             src="./public/assets/img/radio-unchecked.png"
-                             class="settings-option__radio--unchecked"
-                             alt="">
+                            src="./public/assets/img/radio-checked.png"
+                            class="settings-option__radio--checked d-none"
+                            alt="">
+                        <img
+                            src="./public/assets/img/radio-unchecked.png"
+                            class="settings-option__radio--unchecked"
+                            alt="">
                         <span class="settings-option__label">
                             24 cards
-                        </span> 
+                        </span>
                     </li>
+
+                    <!-- BOARD-36-CARDS -->
                     <li class="settings-option__list-item"
+                        role="radio"
+                        aria-checked="false"
+                        tabindex="0"
                         data-value="36"
                         data-label="Board-36 Cards">
                         <img
-                             src="./public/assets/img/radio-checked.png"
-                             class="settings-option__radio--checked d-none"
-                             alt="">
-                        <img 
-                             src="./public/assets/img/radio-unchecked.png"
-                             class="settings-option__radio--unchecked"
-                             alt="">
+                            src="./public/assets/img/radio-checked.png"
+                            class="settings-option__radio--checked d-none"
+                            alt="">
+                        <img
+                            src="./public/assets/img/radio-unchecked.png"
+                            class="settings-option__radio--unchecked"
+                            alt="">
                         <span class="settings-option__label">
                             36 cards
                         </span>
                     </li>
                 </ul>
-            </article>
+            </section>
 
-        </section>
+        </div>
 
-        <section class="settings-page__summary">
+        <!-- RIGHT COLUMN: SUMMARY -->
+        <section class="settings-page__summary" aria-label="Selection summary">
 
-                <figure class="settings-preview">
-                    <img
-                         src="./public/assets/img/theme-preview-code-vibes.png"
-                         id="theme-img"
-                         class="settings-preview__image"
-                         alt="Vorschau des Themes Code vibes mit Code- und Git-Symbol"
-                    >
-                </figure>
+            <!-- THEME PREVIEW -->
+            <div class="settings-preview">
+                <img
+                    src="./public/assets/img/theme-preview-code-vibes.png"
+                    id="theme-img"
+                    class="settings-preview__image"
+                    alt="Preview of the Code vibes theme with code and Git icons"
+                >
+            </div>
 
-            <ul class="settings-progress">
+            <!-- PROGRESS BAR -->
+            <ul class="settings-progress" aria-label="Selection progress" aria-live="polite">
+
+                <!-- STEP-THEME -->
                 <li id="step-theme" class="settings-progress__step">
                     Game theme
                 </li>
 
-                <li class="settings-progress__divider">
-                    <img src="./public/assets/img/divider-accent.png"
-                        class="settings-progress__divider-default" alt="">
-                    <img src="./public/assets/img/divider-accent-bent.png"
-                        class="settings-progress__divider-applied d-none" alt="">
+                <!-- DIVIDER -->
+                <li class="settings-progress__divider" aria-hidden="true">
+                    <img
+                        src="./public/assets/img/divider-accent.png"
+                        class="settings-progress__divider-default"
+                        alt="">
+                    <img
+                        src="./public/assets/img/divider-accent-bent.png"
+                        class="settings-progress__divider-applied d-none"
+                        alt="">
                 </li>
 
+                <!-- STEP-PLAYER -->
                 <li id="step-player" class="settings-progress__step">
                     Player
                 </li>
 
-                <li class="settings-progress__divider">
-                    <img src="./public/assets/img/divider-accent.png"
-                        class="settings-progress__divider-default" alt="">
-                    <img src="./public/assets/img/divider-accent-bent.png"
-                        class="settings-progress__divider-applied d-none" alt="">
+                <!-- DIVIDER -->
+                <li class="settings-progress__divider" aria-hidden="true">
+                    <img
+                        src="./public/assets/img/divider-accent.png"
+                        class="settings-progress__divider-default"
+                        alt="">
+                    <img
+                        src="./public/assets/img/divider-accent-bent.png"
+                        class="settings-progress__divider-applied d-none"
+                        alt="">
                 </li>
 
+                <!-- STEP-BOARD -->
                 <li id="step-board" class="settings-progress__step">
                     Board size
                 </li>
 
+                <!-- START-BUTTON -->
                 <li class="settings-progress__step--start">
                     <a href="./game.html"
-                    class="settings-progress__start-button settings-progress__start-button--disabled">
+                       class="settings-progress__start-button settings-progress__start-button--disabled"
+                       aria-disabled="true"
+                       aria-describedby="start-hint">
                         <img
                             src="./public/assets/img/icon-start-game.png"
                             class="settings-progress__start-icon"
@@ -223,15 +298,16 @@
                             Start
                         </span>
                     </a>
-                    <span class="settings-progress__start-hint" role="tooltip">
+                    <span id="start-hint" class="settings-progress__start-hint" role="tooltip">
                         Your selection is incomplete
                     </span>
                 </li>
-                
+
             </ul>
 
         </section>
     </main>
+
     <script type="module" src="./src/main.ts"></script>
 </body>
 </html>

@@ -221,6 +221,11 @@
     background: none;
     perspective: 1000px;
 
+    &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+    }
+
     &__inner {
     display: flex;
     position: relative;
@@ -279,6 +284,7 @@
         gap: 16px;
 
         &--text {
+            margin: 0;
             font-size: 26px;
         }
     }
@@ -288,6 +294,8 @@
     }
 
     &__message {
+        margin: 0;
+        text-transform: uppercase;
         color: #FD5B4F;
         font-size: 130px;
         font-weight: variables.$font-weight-extra-bold;
@@ -663,4 +671,4 @@
         }
     }
 
-} 
+}

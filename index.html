@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>memory</title>
+    <link rel="icon" type="image/png" href="./public/assets/img/favicon.png">
+    <title>Memory</title>
 </head>
 <body class="home bg-theme-primary">
+
+    <!-- HOME-CONTENT -->
     <main>
+
+        <!-- INTRO TEXT -->
         <section class="home-text">
             <p>
                 It's play time.
@@ -15,45 +20,49 @@
                 Ready to play?
             </h1>
         </section>
-        
-        <a href="settings.html" class="btn btn__home">
-                <img
-                     src="./public/assets/img/gaming_controller.png"
-                     class="btn__home__controller-img"
-                     alt="Gaming Controller"
-                >
-                <span class="btn__home__text">
-                    play
-                </span>
-                <div class="btn__home__arrow-right">
-                    <img
-                         src="./public/assets/img/arrow-right.png"
-                         class="btn__home__arrow-right__small"
-                         alt="small arrow right"
-                    >
-                    <img 
-                         src="./public/assets/img/arrow-right-hover.png"
-                         class="btn__home__arrow-right__big"
-                         alt="__big arrow right "
-                    >
-                </div>
-            </a>
+
+        <!-- PLAY-BUTTON -->
+        <a href="./settings.html" class="btn btn__home">
             <img
+                src="./public/assets/img/gaming_controller.png"
+                class="btn__home__controller-img"
+                alt=""
+            >
+            <span class="btn__home__text">
+                Play
+            </span>
+
+            <!-- ARROW ICONS (DEFAULT / HOVER) -->
+            <span class="btn__home__arrow-right">
+                <img
+                    src="./public/assets/img/arrow-right.png"
+                    class="btn__home__arrow-right__small"
+                    alt=""
+                >
+                <img
+                    src="./public/assets/img/arrow-right-hover.png"
+                    class="btn__home__arrow-right__big"
+                    alt=""
+                >
+            </span>
+        </a>
+
+        <!-- BACKGROUND DECORATION (WIDE SCREENS) -->
+        <img
             src="./public/assets/img/gaming_controller_background.png"
             class="home__controller-background-wide"
             alt=""
-            aria-hidden="true"
-            >
-
-
+        >
 
     </main>
-            <img
-            src="./public/assets/img/gaming_controller_background.png"
-            class="home__controller-background"
-            alt=""
-            aria-hidden="true"
-        >
+
+    <!-- BACKGROUND DECORATION -->
+    <img
+        src="./public/assets/img/gaming_controller_background.png"
+        class="home__controller-background"
+        alt=""
+    >
+
     <script type="module" src="./src/main.ts"></script>
 </body>
 </html>
