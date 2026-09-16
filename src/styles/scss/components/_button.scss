@@ -1,6 +1,7 @@
 @use '../abstract/_variables.scss' as variables;
 @use '../abstract/_breakpoints.scss' as bp;
 @use '../abstract/_functions.scss' as fct;
+@use '../abstract/_mixins.scss' as mixins;
 
 /* === BUTTONS === */
 .btn {
@@ -8,17 +9,13 @@
 
     /* === PLAY-BUTTON === */
     &__home {
+        @include mixins.flex(row, $justify: space-around, $align: flex-end, $gap: 20px);
         position: relative;
         z-index: 0;
         font-size: 40px;
         padding: 24px;
         color: variables.$theme-primary;
         text-decoration: none;
-        gap: 20px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: flex-end;
 
         &__controller-img,
         &__text,

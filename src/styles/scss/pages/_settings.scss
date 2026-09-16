@@ -1,13 +1,13 @@
 @use '../abstract/_variables.scss' as variables;
 @use '../abstract/_breakpoints.scss' as bp;
 @use '../abstract/_functions.scss' as fct;
+@use '../abstract/_mixins.scss' as mixins;
 
 /* === SETTINGS PAGE === */
 .settings-page {
+    @include mixins.flex(column);
     padding: 40px 40px 0 76px;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 
     @include bp.respond("wide") {
         padding: 40px 40px 0 76px;
@@ -19,10 +19,7 @@
 
     /* === SETTINGS-CONTENT === */
     &__main {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
+        @include mixins.flex(row, $justify: space-between, $align: flex-start);
 
         @include bp.respond("desktop") {
             flex-direction: column;
@@ -33,21 +30,17 @@
 
     /* === LEFT COLUMN: OPTIONS === */
      &__options {
-        display: flex;
-        flex-direction: column;
+        @include mixins.flex(column);
         
         @include bp.respond("wide") {
-            display: flex;
-            flex-direction: column;
+            @include mixins.flex(column);
             flex-shrink: 0;  
         }
     }
 
     /* === RIGHT COLUMN: SUMMARY === */
     &__summary {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+        @include mixins.flex(column, $align: flex-end);
 
         @include bp.respond("desktop") {
             align-items: center;
@@ -57,9 +50,8 @@
 
 /* === SETTINGS-HEADER === */
 .settings-header {
+    @include mixins.flex(column);
     position: relative;
-    display: flex;
-    flex-direction: column;
     padding-bottom: 48px;
     margin-left: -24px;
 
@@ -94,10 +86,7 @@
     position: relative;
 
     &__header {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 12px;
+        @include mixins.flex(row, $align: flex-start, $gap: 12px);
         padding-bottom: 16px;
 
         @include bp.respond("mobile") {
@@ -144,11 +133,7 @@
         padding-bottom: 8px;
         cursor: pointer;
         line-height: 1.5;
-
-        &:focus-visible {
-            outline: 2px solid variables.$theme-primary;
-            outline-offset: 4px;
-        }
+        @include mixins.focus-ring(variables.$theme-primary);
 
         &--highlighted {
             font-weight: variables.$font-weight-bold;
@@ -210,15 +195,11 @@
 
 /* === PROGRESS BAR === */
 .settings-progress {
-    display: flex;
+    @include mixins.flex(row, $justify: flex-end, $align: center, $gap: 24px);
     background-color: #f6f6f6;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
     margin: 25px 0 0;
     padding: 16px 16px;
     padding-inline-start: 24px;
-    gap: 24px;
     list-style: none;
     font-family: variables.$font-secondary;
     font-weight: variables.$font-weight-regular;
@@ -301,10 +282,7 @@
     }
 
     &__start-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
+        @include mixins.flex-center($gap: 8px);
         background-color: variables.$highlight-yellow;
         padding: 16px;
         transform-origin: right center;

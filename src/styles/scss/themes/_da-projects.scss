@@ -1,23 +1,12 @@
 @use '../abstract/_variables.scss' as variables;
 @use '../abstract/_breakpoints.scss' as bp;
 @use '../abstract/_functions.scss' as fct;
+@use '../abstract/_mixins.scss' as mixins;
 
 /* === DA PROJECTS THEME === */
 .theme-da-projects {
     font-family: variables.$font-tertiary;
-    padding: 8px 160px 0;
-
-    @include bp.respond("desktop") {
-        padding: 8px 80px 0;
-    }
-
-    @include bp.respond("tablet") {
-        padding: 8px 40px 0;
-    }
-
-     @include bp.respond("mobile") {
-        padding: 8px 8px 0;
-    }
+    @include mixins.page-padding(8px);
   
 
     /* === GAME-HEADER === */
@@ -26,9 +15,7 @@
         margin: 0 0 64px;
 
         @include bp.respond("desktop") {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+            @include mixins.flex(row, $justify: space-between);
         }
 
         @include bp.respond("mobile") {
@@ -128,11 +115,7 @@
             padding: 8px;
         }
         &__name {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            clip-path: inset(50%);
+            @include mixins.visually-hidden;
         }
 
         &__points {

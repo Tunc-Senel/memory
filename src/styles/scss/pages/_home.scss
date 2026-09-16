@@ -1,17 +1,15 @@
 @use '../abstract/_variables.scss' as variables;
 @use '../abstract/_breakpoints.scss' as bp;
 @use '../abstract/_functions.scss' as fct;
+@use '../abstract/_mixins.scss' as mixins;
 
 /* === HOME PAGE === */
 .home {
+    @include mixins.flex-center(column);
     padding: 0;
     min-height: 100vh;
     background-color: variables.$theme-primary;
     color: variables.$white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 
     /* === BACKGROUND DECORATION === */
     &__controller-background {
@@ -78,18 +76,13 @@
 
 /* === MAIN === */
 main {
+    @include mixins.flex-center(column);
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 /* === INTRO TEXT === */
 .home-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @include mixins.flex(column, $justify: center);
 
     & p {
         font-size: fct.px-to-rem(48);

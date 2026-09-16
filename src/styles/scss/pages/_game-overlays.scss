@@ -1,4 +1,5 @@
 @use '../abstract/_variables.scss' as variables;
+@use '../abstract/_mixins.scss' as mixins;
 
 /* === GAME OVER & GAME RESULT OVERLAYS === */
 .game-over,
@@ -19,19 +20,11 @@
 
 /* === GAME OVER OVERLAY === */
 .game-over {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 112px;
+    @include mixins.flex-center(column, $gap: 112px);
 
     /* === FINAL SCORE === */
     &__scoreboard {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
+        @include mixins.flex-center(column, $gap: 16px);
 
         &--text {
             margin: 0;
@@ -55,10 +48,7 @@
 
 /* === GAME RESULT OVERLAY === */
 .game-result {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  @include mixins.flex(column, $justify: flex-start, $align: center);
 
   &__confetti {
     display: block;
@@ -110,12 +100,9 @@
 
 /* === BACK TO START BUTTON === */
   &__button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    @include mixins.flex(row, $align: center, $gap: 16px);
     padding: 12px 20px;
     border: 1px solid variables.$teal;
-    gap: 16px;
     background-color: variables.$surface-translucent;
     color: variables.$white;
     font-size: 24px;

@@ -1,0 +1,62 @@
+@use './_breakpoints.scss' as bp;
+
+/* === FLEX LAYOUT === */
+/// Turns an element into a flex container.
+/// Only emits the properties that are passed.
+/// @param {String} $direction - The flex-direction value.
+/// @param {String} $justify - The justify-content value.
+/// @param {String} $align - The align-items value.
+/// @param {Number} $gap - The gap between the flex items.
+@mixin flex($direction: null, $justify: null, $align: null, $gap: null) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    gap: $gap;
+}
+
+/// Centers the flex items on both axes.
+/// @param {String} $direction - The flex-direction value.
+/// @param {Number} $gap - The gap between the flex items.
+@mixin flex-center($direction: null, $gap: null) {
+    @include flex($direction, center, center, $gap);
+}
+
+/* === ACCESSIBILITY === */
+/// Hides an element visually but keeps it readable for screen readers.
+@mixin visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/// Adds a visible outline for keyboard focus.
+/// @param {Color} $color - The outline color.
+@mixin focus-ring($color) {
+    &:focus-visible {
+        outline: 2px solid $color;
+        outline-offset: 4px;
+    }
+}
+
+/* === PAGE LAYOUT === */
+/// Applies the responsive side padding shared by the game page and its themes.
+/// @param {Number} $top - The top padding of the page.
+@mixin page-padding($top) {
+    padding: $top 160px 0;
+
+    @include bp.respond("desktop") {
+        padding: $top 80px 0;
+    }
+
+    @include bp.respond("tablet") {
+        padding: $top 40px 0;
+    }
+
+    @include bp.respond("mobile") {
+        padding: $top 8px 0;
+    }
+}

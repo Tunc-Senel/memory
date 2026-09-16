@@ -1,6 +1,7 @@
 @use '../abstract/_variables.scss' as variables;
 @use '../abstract/_breakpoints.scss' as bp;
 @use '../abstract/_functions.scss' as fct;
+@use '../abstract/_mixins.scss' as mixins;
 
 /* === EXIT DIALOG === */
 .exit-dialog {
@@ -61,9 +62,7 @@
 
     /* === DIALOG ACTIONS === */
     &__actions {
-        display: flex;
-        justify-content: center;
-        gap: 16px;
+        @include mixins.flex($justify: center, $gap: 16px);
     }
 
     &__button {
