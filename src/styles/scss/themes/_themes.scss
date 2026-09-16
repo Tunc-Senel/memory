@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../abstract/_variables.scss" as variables;
 
+/* === THEME MAP === */
 $themes: (
   "code-vibes": (
     page-bg: #303131,
@@ -44,6 +45,7 @@ $themes: (
   ),
 );
 
+/* === THEME CUSTOM PROPERTIES === */
 @each $name, $values in $themes {
   .theme-#{$name} {
     --page-bg: #{map.get($values, page-bg)};

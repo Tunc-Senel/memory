@@ -1,8 +1,24 @@
+/* === BASE === */
 @forward '../base/utilities';
+
+/* === THEMES === */
 @forward '../themes/themes';
+
+/* === FONTS & TYPOGRAPHY === */
 @forward '../base/fonts';
 @forward '../base/typography';
+
+/* === COMPONENTS === */
 @forward './button';
+
+/* === PAGES === */
 @forward '../pages/home';
 @forward '../pages/settings';
 @forward '../pages/game';
+@forward '../pages/game-overlays';
+
+/* === EXIT DIALOG === */
+@forward './exit-dialog';
+
+/* === THEME OVERRIDES (MUST STAY LAST) === */
+@forward '../themes/da-projects';

@@ -1,0 +1,213 @@
+@use '../abstract/_variables.scss' as variables;
+@use '../abstract/_breakpoints.scss' as bp;
+@use '../abstract/_functions.scss' as fct;
+
+/* === DA PROJECTS THEME === */
+.theme-da-projects {
+    font-family: variables.$font-tertiary;
+    padding: 8px 160px 0;
+
+    @include bp.respond("desktop") {
+        padding: 8px 80px 0;
+    }
+
+    @include bp.respond("tablet") {
+        padding: 8px 40px 0;
+    }
+
+     @include bp.respond("mobile") {
+        padding: 8px 8px 0;
+    }
+  
+
+    /* === GAME-HEADER === */
+    .game-header {
+        padding: 16px 24px;
+        margin: 0 0 64px;
+
+        @include bp.respond("desktop") {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        @include bp.respond("mobile") {
+            padding: 16px;
+        }
+
+        /* === CURRENT PLAYER MARKER === */
+        &__current-player-marker {
+            width: 25px;
+            height: 32px;
+            border-radius: 6px;
+            padding: 4px 8px;
+
+            &[data-player="blue"] {
+                background-color: #097FC5;
+            }
+
+            &[data-player="orange"] {
+                background-color: #EA6900;
+            }
+        }
+        
+        /* === EXIT-BUTTON === */
+        &__exit {
+            @include bp.respond("desktop") {
+                gap: 20px;
+                padding: 20px;
+            }
+
+            @include bp.respond("tablet") {
+                padding: 8px;
+            }
+        }
+
+        &__exit-icon {
+            display: none;
+
+            @include bp.respond("tablet") {
+                display: none !important;
+            }
+        }
+
+        &__exit-icon-alt {
+            display: block;
+
+            @include bp.respond("tablet") {
+                display: none;
+            }
+        }
+
+        /* === CURRENT PLAYER === */
+        &__current-player {
+            gap: 20px;
+
+            @include bp.respond("tablet") {
+                flex-direction: row;
+                gap: 8px;
+            }
+
+             @include bp.respond("mobile") {
+                flex-direction: column;
+                justify-content: center;
+            }
+
+        }
+
+        &__current-player-label {
+            font-size: 32px;
+            color: var(--text);
+            font-weight: variables.$font-weight-bold;
+
+            @include bp.respond("desktop") {
+                font-size: fct.px-to-rem(24);
+                text-align: center;
+            }
+
+            @include bp.respond("tablet") {
+                font-size: fct.px-to-rem(16);
+            }
+        }  
+    }
+
+    /* === EXIT-BUTTON HOVER === */
+    .game-header__exit:hover {
+        .game-header__exit-icon {
+            display: block;
+        }
+
+        .game-header__exit-icon-alt {
+            display: none;
+        }
+    }
+
+    /* === SCOREBOARD === */
+    .game-score {
+        @include bp.respond("tablet") {
+            padding: 8px;
+        }
+        &__name {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+        }
+
+        &__points {
+            font-size: 30px;
+            color: var(--text);
+        }
+
+        &__player {
+            align-items: center;
+        }
+        
+        &__player--blue &__points {
+            color: #097FC5;
+        }
+
+        &__player--orange &__points {
+            color: #EA6900;
+        }
+
+        &__marker {
+            width: 20px;
+            height: 25px;
+        }
+    }
+
+    /* === EXIT DIALOG === */
+    .exit-dialog {
+        &__question {
+            color: #294F60;
+        }
+        
+
+        &__button--exit {
+            background-color: #FD8A81;
+            color: variables.$white;
+            border: none;
+
+            &:hover {
+                background-color: #ED5B50;
+                box-shadow: none;
+            }
+        }
+
+        &__button--back:hover {
+            color: variables.$white;
+        }
+    }
+
+    /* === GAME OVER & GAME RESULT OVERLAYS === */
+    .game-over,
+    .game-result {
+        background-color: variables.$theme-secondary;
+    }
+
+    /* === FINAL SCORE === */
+    .game-over__scoreboard--text {
+        color: variables.$white;
+    }
+
+    /* === GAME RESULT OVERLAY === */
+    .game-result {
+        justify-content: center;
+
+        &__confetti {
+            display: none;
+        }
+        
+        &__intro {
+            color: variables.$white;
+        }
+
+        &__winner {
+            color: variables.$white;
+            font-size: 80px;
+        }
+    }
+
+}

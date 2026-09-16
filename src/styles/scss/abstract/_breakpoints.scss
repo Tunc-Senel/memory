@@ -1,5 +1,6 @@
 @use "sass:map";
 
+/* === BREAKPOINTS === */
 $breakpoints: (
     "mobile": 480px,
     "tablet": 768px,
@@ -7,6 +8,7 @@ $breakpoints: (
     "wide": 1440px
 );
 
+/* === RESPOND MIXIN === */
 /// Applies the given styles up to the width of a breakpoint.
 /// @param {String} $breakpoint - A key of the $breakpoints map.
 @mixin respond($breakpoint) {

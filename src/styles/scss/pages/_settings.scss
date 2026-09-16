@@ -2,6 +2,7 @@
 @use '../abstract/_breakpoints.scss' as bp;
 @use '../abstract/_functions.scss' as fct;
 
+/* === SETTINGS PAGE === */
 .settings-page {
     padding: 40px 40px 0 76px;
     min-height: 100vh;
@@ -16,6 +17,7 @@
         padding: 20px 8px 0 44px;
     }
 
+    /* === SETTINGS-CONTENT === */
     &__main {
         display: flex;
         flex-direction: row;
@@ -29,6 +31,7 @@
         }
     }
 
+    /* === LEFT COLUMN: OPTIONS === */
      &__options {
         display: flex;
         flex-direction: column;
@@ -40,6 +43,7 @@
         }
     }
 
+    /* === RIGHT COLUMN: SUMMARY === */
     &__summary {
         display: flex;
         flex-direction: column;
@@ -51,6 +55,7 @@
     }
 }
 
+/* === SETTINGS-HEADER === */
 .settings-header {
     position: relative;
     display: flex;
@@ -84,6 +89,7 @@
     }
 }
 
+/* === SETTINGS OPTIONS === */
 .settings-option {
     position: relative;
 
@@ -114,6 +120,7 @@
         font-size: fct.px-to-rem(24); 
     }
 
+    /* === OPTION LIST === */
     &__list {
         margin: 0;
         padding-bottom: 40px;
@@ -129,6 +136,7 @@
         padding-bottom: 0;
     }
 
+    /* === OPTION ITEM === */
     &__list-item {
         font-family: variables.$font-secondary;
         font-weight: variables.$font-weight-regular;
@@ -159,6 +167,7 @@
         }
     }
 
+    /* === RADIO ICONS === */
     &__radio--checked {
         width: 20px;
         height: auto;
@@ -182,6 +191,7 @@
     }
 }
 
+/* === THEME PREVIEW === */
 .settings-preview {
     margin: 0;
 
@@ -198,6 +208,7 @@
     }
 }
 
+/* === PROGRESS BAR === */
 .settings-progress {
     display: flex;
     background-color: #f6f6f6;
@@ -232,6 +243,7 @@
         cursor: default;
     }
 
+    /* === PROGRESS STEPS === */
     &__step {
         text-align: center;
 
@@ -255,6 +267,7 @@
     }
 
 
+    /* === PROGRESS STATES === */
     &--bounce {
         animation: bounce-left 0.6s ease-out;
 
@@ -271,6 +284,7 @@
         cursor: default;
     }
 
+    /* === START-BUTTON === */
     &__start-icon {
         width: 20px;
         height: auto;
@@ -325,6 +339,7 @@
         opacity: 0.4;
     }
 
+    /* === START HINT === */
     &__start-hint {
         position: absolute;
         top: calc(100% + 8px);
@@ -357,6 +372,7 @@
     }
 }
 
+/* === ANIMATIONS === */
 @keyframes bounce-left {
     0%   { transform: scaleX(0.9); }
     35%  { transform: scaleX(1.12); }

@@ -2,6 +2,7 @@
 @use '../abstract/_breakpoints.scss' as bp;
 @use '../abstract/_functions.scss' as fct;
 
+/* === HOME PAGE === */
 .home {
     padding: 0;
     min-height: 100vh;
@@ -12,6 +13,7 @@
     align-items: center;
     justify-content: center;
 
+    /* === BACKGROUND DECORATION === */
     &__controller-background {
         display: none;
         position: absolute;
@@ -48,6 +50,7 @@
 
 }
 
+/* === PLAY-BUTTON === */
 .btn__home {
     &__controller-img {
         width: 44px;
@@ -73,6 +76,7 @@
     }
 }
 
+/* === MAIN === */
 main {
     position: relative;
     display: flex;
@@ -81,6 +85,7 @@ main {
     justify-content: center;
 }
 
+/* === INTRO TEXT === */
 .home-text {
     display: flex;
     flex-direction: column;

@@ -1,0 +1,116 @@
+@use '../abstract/_variables.scss' as variables;
+@use '../abstract/_breakpoints.scss' as bp;
+@use '../abstract/_functions.scss' as fct;
+
+/* === EXIT DIALOG === */
+.exit-dialog {
+    border: none;
+    border-radius: var(--card-radius);
+    padding: 40px;
+    max-width: 540px;
+    background-color: #fff;
+    text-align: center;
+    transform: translateY(-250%);
+    transition: transform 0.4s ease-out;
+
+    @include bp.respond("tablet") {
+        max-width: 400px;
+        padding: 16px;
+    }
+
+    @include bp.respond("tablet") {
+        max-width: 294px;
+        padding: 16px;
+    }
+
+    @include bp.respond("mobile") {
+        max-width: 294px;
+        padding: 8px 0;
+    }
+
+    /* === BACKDROP & OPEN STATE === */
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity 0.4s ease-out;
+    }
+
+    &--open {
+        transform: translateY(0);
+
+        &::backdrop {
+            opacity: 1;
+        }
+    }
+
+    /* === QUESTION === */
+    &__question {
+        margin: 0 0 32px;
+        font-size: 36px;
+        font-weight: variables.$font-weight-bold;
+
+        @include bp.respond("tablet") {
+            font-size: fct.px-to-rem(24);
+        }
+
+        @include bp.respond("mobile") {
+            font-size: fct.px-to-rem(16);
+            margin: 0 0 16px;
+        }
+    }
+
+    /* === DIALOG ACTIONS === */
+    &__actions {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    &__button {
+        border-radius: var(--card-radius);
+        font-family: variables.$font-primary;
+        font-weight: variables.$font-weight-bold;
+        font-size: 20px;
+        padding: 12px 24px;
+        font-weight: variables.$font-weight-bold;
+        cursor: pointer;
+
+        @include bp.respond("mobile") {
+            font-size: fct.px-to-rem(16);
+            padding: 8px 12px;
+        }
+
+        /* === BACK TO GAME BUTTON === */
+        &--back {
+            border: none;
+            background-color: var(--exit-dialog-back-to-game-bg);
+            color: var(--exit-dialog-back-to-game-color);
+            transition: background-color 0.2s ease, border-color 0.2s ease,
+            box-shadow 0.2s ease;
+
+            &:hover {
+                background-color: var(--exit-dialog-back-to-game-hover-bg-color);
+                border-color: #4dd5bc;
+                box-shadow: var(--exit-dialog-back-to-game-hover);
+            }
+        }
+
+        /* === EXIT GAME BUTTON === */
+        &--exit {
+            border: 1px solid variables.$teal;
+            background-color: transparent;
+            color: variables.$teal;
+            transition: background-color 0.2s ease, border-color 0.2s ease,
+            box-shadow 0.2s ease;
+
+            &:hover {
+                background-color: rgba(134, 233, 214, 0.26);
+                border-color: #4dd5bc;
+                box-shadow: 
+                inset 0 0 0 2px #4dd5bc,
+                4px 4px 6px 0 rgba(77, 213, 188, 0.2);
+            }
+
+        }
+    }
+}

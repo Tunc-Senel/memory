@@ -1,11 +1,13 @@
 @use '../abstract/_variables.scss' as variables;
 
+/* === GLOBAL === */
 body {
     color: variables.$theme-primary;
     max-width: 1440px;
     margin: 0 auto;
 }
 
+/* === UTILITIES === */
 .d-none {
     display: none !important;
 }
@@ -19,6 +21,7 @@ body {
     white-space: nowrap;
 }
 
+/* === ELEMENT RESETS === */
 button {
     border: none;
     cursor: pointer;

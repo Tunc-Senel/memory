@@ -1,5 +1,6 @@
 @use "sass:math";
 
+/* === FUNCTIONS === */
 /// Converts a pixel value to rem.
 /// @param {Number} $px - The pixel value, unitless or with px.
 /// @param {Number} $base - The root font size in px.

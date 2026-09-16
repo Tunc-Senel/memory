@@ -2,9 +2,11 @@
 @use '../abstract/_breakpoints.scss' as bp;
 @use '../abstract/_functions.scss' as fct;
 
+/* === BUTTONS === */
 .btn {
     background-color: variables.$highlight-yellow;
 
+    /* === PLAY-BUTTON === */
     &__home {
         position: relative;
         z-index: 0;
@@ -42,6 +44,7 @@
             transition: transform 0.275s ease;
         }
 
+        /* === PLAY-BUTTON HOVER === */
         &:hover {
             cursor: pointer;
 
