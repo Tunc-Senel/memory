@@ -3,27 +3,27 @@ import * as config from "./config";
 /**
  * Time in milliseconds the game over screen stays before the result screen follows.
  */
-export const GAME_OVER_DURATION = 1000;
+const GAME_OVER_DURATION = 1000;
 
 /**
  * Modifier class that slides the game over screen into view.
  */
-export const GAME_OVER_VISIBLE_CLASS = "game-over--visible";
+const GAME_OVER_VISIBLE_CLASS = "game-over--visible";
 
 /**
  * Modifier class that slides the result screen into view.
  */
-export const GAME_RESULT_VISIBLE_CLASS = "game-result--visible";
+const GAME_RESULT_VISIBLE_CLASS = "game-result--visible";
 
 /**
  * Modifier class that slides the exit dialog into view.
  */
-export const DIALOG_OPEN_CLASS = "exit-dialog--open";
+const DIALOG_OPEN_CLASS = "exit-dialog--open";
 
 /**
  * Time in milliseconds of the dialog slide animation, matching the SCSS transition.
  */
-export const DIALOG_SLIDE_DURATION = 400;
+const DIALOG_SLIDE_DURATION = 400;
 
 /**
  * Shows the game over variant of the selected theme.
@@ -107,7 +107,7 @@ export function showGameOverScreen(): void {
 /**
  * Swaps the game over screen for the result screen.
  */
-export function showGameResultScreen(): void {
+function showGameResultScreen(): void {
   const blueScore = readScore("blue-player-points");
   const orangeScore = readScore("orange-player-points");
 
@@ -120,7 +120,7 @@ export function showGameResultScreen(): void {
  * @param pointsId - The id of the points display.
  * @returns The points of the player.
  */
-export function readScore(pointsId: string): number {
+function readScore(pointsId: string): number {
   return Number((document.getElementById(pointsId) as HTMLElement).dataset.value);
 }
 
@@ -130,7 +130,7 @@ export function readScore(pointsId: string): number {
  * @param orangeScore - The final score of the orange player.
  * @returns The result key: blue, orange or draw.
  */
-export function getResultKey(blueScore: number, orangeScore: number): string {
+function getResultKey(blueScore: number, orangeScore: number): string {
   if (blueScore > orangeScore) return "blue";
   if (orangeScore > blueScore) return "orange";
   return "draw";
@@ -140,7 +140,7 @@ export function getResultKey(blueScore: number, orangeScore: number): string {
  * Fills the result screen for the selected theme and marks it with the result.
  * @param resultKey - The result key: blue, orange or draw.
  */
-export function applyGameResult(resultKey: string): void {
+function applyGameResult(resultKey: string): void {
   const result = config.GAME_RESULTS[resultKey];
   if (!result) return;
   const hasWinner = resultKey !== "draw";
@@ -161,7 +161,7 @@ export function applyGameResult(resultKey: string): void {
  * @param result - The texts and icons of the result.
  * @param hasWinner - True when one player has won.
  */
-export function applyCodeVibesResult(result: config.GameResult, hasWinner: boolean): void {
+function applyCodeVibesResult(result: config.GameResult, hasWinner: boolean): void {
   if (hasWinner) {
     setupGameResultScreen(result.iconCodeVibes, result.codeVibesButtonText, hasWinner, result.winner);
     return;
@@ -176,7 +176,7 @@ export function applyCodeVibesResult(result: config.GameResult, hasWinner: boole
  * @param result - The texts and icons of the result.
  * @param hasWinner - True when one player has won.
  */
-export function applyDaProjectsResult(result: config.GameResult, hasWinner: boolean): void {
+function applyDaProjectsResult(result: config.GameResult, hasWinner: boolean): void {
   if (hasWinner) {
     setupGameResultScreen(result.iconDaProjects, result.daProjectsButtonText, hasWinner, result.winner);
     return;
@@ -193,7 +193,7 @@ export function applyDaProjectsResult(result: config.GameResult, hasWinner: bool
  * @param displayImage - The class that hides or shows the draw image.
  * @param displayText - The class that hides or shows the draw text.
  */
-export function setupGameResultScreen(
+function setupGameResultScreen(
   icon: string,
   buttonText: string,
   hasWinner: boolean,
@@ -217,7 +217,7 @@ export function setupGameResultScreen(
  * @param winner - The name of the winner.
  * @returns The HTML string of the winner result.
  */
-export function gameResultTemplate(icon: string, buttonText: string, winner?: string): string {
+function gameResultTemplate(icon: string, buttonText: string, winner?: string): string {
   return `
             <p class="game-result__intro">
                 The winner is
@@ -238,7 +238,7 @@ export function gameResultTemplate(icon: string, buttonText: string, winner?: st
  * @param displayText - The class that hides or shows the draw text.
  * @returns The HTML string of the draw result.
  */
-export function gameResultDrawTemplate(
+function gameResultDrawTemplate(
   icon: string,
   buttonText: string,
   displayImage?: string,
@@ -260,7 +260,7 @@ export function gameResultDrawTemplate(
  * @param displayText - The class that hides or shows the draw text.
  * @returns The HTML string of both draw variants.
  */
-export function drawTemplate(displayImage?: string, displayText?: string): string {
+function drawTemplate(displayImage?: string, displayText?: string): string {
   return `
             <img
                 src="./public/assets/img/draw-text.png"
@@ -278,7 +278,7 @@ export function drawTemplate(displayImage?: string, displayText?: string): strin
  * @param icon - The path of the result icon.
  * @returns The HTML string of the icon.
  */
-export function resultIconTemplate(icon: string): string {
+function resultIconTemplate(icon: string): string {
   return `
             <img
                 src="${icon}"
@@ -293,7 +293,7 @@ export function resultIconTemplate(icon: string): string {
  * @param buttonText - The label of the button.
  * @returns The HTML string of the button.
  */
-export function resultButtonTemplate(buttonText: string): string {
+function resultButtonTemplate(buttonText: string): string {
   return `
             <a href="./index.html" class="game-result__button">
                 ${buttonText}

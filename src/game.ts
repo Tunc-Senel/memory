@@ -4,47 +4,47 @@ import * as overlays from "./game-overlays";
 /**
  * Stores the cards flipped in the current turn.
  */
-export const FLIPPED_CARDS: HTMLButtonElement[] = [];
+const FLIPPED_CARDS: HTMLButtonElement[] = [];
 
 /**
  * Number of cards a player may flip per turn.
  */
-export const MAX_FLIPPED_CARDS = 2;
+const MAX_FLIPPED_CARDS = 2;
 
 /**
  * Time in milliseconds before two unmatched cards flip back.
  */
-export const FLIP_BACK_DELAY = 800;
+const FLIP_BACK_DELAY = 800;
 
 /**
  * Additional time in milliseconds before the turn passes to the other player.
  */
-export const CHANGE_CURRENT_PLAYER_DELAY = 300;
+const CHANGE_CURRENT_PLAYER_DELAY = 300;
 
 /**
  * Time in milliseconds before a found pair is checked for the end of the game.
  */
-export const GAME_OVER_CHECK_DELAY = 300;
+const GAME_OVER_CHECK_DELAY = 300;
 
 /**
  * State class of a face-up card.
  */
-export const FLIPPED_CLASS = "is-flipped";
+const FLIPPED_CLASS = "is-flipped";
 
 /**
  * State class of a card that belongs to a found pair.
  */
-export const MATCHED_CLASS = "is-matched";
+const MATCHED_CLASS = "is-matched";
 
 /**
  * Blocks further clicks while two unmatched cards flip back.
  */
-export let isBoardLocked = false;
+let isBoardLocked = false;
 
 /**
  * Stores the colour key of the player whose turn it is.
  */
-export let currentPlayer = config.SELECTED_PLAYER;
+let currentPlayer = config.SELECTED_PLAYER;
 
 /**
  * Applies the theme class of the selected theme to the page.
@@ -73,7 +73,7 @@ export function setupGameBoard(): void {
  * @param boardSize - The total number of cards.
  * @returns Every motif number twice, shuffled.
  */
-export function createCardNumbers(boardSize: number): number[] {
+function createCardNumbers(boardSize: number): number[] {
   return shuffleCardNumbers(createCardPairs(boardSize));
 }
 
@@ -82,7 +82,7 @@ export function createCardNumbers(boardSize: number): number[] {
  * @param boardSize - The total number of cards.
  * @returns The motif numbers of all card pairs.
  */
-export function createCardPairs(boardSize: number): number[] {
+function createCardPairs(boardSize: number): number[] {
   const numbersArray: number[] = [];
 
   for (let i = 1; i <= boardSize; i++) {
@@ -101,7 +101,7 @@ export function createCardPairs(boardSize: number): number[] {
  * @param numbersArray - The motif numbers to shuffle.
  * @returns A new array with the motif numbers in random order.
  */
-export function shuffleCardNumbers(numbersArray: number[]): number[] {
+function shuffleCardNumbers(numbersArray: number[]): number[] {
   const shuffledArray = [...numbersArray];
 
   for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -117,7 +117,7 @@ export function shuffleCardNumbers(numbersArray: number[]): number[] {
  * @param cardNumbers - The motif numbers of all cards in board order.
  * @returns The markup of every card as one string.
  */
-export function renderCards(cardNumbers: number[]): string {
+function renderCards(cardNumbers: number[]): string {
   let markup = "";
 
   for (const cardNumber of cardNumbers) {
@@ -132,7 +132,7 @@ export function renderCards(cardNumbers: number[]): string {
  * @param cardNumber - The motif number of the card.
  * @returns The HTML string of the card.
  */
-export function gameCardTemplate(cardNumber: number): string {
+function gameCardTemplate(cardNumber: number): string {
   const motifId = String(cardNumber).padStart(2, "0");
 
   return `
@@ -149,7 +149,7 @@ export function gameCardTemplate(cardNumber: number): string {
  * Shows the marker of the player whose turn it is.
  * @param player - The colour key of the player.
  */
-export function updateCurrentPlayerMarker(player: string): void {
+function updateCurrentPlayerMarker(player: string): void {
   const marker = document.querySelector<HTMLImageElement>(".game-header__current-player-marker");
   if (!marker) return;
 
@@ -163,14 +163,14 @@ export function updateCurrentPlayerMarker(player: string): void {
  * @param player - The colour key of the player.
  * @returns The path to the marker image.
  */
-export function getMarkerPath(player: string): string {
+function getMarkerPath(player: string): string {
   return player === "blue" ? config.ASSETS.markerBlue : config.ASSETS.markerOrange;
 }
 
 /**
  * Sets the marker images of both players in the score display.
  */
-export function updateScoreMarkers(): void {
+function updateScoreMarkers(): void {
   document.querySelectorAll<HTMLImageElement>(".game-score__marker").forEach((marker, index) => {
     marker.src = index === 0 ? config.ASSETS.markerBlue : config.ASSETS.markerOrange;
   });
@@ -187,14 +187,14 @@ export function initGameListeners(): void {
 /**
  * Attaches the delegated click listener to the game board.
  */
-export function initBoardListener(): void {
+function initBoardListener(): void {
   document.querySelector<HTMLElement>(".game-board")?.addEventListener("click", handleBoardClick);
 }
 
 /**
  * Opens the exit dialog from the header and closes it via its back button or the backdrop.
  */
-export function initExitDialogListeners(): void {
+function initExitDialogListeners(): void {
   document.querySelector<HTMLElement>(".game-header__exit")?.addEventListener("click", overlays.openExitDialog);
   document
     .querySelector<HTMLElement>(".exit-dialog__button--back")
@@ -206,7 +206,7 @@ export function initExitDialogListeners(): void {
  * Flips the clicked card and starts the comparison on the second card.
  * @param event - The click event on the board.
  */
-export function handleBoardClick(event: MouseEvent): void {
+function handleBoardClick(event: MouseEvent): void {
   const target = event.target as HTMLElement;
   const card = target.closest<HTMLButtonElement>(".game-card");
   if (!card || !isCardSelectable(card)) return;
@@ -222,7 +222,7 @@ export function handleBoardClick(event: MouseEvent): void {
  * @param card - The clicked card.
  * @returns True when the card is still face down and the board is free.
  */
-export function isCardSelectable(card: HTMLButtonElement): boolean {
+function isCardSelectable(card: HTMLButtonElement): boolean {
   if (isBoardLocked) return false;
   return !card.classList.contains(FLIPPED_CLASS);
 }
@@ -232,7 +232,7 @@ export function isCardSelectable(card: HTMLButtonElement): boolean {
  *
  * A pair scores a point and keeps the turn, otherwise the cards flip back and the turn passes on.
  */
-export function checkFlippedCards(): void {
+function checkFlippedCards(): void {
   const [firstCard, secondCard] = FLIPPED_CARDS;
 
   if (firstCard.dataset.card === secondCard.dataset.card) {
@@ -254,7 +254,7 @@ export function checkFlippedCards(): void {
  * @param firstCard - The first flipped card.
  * @param secondCard - The second flipped card.
  */
-export function keepMatchedCards(
+function keepMatchedCards(
   firstCard: HTMLButtonElement,
   secondCard: HTMLButtonElement
 ): void {
@@ -266,7 +266,7 @@ export function keepMatchedCards(
 /**
  * Adds one point to the player whose turn it is.
  */
-export function addPointsToScore(): void {
+function addPointsToScore(): void {
   const pointsId = currentPlayer === "blue" ? "blue-player-points" : "orange-player-points";
 
   incrementPoints(document.getElementById(pointsId) as HTMLSpanElement);
@@ -276,7 +276,7 @@ export function addPointsToScore(): void {
  * Raises the points of a score display by one.
  * @param pointsElement - The points display of a player.
  */
-export function incrementPoints(pointsElement: HTMLSpanElement): void {
+function incrementPoints(pointsElement: HTMLSpanElement): void {
   const pointsBeforeMatch = pointsElement.dataset.value;
   if (!pointsBeforeMatch) return;
 
@@ -290,7 +290,7 @@ export function incrementPoints(pointsElement: HTMLSpanElement): void {
  * @param firstCard - The first flipped card.
  * @param secondCard - The second flipped card.
  */
-export function hideUnmatchedCards(
+function hideUnmatchedCards(
   firstCard: HTMLButtonElement,
   secondCard: HTMLButtonElement
 ): void {
@@ -307,7 +307,7 @@ export function hideUnmatchedCards(
 /**
  * Hands the turn over to the other player.
  */
-export function changePlayer(): void {
+function changePlayer(): void {
   currentPlayer = currentPlayer === "blue" ? "orange" : "blue";
   updateCurrentPlayerMarker(currentPlayer);
 }

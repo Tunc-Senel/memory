@@ -1,7 +1,7 @@
 /**
  * Describes the preview image of a theme on the settings page.
  */
-export type ThemePreview = {
+type ThemePreview = {
   src: string;
   alt: string;
 };
@@ -9,7 +9,7 @@ export type ThemePreview = {
 /**
  * Describes the image paths a theme uses on the game page.
  */
-export type ThemeAssets = {
+type ThemeAssets = {
   cardPath: string;
   markerBlue: string;
   markerOrange: string;
@@ -39,17 +39,17 @@ export const STORAGE_KEYS = {
 /**
  * Theme used when no theme was selected.
  */
-export const DEFAULT_THEME = "code-vibes";
+const DEFAULT_THEME = "code-vibes";
 
 /**
  * Starting player used when no player was selected.
  */
-export const DEFAULT_PLAYER = "blue";
+const DEFAULT_PLAYER = "blue";
 
 /**
  * Board size used when no board size was selected.
  */
-export const DEFAULT_BOARD_SIZE = 16;
+const DEFAULT_BOARD_SIZE = 16;
 
 /**
  * Theme chosen on the settings page.
@@ -86,7 +86,7 @@ export const THEME_PREVIEWS: Record<string, ThemePreview> = {
 /**
  * Image paths of all themes on the game page.
  */
-export const THEME_ASSETS: Record<string, ThemeAssets> = {
+const THEME_ASSETS: Record<string, ThemeAssets> = {
   "code-vibes": {
     cardPath: "./public/assets/img/cards/code-vibes",
     markerBlue: "./public/assets/img/player-marker-blue.png",
