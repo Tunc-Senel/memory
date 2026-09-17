@@ -22,6 +22,11 @@ export const FLIP_BACK_DELAY = 800;
 export const CHANGE_CURRENT_PLAYER_DELAY = 300;
 
 /**
+ * Time in milliseconds before a found pair is checked for the end of the game.
+ */
+export const GAME_OVER_CHECK_DELAY = 300;
+
+/**
  * State class of a face-up card.
  */
 export const FLIPPED_CLASS = "is-flipped";
@@ -235,7 +240,7 @@ export function checkFlippedCards(): void {
     addPointsToScore();
     setTimeout(() => {
       overlays.showGameOverScreen();
-    }, 300);
+    }, GAME_OVER_CHECK_DELAY);
     return;
   }
   hideUnmatchedCards(firstCard, secondCard);
@@ -303,10 +308,6 @@ export function hideUnmatchedCards(
  * Hands the turn over to the other player.
  */
 export function changePlayer(): void {
-  if (currentPlayer === "blue") {
-    currentPlayer = "orange";
-  } else {
-    currentPlayer = "blue";
-  }
+  currentPlayer = currentPlayer === "blue" ? "orange" : "blue";
   updateCurrentPlayerMarker(currentPlayer);
 }

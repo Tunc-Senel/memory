@@ -6,9 +6,14 @@ import * as config from "./config";
 export const GAME_OVER_DURATION = 1000;
 
 /**
- * Time in milliseconds before the result screen is shown.
+ * Modifier class that slides the game over screen into view.
  */
-export const GAME_RESULT_DELAY = 2500;
+export const GAME_OVER_VISIBLE_CLASS = "game-over--visible";
+
+/**
+ * Modifier class that slides the result screen into view.
+ */
+export const GAME_RESULT_VISIBLE_CLASS = "game-result--visible";
 
 /**
  * Modifier class that slides the exit dialog into view.
@@ -29,11 +34,11 @@ export function setupGameOverScreen(): void {
   const gameOverScreen = document.getElementById("game-over-screen");
   const gameOverMessage = document.getElementById("game-over-message");
   if (config.SELECTED_THEME === "code-vibes") {
-    gameOverScreen?.classList.remove("d-none");
-    gameOverMessage?.classList.add("d-none");
+    gameOverScreen?.classList.remove(config.HIDDEN_CLASS);
+    gameOverMessage?.classList.add(config.HIDDEN_CLASS);
   } else if (config.SELECTED_THEME === "da-projects") {
-    gameOverMessage?.classList.remove("d-none");
-    gameOverScreen?.classList.add("d-none");
+    gameOverMessage?.classList.remove(config.HIDDEN_CLASS);
+    gameOverScreen?.classList.add(config.HIDDEN_CLASS);
   }
 }
 
@@ -87,14 +92,14 @@ export function slideOutExitDialog(): void {
  * Copies the current score into the screen and shows the result screen afterwards.
  */
 export function showGameOverScreen(): void {
-  const blueScore = Number((document.getElementById("blue-player-points") as HTMLElement).dataset.value);
-  const orangeScore = Number((document.getElementById("orange-player-points") as HTMLElement).dataset.value);
+  const blueScore = readScore("blue-player-points");
+  const orangeScore = readScore("orange-player-points");
 
   if (2 === blueScore + orangeScore) {
     (document.querySelector(".game-over__scoreboard") as HTMLElement).appendChild(
       (document.querySelector(".game-score") as HTMLElement).cloneNode(true)
     );
-    (document.querySelector(".game-over") as HTMLElement).classList.add("game-over--visible");
+    (document.querySelector(".game-over") as HTMLElement).classList.add(GAME_OVER_VISIBLE_CLASS);
     setTimeout(showGameResultScreen, GAME_OVER_DURATION);
   }
 }
@@ -103,11 +108,20 @@ export function showGameOverScreen(): void {
  * Swaps the game over screen for the result screen.
  */
 export function showGameResultScreen(): void {
-  const blueScore = Number((document.getElementById("blue-player-points") as HTMLElement).dataset.value);
-  const orangeScore = Number((document.getElementById("orange-player-points") as HTMLElement).dataset.value);
+  const blueScore = readScore("blue-player-points");
+  const orangeScore = readScore("orange-player-points");
 
   applyGameResult(getResultKey(blueScore, orangeScore));
-  document.querySelector(".game-result")?.classList.add("game-result--visible");
+  document.querySelector(".game-result")?.classList.add(GAME_RESULT_VISIBLE_CLASS);
+}
+
+/**
+ * Reads the current points of a player from the score display.
+ * @param pointsId - The id of the points display.
+ * @returns The points of the player.
+ */
+export function readScore(pointsId: string): number {
+  return Number((document.getElementById(pointsId) as HTMLElement).dataset.value);
 }
 
 /**
@@ -149,10 +163,10 @@ export function applyGameResult(resultKey: string): void {
  */
 export function applyCodeVibesResult(result: config.GameResult, hasWinner: boolean): void {
   if (hasWinner) {
-    setupGameResultScreen(result.iconCodeVibes, result.CodeVibeButtonText, hasWinner, result.winner);
+    setupGameResultScreen(result.iconCodeVibes, result.codeVibesButtonText, hasWinner, result.winner);
     return;
   }
-  setupGameResultScreen(result.iconCodeVibes, result.DaProjectsButtonText, hasWinner, result.winner, "", "d-none");
+  setupGameResultScreen(result.iconCodeVibes, result.daProjectsButtonText, hasWinner, result.winner, "", config.HIDDEN_CLASS);
 }
 
 /**
@@ -164,10 +178,10 @@ export function applyCodeVibesResult(result: config.GameResult, hasWinner: boole
  */
 export function applyDaProjectsResult(result: config.GameResult, hasWinner: boolean): void {
   if (hasWinner) {
-    setupGameResultScreen(result.iconDaProjects, result.DaProjectsButtonText, hasWinner, result.winner);
+    setupGameResultScreen(result.iconDaProjects, result.daProjectsButtonText, hasWinner, result.winner);
     return;
   }
-  setupGameResultScreen(result.iconDaProjects, result.DaProjectsButtonText, hasWinner, result.winner, "d-none", "");
+  setupGameResultScreen(result.iconDaProjects, result.daProjectsButtonText, hasWinner, result.winner, config.HIDDEN_CLASS, "");
 }
 
 /**
@@ -179,13 +193,20 @@ export function applyDaProjectsResult(result: config.GameResult, hasWinner: bool
  * @param displayImage - The class that hides or shows the draw image.
  * @param displayText - The class that hides or shows the draw text.
  */
-export function setupGameResultScreen(icon: string, buttonText: string, hasWinner: boolean, winner?: string, displayImage?: string, displayText?: string): void {
+export function setupGameResultScreen(
+  icon: string,
+  buttonText: string,
+  hasWinner: boolean,
+  winner?: string,
+  displayImage?: string,
+  displayText?: string
+): void {
   const gameResult = document.querySelector(".game-result");
 
   if (hasWinner) {
-    gameResult?.insertAdjacentHTML("beforeend", gameResultTemplate(icon, buttonText, winner, displayImage, displayText));
+    gameResult?.insertAdjacentHTML("beforeend", gameResultTemplate(icon, buttonText, winner));
   } else {
-    gameResult?.insertAdjacentHTML("beforeend", gameResultDrawTemplate(icon, buttonText, winner, displayImage, displayText));
+    gameResult?.insertAdjacentHTML("beforeend", gameResultDrawTemplate(icon, buttonText, displayImage, displayText));
   }
 }
 
@@ -194,11 +215,9 @@ export function setupGameResultScreen(icon: string, buttonText: string, hasWinne
  * @param icon - The path of the result icon.
  * @param buttonText - The label of the button back to the start page.
  * @param winner - The name of the winner.
- * @param displayImage - The class that hides or shows the draw image.
- * @param displayText - The class that hides or shows the draw text.
  * @returns The HTML string of the winner result.
  */
-export function gameResultTemplate(icon: string, buttonText: string, winner?: string, displayImage?: string, displayText?: string): string {
+export function gameResultTemplate(icon: string, buttonText: string, winner?: string): string {
   return `
             <p class="game-result__intro">
                 The winner is
@@ -215,12 +234,16 @@ export function gameResultTemplate(icon: string, buttonText: string, winner?: st
  * Returns the HTML string of the result screen when the game ends in a draw.
  * @param icon - The path of the result icon.
  * @param buttonText - The label of the button back to the start page.
- * @param winner - The name of the winner.
  * @param displayImage - The class that hides or shows the draw image.
  * @param displayText - The class that hides or shows the draw text.
  * @returns The HTML string of the draw result.
  */
-export function gameResultDrawTemplate(icon: string, buttonText: string, winner?: string, displayImage?: string, displayText?: string): string {
+export function gameResultDrawTemplate(
+  icon: string,
+  buttonText: string,
+  displayImage?: string,
+  displayText?: string
+): string {
   return `
             <p class="game-result__intro">
                 It's a
@@ -244,7 +267,7 @@ export function drawTemplate(displayImage?: string, displayText?: string): strin
                 class="game-result__winner-img ${displayImage}"
                 alt="Draw"
             >
-            <p class="game-result__winner ${displayText} ">
+            <p class="game-result__winner ${displayText}">
                 Draw
             </p>
   `;

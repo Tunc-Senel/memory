@@ -23,8 +23,8 @@ export type GameResult = {
   winner: string;
   iconCodeVibes: string;
   iconDaProjects: string;
-  CodeVibeButtonText: string;
-  DaProjectsButtonText: string;
+  codeVibesButtonText: string;
+  daProjectsButtonText: string;
 };
 
 /**
@@ -131,22 +131,22 @@ export const GAME_RESULTS: Record<string, GameResult> = {
     winner: "Blue Player",
     iconCodeVibes: "./public/assets/img/result-icon-blue.png",
     iconDaProjects: "./public/assets/img/result-icon-blue-da-projects.png",
-    CodeVibeButtonText: "Back to start",
-    DaProjectsButtonText: "Home",
+    codeVibesButtonText: "Back to start",
+    daProjectsButtonText: "Home",
   },
   orange: {
     winner: "Orange Player",
     iconCodeVibes: "./public/assets/img/result-icon-orange.png",
     iconDaProjects: "./public/assets/img/result-icon-orange-da-projects.png",
-    CodeVibeButtonText: "Back to start",
-    DaProjectsButtonText: "Home",
+    codeVibesButtonText: "Back to start",
+    daProjectsButtonText: "Home",
   },
   draw: {
     winner: "Draw",
     iconCodeVibes: "./public/assets/img/result-icon-draw.png",
     iconDaProjects: "./public/assets/img/result-icon-draw-da-projects.png",
-    CodeVibeButtonText: "Back to start",
-    DaProjectsButtonText: "Home",
+    codeVibesButtonText: "Back to start",
+    daProjectsButtonText: "Home",
   },
 };
 
