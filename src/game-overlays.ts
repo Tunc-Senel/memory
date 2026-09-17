@@ -88,14 +88,15 @@ export function slideOutExitDialog(): void {
 }
 
 /**
- * Shows the game over screen once the total score reaches the end of the game.
+ * Shows the game over screen once every pair on the board is found.
  * Copies the current score into the screen and shows the result screen afterwards.
  */
 export function showGameOverScreen(): void {
   const blueScore = readScore("blue-player-points");
   const orangeScore = readScore("orange-player-points");
+  const totalPairs = config.SELECTED_BOARD_SIZE / 2;
 
-  if (2 === blueScore + orangeScore) {
+  if (blueScore + orangeScore === totalPairs) {
     (document.querySelector(".game-over__scoreboard") as HTMLElement).appendChild(
       (document.querySelector(".game-score") as HTMLElement).cloneNode(true)
     );
