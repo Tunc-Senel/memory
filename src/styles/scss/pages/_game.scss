@@ -7,8 +7,6 @@
 .game-page {
     @include mixins.flex(column);
     background-color: var(--page-bg);
-    max-width: variables.$content-max-width;
-    margin: 0 auto;
     min-height: 100vh;
     color: var(--text);
     @include mixins.page-padding(40px);

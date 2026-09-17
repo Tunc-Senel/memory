@@ -3,9 +3,11 @@
 
 /* === GLOBAL === */
 body {
-    color: variables.$theme-primary;
+    position: relative;
+    box-sizing: border-box;
     max-width: variables.$content-max-width;
     margin: 0 auto;
+    color: variables.$theme-primary;
 }
 
 /* === UTILITIES === */
