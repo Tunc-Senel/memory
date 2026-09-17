@@ -1,0 +1,279 @@
+import * as config from "./config";
+
+/**
+ * Time in milliseconds the game over screen stays before the result screen follows.
+ */
+export const GAME_OVER_DURATION = 1000;
+
+/**
+ * Time in milliseconds before the result screen is shown.
+ */
+export const GAME_RESULT_DELAY = 2500;
+
+/**
+ * Modifier class that slides the exit dialog into view.
+ */
+export const DIALOG_OPEN_CLASS = "exit-dialog--open";
+
+/**
+ * Time in milliseconds of the dialog slide animation, matching the SCSS transition.
+ */
+export const DIALOG_SLIDE_DURATION = 400;
+
+/**
+ * Shows the game over variant of the selected theme.
+ *
+ * Code vibes uses the game over image, DA Projects uses the game over text.
+ */
+export function setupGameOverScreen(): void {
+  const gameOverScreen = document.getElementById("game-over-screen");
+  const gameOverMessage = document.getElementById("game-over-message");
+  if (config.SELECTED_THEME === "code-vibes") {
+    gameOverScreen?.classList.remove("d-none");
+    gameOverMessage?.classList.add("d-none");
+  } else if (config.SELECTED_THEME === "da-projects") {
+    gameOverMessage?.classList.remove("d-none");
+    gameOverScreen?.classList.add("d-none");
+  }
+}
+
+/**
+ * Removes the initial hiding class once the layout is painted.
+ * Keeps the overlays out of sight until their transition can apply.
+ */
+export function revealOverlays(): void {
+  requestAnimationFrame(() => {
+    document.querySelector(".game-over")?.classList.remove(config.HIDDEN_CLASS);
+    document.querySelector(".game-result")?.classList.remove(config.HIDDEN_CLASS);
+  });
+}
+
+/**
+ * Opens the exit dialog and lets it slide in from the top.
+ */
+export function openExitDialog(): void {
+  const exitDialog = document.querySelector<HTMLDialogElement>(".exit-dialog");
+  if (!exitDialog) return;
+
+  exitDialog.showModal();
+  requestAnimationFrame(() => {
+    exitDialog.classList.add(DIALOG_OPEN_CLASS);
+  });
+}
+
+/**
+ * Closes the exit dialog when the click hits the backdrop, not the content.
+ * @param event - The click event on the dialog.
+ */
+export function handleDialogBackdropClick(event: MouseEvent): void {
+  if (event.target !== document.querySelector(".exit-dialog")) return;
+
+  slideOutExitDialog();
+}
+
+/**
+ * Lets the exit dialog slide back up before closing it.
+ */
+export function slideOutExitDialog(): void {
+  const exitDialog = document.querySelector<HTMLDialogElement>(".exit-dialog");
+  if (!exitDialog) return;
+
+  exitDialog.classList.remove(DIALOG_OPEN_CLASS);
+  setTimeout(() => exitDialog.close(), DIALOG_SLIDE_DURATION);
+}
+
+/**
+ * Shows the game over screen once the total score reaches the end of the game.
+ * Copies the current score into the screen and shows the result screen afterwards.
+ */
+export function showGameOverScreen(): void {
+  const blueScore = Number((document.getElementById("blue-player-points") as HTMLElement).dataset.value);
+  const orangeScore = Number((document.getElementById("orange-player-points") as HTMLElement).dataset.value);
+
+  if (2 === blueScore + orangeScore) {
+    (document.querySelector(".game-over__scoreboard") as HTMLElement).appendChild(
+      (document.querySelector(".game-score") as HTMLElement).cloneNode(true)
+    );
+    (document.querySelector(".game-over") as HTMLElement).classList.add("game-over--visible");
+    setTimeout(showGameResultScreen, GAME_OVER_DURATION);
+  }
+}
+
+/**
+ * Swaps the game over screen for the result screen.
+ */
+export function showGameResultScreen(): void {
+  const blueScore = Number((document.getElementById("blue-player-points") as HTMLElement).dataset.value);
+  const orangeScore = Number((document.getElementById("orange-player-points") as HTMLElement).dataset.value);
+
+  applyGameResult(getResultKey(blueScore, orangeScore));
+  document.querySelector(".game-result")?.classList.add("game-result--visible");
+}
+
+/**
+ * Returns the key of the game result.
+ * @param blueScore - The final score of the blue player.
+ * @param orangeScore - The final score of the orange player.
+ * @returns The result key: blue, orange or draw.
+ */
+export function getResultKey(blueScore: number, orangeScore: number): string {
+  if (blueScore > orangeScore) return "blue";
+  if (orangeScore > blueScore) return "orange";
+  return "draw";
+}
+
+/**
+ * Fills the result screen for the selected theme and marks it with the result.
+ * @param resultKey - The result key: blue, orange or draw.
+ */
+export function applyGameResult(resultKey: string): void {
+  const result = config.GAME_RESULTS[resultKey];
+  if (!result) return;
+  const hasWinner = resultKey !== "draw";
+
+  if (config.SELECTED_THEME === "code-vibes") {
+    applyCodeVibesResult(result, hasWinner);
+  } else if (config.SELECTED_THEME === "da-projects") {
+    applyDaProjectsResult(result, hasWinner);
+  }
+
+  document.querySelector(".game-result")?.classList.add(`game-result--${resultKey}`);
+}
+
+/**
+ * Fills the result screen of the Code vibes theme.
+ *
+ * A draw shows the draw image instead of the draw text.
+ * @param result - The texts and icons of the result.
+ * @param hasWinner - True when one player has won.
+ */
+export function applyCodeVibesResult(result: config.GameResult, hasWinner: boolean): void {
+  if (hasWinner) {
+    setupGameResultScreen(result.iconCodeVibes, result.CodeVibeButtonText, hasWinner, result.winner);
+    return;
+  }
+  setupGameResultScreen(result.iconCodeVibes, result.DaProjectsButtonText, hasWinner, result.winner, "", "d-none");
+}
+
+/**
+ * Fills the result screen of the DA Projects theme.
+ *
+ * A draw shows the draw text instead of the draw image.
+ * @param result - The texts and icons of the result.
+ * @param hasWinner - True when one player has won.
+ */
+export function applyDaProjectsResult(result: config.GameResult, hasWinner: boolean): void {
+  if (hasWinner) {
+    setupGameResultScreen(result.iconDaProjects, result.DaProjectsButtonText, hasWinner, result.winner);
+    return;
+  }
+  setupGameResultScreen(result.iconDaProjects, result.DaProjectsButtonText, hasWinner, result.winner, "d-none", "");
+}
+
+/**
+ * Inserts the winner or draw markup into the result screen.
+ * @param icon - The path of the result icon.
+ * @param buttonText - The label of the button back to the start page.
+ * @param hasWinner - True renders the winner markup, false the draw markup.
+ * @param winner - The name of the winner.
+ * @param displayImage - The class that hides or shows the draw image.
+ * @param displayText - The class that hides or shows the draw text.
+ */
+export function setupGameResultScreen(icon: string, buttonText: string, hasWinner: boolean, winner?: string, displayImage?: string, displayText?: string): void {
+  const gameResult = document.querySelector(".game-result");
+
+  if (hasWinner) {
+    gameResult?.insertAdjacentHTML("beforeend", gameResultTemplate(icon, buttonText, winner, displayImage, displayText));
+  } else {
+    gameResult?.insertAdjacentHTML("beforeend", gameResultDrawTemplate(icon, buttonText, winner, displayImage, displayText));
+  }
+}
+
+/**
+ * Returns the HTML string of the result screen when one player has won.
+ * @param icon - The path of the result icon.
+ * @param buttonText - The label of the button back to the start page.
+ * @param winner - The name of the winner.
+ * @param displayImage - The class that hides or shows the draw image.
+ * @param displayText - The class that hides or shows the draw text.
+ * @returns The HTML string of the winner result.
+ */
+export function gameResultTemplate(icon: string, buttonText: string, winner?: string, displayImage?: string, displayText?: string): string {
+  return `
+            <p class="game-result__intro">
+                The winner is
+            </p>
+            <p class="game-result__winner">
+                ${winner}
+            </p>
+            ${resultIconTemplate(icon)}
+            ${resultButtonTemplate(buttonText)}
+  `;
+}
+
+/**
+ * Returns the HTML string of the result screen when the game ends in a draw.
+ * @param icon - The path of the result icon.
+ * @param buttonText - The label of the button back to the start page.
+ * @param winner - The name of the winner.
+ * @param displayImage - The class that hides or shows the draw image.
+ * @param displayText - The class that hides or shows the draw text.
+ * @returns The HTML string of the draw result.
+ */
+export function gameResultDrawTemplate(icon: string, buttonText: string, winner?: string, displayImage?: string, displayText?: string): string {
+  return `
+            <p class="game-result__intro">
+                It's a
+            </p>
+            ${drawTemplate(displayImage, displayText)}
+            ${resultIconTemplate(icon)}
+            ${resultButtonTemplate(buttonText)}
+  `;
+}
+
+/**
+ * Returns the HTML string of the draw image and the draw text.
+ * @param displayImage - The class that hides or shows the draw image.
+ * @param displayText - The class that hides or shows the draw text.
+ * @returns The HTML string of both draw variants.
+ */
+export function drawTemplate(displayImage?: string, displayText?: string): string {
+  return `
+            <img
+                src="./public/assets/img/draw-text.png"
+                class="game-result__winner-img ${displayImage}"
+                alt="Draw"
+            >
+            <p class="game-result__winner ${displayText} ">
+                Draw
+            </p>
+  `;
+}
+
+/**
+ * Returns the HTML string of the result icon.
+ * @param icon - The path of the result icon.
+ * @returns The HTML string of the icon.
+ */
+export function resultIconTemplate(icon: string): string {
+  return `
+            <img
+                src="${icon}"
+                class="game-result__icon"
+                alt=""
+            >
+  `;
+}
+
+/**
+ * Returns the HTML string of the button back to the start page.
+ * @param buttonText - The label of the button.
+ * @returns The HTML string of the button.
+ */
+export function resultButtonTemplate(buttonText: string): string {
+  return `
+            <a href="./index.html" class="game-result__button">
+                ${buttonText}
+            </a>
+  `;
+}
