@@ -1,4 +1,5 @@
 @use '../abstract/_variables.scss' as variables;
+@use '../abstract/_breakpoints.scss' as bp;
 @use '../abstract/_mixins.scss' as mixins;
 
 /* === GAME OVER & GAME RESULT OVERLAYS === */
@@ -52,11 +53,27 @@
     @include mixins.flex(column, $justify: flex-start, $align: center);
 }
 
-.game-result__confetti {
-    display: block;
+.game-result__confetti,
+.game-result__confetti-wide {
     width: 100%;
     height: auto;
     margin: 0 0 64px;
+}
+
+.game-result__confetti {
+    display: none;
+
+    @include bp.respond("wide") {
+        display: block;
+    }
+}
+
+.game-result__confetti-wide {
+    display: block;
+
+    @include bp.respond("wide") {
+        display: none;
+    }
 }
 
 /* === WINNER === */
@@ -96,7 +113,8 @@
     justify-content: center;
 }
 
-.game-result--draw .game-result__confetti {
+.game-result--draw .game-result__confetti,
+.game-result--draw .game-result__confetti-wide {
     display: none;
 }
 
