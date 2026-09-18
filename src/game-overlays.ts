@@ -264,7 +264,7 @@ function gameResultDrawTemplate(
 function drawTemplate(displayImage?: string, displayText?: string): string {
   return `
             <img
-                src="./public/assets/img/draw-text.png"
+                src="./assets/img/draw-text.png"
                 class="game-result__winner-img ${displayImage}"
                 alt="Draw"
             >

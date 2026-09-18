@@ -74,11 +74,11 @@ export const SELECTED_BOARD_SIZE =
  */
 export const THEME_PREVIEWS: Record<string, ThemePreview> = {
   "code-vibes": {
-    src: "./public/assets/img/theme-preview-code-vibes.png",
+    src: "./assets/img/theme-preview-code-vibes.png",
     alt: "Preview of the Code vibes theme with code and Git icons",
   },
   "da-projects": {
-    src: "./public/assets/img/theme-preview-da-projects.png",
+    src: "./assets/img/theme-preview-da-projects.png",
     alt: "Preview of the DA Projects theme with code and wave icons",
   },
 };
@@ -88,16 +88,16 @@ export const THEME_PREVIEWS: Record<string, ThemePreview> = {
  */
 const THEME_ASSETS: Record<string, ThemeAssets> = {
   "code-vibes": {
-    cardPath: "./public/assets/img/cards/code-vibes",
-    markerBlue: "./public/assets/img/player-marker-blue.png",
-    markerOrange: "./public/assets/img/player-marker-orange.png",
+    cardPath: "./assets/img/cards/code-vibes",
+    markerBlue: "./assets/img/player-marker-blue.png",
+    markerOrange: "./assets/img/player-marker-orange.png",
     currentMarker: "",
   },
   "da-projects": {
-    cardPath: "./public/assets/img/cards/da-projects",
-    markerBlue: "./public/assets/img/pawn-blue.png",
-    markerOrange: "./public/assets/img/pawn-orange.png",
-    currentMarker: "./public/assets/img/pawn-white.png",
+    cardPath: "./assets/img/cards/da-projects",
+    markerBlue: "./assets/img/pawn-blue.png",
+    markerOrange: "./assets/img/pawn-orange.png",
+    currentMarker: "./assets/img/pawn-white.png",
   },
 };
 
@@ -129,22 +129,22 @@ export const PLAYER_LABELS: Record<string, string> = {
 export const GAME_RESULTS: Record<string, GameResult> = {
   blue: {
     winner: "Blue Player",
-    iconCodeVibes: "./public/assets/img/result-icon-blue.png",
-    iconDaProjects: "./public/assets/img/result-icon-blue-da-projects.png",
+    iconCodeVibes: "./assets/img/result-icon-blue.png",
+    iconDaProjects: "./assets/img/result-icon-blue-da-projects.png",
     codeVibesButtonText: "Back to start",
     daProjectsButtonText: "Home",
   },
   orange: {
     winner: "Orange Player",
-    iconCodeVibes: "./public/assets/img/result-icon-orange.png",
-    iconDaProjects: "./public/assets/img/result-icon-orange-da-projects.png",
+    iconCodeVibes: "./assets/img/result-icon-orange.png",
+    iconDaProjects: "./assets/img/result-icon-orange-da-projects.png",
     codeVibesButtonText: "Back to start",
     daProjectsButtonText: "Home",
   },
   draw: {
     winner: "Draw",
-    iconCodeVibes: "./public/assets/img/result-icon-draw.png",
-    iconDaProjects: "./public/assets/img/result-icon-draw-da-projects.png",
+    iconCodeVibes: "./assets/img/result-icon-draw.png",
+    iconDaProjects: "./assets/img/result-icon-draw-da-projects.png",
     codeVibesButtonText: "Back to start",
     daProjectsButtonText: "Home",
   },

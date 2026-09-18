@@ -1,5 +1,14 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: "/dist/"
+  base: "./",
+  build: {
+    rollupOptions: {
+      input: {
+        index: "index.html",
+        settings: "settings.html",
+        game: "game.html",
+      },
+    },
+  },
 });
