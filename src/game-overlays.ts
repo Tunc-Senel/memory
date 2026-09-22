@@ -3,7 +3,7 @@ import * as config from "./config";
 /**
  * Time in milliseconds the game over screen stays before the result screen follows.
  */
-const GAME_OVER_DURATION = 1000;
+const GAME_OVER_DURATION = 2000;
 
 /**
  * Modifier class that slides the game over screen into view.
