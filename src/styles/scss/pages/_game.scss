@@ -177,6 +177,7 @@
 /* === GAME BOARD === */
 .game-board {
     display: grid;
+    align-self: center;
     gap: clamp(6px, 1.2vw, 16px);
     width: fit-content;
 }

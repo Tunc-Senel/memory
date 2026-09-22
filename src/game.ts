@@ -55,6 +55,8 @@ export function applyThemeClass(): void {
 
 /**
  * Builds the game board for the selected settings.
+ *
+ * The cards are inserted before the overlays and the exit dialog, which share the same container.
  */
 export function setupGameBoard(): void {
   const gameBoard = document.querySelector(".game-board");
@@ -62,7 +64,7 @@ export function setupGameBoard(): void {
 
   const cardNumbers = createCardNumbers(config.SELECTED_BOARD_SIZE);
   gameBoard.classList.add(config.COLUMN_CLASSES[config.SELECTED_BOARD_SIZE]);
-  gameBoard.innerHTML = renderCards(cardNumbers);
+  gameBoard.insertAdjacentHTML("afterbegin", renderCards(cardNumbers));
   updateCurrentPlayerMarker(config.SELECTED_PLAYER);
   updateScoreMarkers();
   overlays.setupGameOverScreen();
@@ -310,4 +312,4 @@ function hideUnmatchedCards(
 function changePlayer(): void {
   currentPlayer = currentPlayer === "blue" ? "orange" : "blue";
   updateCurrentPlayerMarker(currentPlayer);
-}
+} 
