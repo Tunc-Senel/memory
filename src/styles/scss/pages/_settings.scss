@@ -6,11 +6,11 @@
 /* === SETTINGS PAGE === */
 .settings-page {
     @include mixins.flex(column);
-    padding: 40px 40px 0 76px;
+    padding: 40px 40px 0;
     min-height: 100vh;
 
     @include bp.respond("mobile") {
-        padding: 20px 8px 0 44px;
+        padding: 20px 8px 0;
     }
 }
 
@@ -47,11 +47,11 @@
 .settings-header {
     @include mixins.flex(column);
     position: relative;
-    padding-bottom: 48px;
-    margin-left: -24px;
+    padding: 0 0 48px 18px;
 
     @include bp.respond("desktop") {
         align-items: center;
+        padding-left: 0;
     }
 }
 
@@ -67,7 +67,7 @@
 .settings-header__underline {
     position: absolute;
     top: 56px;
-    left: -18px;
+    left: 0;
     width: 251px;
 
     @include bp.respond("desktop") {
@@ -78,6 +78,7 @@
 /* === SETTINGS OPTIONS === */
 .settings-option {
     position: relative;
+    padding-left: 36px;
 }
 
 .settings-option__header {
@@ -90,9 +91,9 @@
 }
 
 .settings-option__icon {
-    top: 0;
-    left: -36px;
     position: absolute;
+    top: 0;
+    left: 0;
     width: auto;
     height: 26.5px;
 }
