@@ -62,18 +62,9 @@
     }
 }
 
-/* === MAIN === */
-main {
-    @include mixins.flex-center(column);
-    position: relative;
-}
-
 /* === INTRO TEXT === */
-.home-text {
-    @include mixins.flex(column, $justify: center);
-}
-
-.home-text p {
+.home__intro {
+    align-self: flex-start;
     font-size: fct.px-to-rem(48);
     margin: 0;
 
@@ -90,7 +81,7 @@ main {
     }
 }
 
-.home-text h1 {
+.home__title {
     padding: 0 0 80px;
     margin: 0;
     font-size: fct.px-to-rem(140);

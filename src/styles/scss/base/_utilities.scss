@@ -10,6 +10,11 @@ body {
     color: variables.$theme-primary;
 }
 
+main {
+    @include mixins.flex-center(column);
+    position: relative;
+}
+
 /* === UTILITIES === */
 .d-none {
     display: none !important;
