@@ -167,6 +167,13 @@
     }
 }
 
+.game-score__points {
+    display: inline-block;
+    min-width: 2ch;
+    font-variant-numeric: tabular-nums;
+    text-align: left;
+}
+
 /* === GAME BOARD === */
 .game-board {
     display: grid;
