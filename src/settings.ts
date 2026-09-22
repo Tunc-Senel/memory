@@ -21,16 +21,6 @@ let isProgressUnlocked = false;
 const BOUNCE_CLASS = "settings-progress--bounce";
 
 /**
- * Modifier class of the unlocked progress bar.
- */
-const UNLOCKED_CLASS = "settings-progress--unlocked";
-
-/**
- * Modifier class of the progress bar once every group has a selection.
- */
-const READY_CLASS = "settings-progress--ready";
-
-/**
  * Modifier class of the disabled start button.
  */
 const DISABLED_CLASS = "settings-progress__start-button--disabled";
@@ -51,7 +41,6 @@ const HINT_VISIBLE_DURATION = 1500;
 export function initSettingsListeners(): void {
   document.querySelector(".settings-page__options")?.addEventListener("change", handleOptionChange);
   initThemePreviewListeners();
-  document.querySelector<HTMLElement>(".settings-progress")?.addEventListener("click", unlockProgressBar);
   document
     .querySelector<HTMLAnchorElement>(".settings-progress__start-button")
     ?.addEventListener("click", handleStartClick);
@@ -124,38 +113,31 @@ function rememberProgressLabel(radio: HTMLInputElement): void {
   if (!stepId || !label) return;
 
   PENDING_LABELS[stepId] = label;
-  markProgressReady();
   if (isProgressUnlocked) writeProgressLabel(stepId, label);
+  markProgressReady();
 }
 
 /**
- * Marks the progress bar as clickable once every group has a selection.
- * Enables the start button at the same time.
+ * Enables the start button and opens the progress bar once every group has a selection.
  */
 function markProgressReady(): void {
   const startButton = document.querySelector(".settings-progress__start-button");
   if (Object.keys(PENDING_LABELS).length < OPTION_GROUP_COUNT) return;
 
-  document.querySelector(".settings-progress")?.classList.add(READY_CLASS);
   startButton?.classList.remove(DISABLED_CLASS);
   startButton?.setAttribute("aria-disabled", "false");
   startButton?.removeAttribute("aria-describedby");
+  unlockProgressBar();
 }
 
 /**
- * Unlocks the progress bar on a click once every group has a selection.
- * Ignores clicks on the start button and every later click.
- * @param event - The click event on the progress bar.
+ * Shows the selected labels in the progress bar and plays its animation.
+ * Runs only once, later changes are written through directly.
  */
-function unlockProgressBar(event: MouseEvent): void {
+function unlockProgressBar(): void {
   if (isProgressUnlocked) return;
-  if (Object.keys(PENDING_LABELS).length < OPTION_GROUP_COUNT) return;
-
-  const target = event.target as HTMLElement;
-  if (target.closest(".settings-progress__start-button")) return;
 
   isProgressUnlocked = true;
-  document.querySelector(".settings-progress")?.classList.add(UNLOCKED_CLASS);
   writePendingLabels();
   swapProgressDividers();
   markProgressSteps();

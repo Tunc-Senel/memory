@@ -225,7 +225,6 @@
         padding: 0;
         background-color: transparent;
         animation: none;
-        cursor: default;
     }
 }
 
@@ -259,14 +258,6 @@
     @include bp.respond("tablet") {
         animation: none;
     }
-}
-
-.settings-progress--ready {
-    cursor: pointer;
-}
-
-.settings-progress--unlocked {
-    cursor: default;
 }
 
 /* === START-BUTTON === */
