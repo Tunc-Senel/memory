@@ -10,7 +10,7 @@
 
 /* === PLAY-BUTTON === */
 .btn__home {
-    @include mixins.flex(row, $justify: space-around, $align: flex-end, $gap: 20px);
+    @include mixins.flex(row, $justify: space-around, $align: center, $gap: 20px);
     position: relative;
     z-index: 0;
     font-size: 40px;
