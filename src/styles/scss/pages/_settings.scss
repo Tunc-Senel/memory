@@ -78,12 +78,22 @@
 /* === SETTINGS OPTIONS === */
 .settings-option {
     position: relative;
-    padding-left: 36px;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0 0 40px 36px;
+    border: 0;
+
+    @include bp.respond("mobile") {
+        padding-bottom: 24px;
+    }
 }
 
-.settings-option__header {
-    @include mixins.flex(row, $align: flex-start, $gap: 12px);
-    padding-bottom: 16px;
+.settings-option:last-of-type {
+    padding-bottom: 0;
+}
+
+.settings-option__legend {
+    padding: 0 0 16px;
 
     @include bp.respond("mobile") {
         padding-bottom: 4px;
@@ -105,58 +115,18 @@
     font-size: fct.px-to-rem(24);
 }
 
-/* === OPTION LIST === */
-.settings-option__list {
-    margin: 0;
-    padding-bottom: 40px;
-    padding-inline-start: 8px;
-    list-style-type: none;
-
-    @include bp.respond("mobile") {
-        padding-bottom: 24px;
-    }
-}
-
-.settings-option:last-of-type .settings-option__list {
-    padding-bottom: 0;
-}
-
-/* === OPTION ITEM === */
-.settings-option__list-item {
+/* === OPTION CHOICE === */
+.settings-option__choice {
+    @include mixins.flex(row, $align: center, $gap: 4px);
+    padding: 0 0 8px 8px;
     font-family: variables.$font-secondary;
     font-weight: variables.$font-weight-regular;
-    font-size: 20px;
-    padding-bottom: 8px;
-    cursor: pointer;
     line-height: 1.5;
-    @include mixins.focus-ring(variables.$theme-primary);
+    cursor: pointer;
 }
 
-.settings-option__list-item--highlighted {
-    font-weight: variables.$font-weight-bold;
-
-    &::after {
-        content: "";
-        display: inline-block;
-        width: 40px;
-        height: 16px;
-        margin-left: 4px;
-        vertical-align: middle;
-        background-image: url("/assets/img/pointer-active-option.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
-}
-
-/* === RADIO ICONS === */
-.settings-option__radio--checked {
-    width: 20px;
-    height: auto;
-}
-
-.settings-option__radio--unchecked {
-    width: 20px;
-    height: auto;
+.settings-option__choice:last-of-type {
+    padding-bottom: 0;
 }
 
 .settings-option__label {
@@ -167,8 +137,50 @@
     }
 }
 
-.settings-option .settings-option__list-item:last-of-type {
-    padding-bottom: 0;
+/* === RADIO BUTTON === */
+.settings-option__radio {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    background: url("../../../../public/assets/img/radio-unchecked.png") center / contain no-repeat;
+    appearance: none;
+    cursor: pointer;
+    @include mixins.focus-ring(variables.$theme-primary);
+}
+
+/* === CHECKED STATE === */
+.settings-option__radio:checked,
+.settings-option--preview .settings-option__choice:hover .settings-option__radio {
+    background-image: url("../../../../public/assets/img/radio-checked.png");
+}
+
+.settings-option__radio:checked + .settings-option__label,
+.settings-option--preview .settings-option__choice:hover .settings-option__label {
+    font-weight: variables.$font-weight-bold;
+
+    &::after {
+        content: "";
+        display: inline-block;
+        width: 40px;
+        height: 16px;
+        margin-left: 4px;
+        vertical-align: middle;
+        background: url("../../../../public/assets/img/pointer-active-option.png") center / contain no-repeat;
+    }
+}
+
+/* === HOVER PREVIEW === */
+.settings-option--preview:has(.settings-option__choice:hover) .settings-option__choice:not(:hover) .settings-option__radio {
+    background-image: url("../../../../public/assets/img/radio-unchecked.png");
+}
+
+.settings-option--preview:has(.settings-option__choice:hover) .settings-option__choice:not(:hover) .settings-option__label {
+    font-weight: variables.$font-weight-regular;
+
+    &::after {
+        content: none;
+    }
 }
 
 /* === THEME PREVIEW === */

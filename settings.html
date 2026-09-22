@@ -24,209 +24,150 @@
     <main class="settings-page__main">
 
         <!-- LEFT COLUMN: OPTIONS -->
-        <div class="settings-page__options">
+        <section class="settings-page__options" aria-label="Game options">
 
             <!-- GAME THEMES -->
-            <section class="settings-option">
-                <header class="settings-option__header">
+            <fieldset class="settings-option settings-option--preview" data-step="step-theme">
+                <legend class="settings-option__legend">
                     <img
                         src="./assets/img/icon-game-theme.png"
                         class="settings-option__icon"
                         alt=""
                     >
-                    <h2 id="game-themes-title" class="settings-option__title">
+                    <h2 class="settings-option__title">
                         Game themes
                     </h2>
-                </header>
-                <ul id="game-themes"
-                    class="settings-option__list"
-                    role="radiogroup"
-                    aria-labelledby="game-themes-title"
-                    data-step="step-theme">
+                </legend>
 
-                    <!-- THEME-CODE-VIBES -->
-                    <li class="settings-option__list-item settings-option__list-item--active"
-                        role="radio"
-                        aria-checked="true"
-                        tabindex="0"
-                        data-value="code-vibes"
-                        data-label="Code vibes theme">
-                        <img
-                            src="./assets/img/radio-checked.png"
-                            class="settings-option__radio--checked"
-                            alt="">
-                        <img
-                            src="./assets/img/radio-unchecked.png"
-                            class="settings-option__radio--unchecked d-none"
-                            alt="">
-                        <span class="settings-option__label">
-                            Code vibes theme
-                        </span>
-                    </li>
+                <!-- THEME-CODE-VIBES -->
+                <label class="settings-option__choice">
+                    <input
+                        type="radio"
+                        name="theme"
+                        value="code-vibes"
+                        class="settings-option__radio"
+                        data-label="Code vibes theme"
+                        checked
+                    >
+                    <span class="settings-option__label">
+                        Code vibes theme
+                    </span>
+                </label>
 
-                    <!-- THEME-DA-PROJECTS -->
-                    <li class="settings-option__list-item"
-                        role="radio"
-                        aria-checked="false"
-                        tabindex="0"
-                        data-value="da-projects"
-                        data-label="DA Projects theme">
-                        <img
-                            src="./assets/img/radio-checked.png"
-                            class="settings-option__radio--checked d-none"
-                            alt="">
-                        <img
-                            src="./assets/img/radio-unchecked.png"
-                            class="settings-option__radio--unchecked"
-                            alt="">
-                        <span class="settings-option__label">
-                            DA Projects theme
-                        </span>
-                    </li>
-                </ul>
-            </section>
+                <!-- THEME-DA-PROJECTS -->
+                <label class="settings-option__choice">
+                    <input
+                        type="radio"
+                        name="theme"
+                        value="da-projects"
+                        class="settings-option__radio"
+                        data-label="DA Projects theme"
+                    >
+                    <span class="settings-option__label">
+                        DA Projects theme
+                    </span>
+                </label>
+            </fieldset>
 
             <!-- CHOOSE PLAYER -->
-            <section class="settings-option">
-                <header class="settings-option__header">
+            <fieldset class="settings-option" data-step="step-player">
+                <legend class="settings-option__legend">
                     <img
                         src="./assets/img/icon-choose-player.png"
                         class="settings-option__icon"
                         alt=""
                     >
-                    <h2 id="choose-player-title" class="settings-option__title">
+                    <h2 class="settings-option__title">
                         Choose player
                     </h2>
-                </header>
-                <ul id="choose-player"
-                    class="settings-option__list"
-                    role="radiogroup"
-                    aria-labelledby="choose-player-title"
-                    data-step="step-player">
+                </legend>
 
-                    <!-- PLAYER-BLUE -->
-                    <li class="settings-option__list-item"
-                        role="radio"
-                        aria-checked="false"
-                        tabindex="0"
-                        data-value="blue"
-                        data-label="Blue Player">
-                        <img
-                            src="./assets/img/radio-checked.png"
-                            class="settings-option__radio--checked d-none"
-                            alt="">
-                        <img
-                            src="./assets/img/radio-unchecked.png"
-                            class="settings-option__radio--unchecked"
-                            alt="">
-                        <span class="settings-option__label">
-                            Blue
-                        </span>
-                    </li>
+                <!-- PLAYER-BLUE -->
+                <label class="settings-option__choice">
+                    <input
+                        type="radio"
+                        name="player"
+                        value="blue"
+                        class="settings-option__radio"
+                        data-label="Blue Player"
+                    >
+                    <span class="settings-option__label">
+                        Blue
+                    </span>
+                </label>
 
-                    <!-- PLAYER-ORANGE -->
-                    <li class="settings-option__list-item"
-                        role="radio"
-                        aria-checked="false"
-                        tabindex="0"
-                        data-value="orange"
-                        data-label="Orange Player">
-                        <img
-                            src="./assets/img/radio-checked.png"
-                            class="settings-option__radio--checked d-none"
-                            alt="">
-                        <img
-                            src="./assets/img/radio-unchecked.png"
-                            class="settings-option__radio--unchecked"
-                            alt="">
-                        <span class="settings-option__label">
-                            Orange
-                        </span>
-                    </li>
-                </ul>
-            </section>
+                <!-- PLAYER-ORANGE -->
+                <label class="settings-option__choice">
+                    <input
+                        type="radio"
+                        name="player"
+                        value="orange"
+                        class="settings-option__radio"
+                        data-label="Orange Player"
+                    >
+                    <span class="settings-option__label">
+                        Orange
+                    </span>
+                </label>
+            </fieldset>
 
             <!-- BOARD SIZE -->
-            <section class="settings-option">
-                <header class="settings-option__header">
+            <fieldset class="settings-option" data-step="step-board">
+                <legend class="settings-option__legend">
                     <img
                         src="./assets/img/icon-board-size.png"
                         class="settings-option__icon"
                         alt=""
                     >
-                    <h2 id="board-size-title" class="settings-option__title">
+                    <h2 class="settings-option__title">
                         Board size
                     </h2>
-                </header>
-                <ul id="board-size"
-                    class="settings-option__list"
-                    role="radiogroup"
-                    aria-labelledby="board-size-title"
-                    data-step="step-board">
+                </legend>
 
-                    <!-- BOARD-16-CARDS -->
-                    <li class="settings-option__list-item"
-                        role="radio"
-                        aria-checked="false"
-                        tabindex="0"
-                        data-value="16"
-                        data-label="Board-16 Cards">
-                        <img
-                            src="./assets/img/radio-checked.png"
-                            class="settings-option__radio--checked d-none"
-                            alt="">
-                        <img
-                            src="./assets/img/radio-unchecked.png"
-                            class="settings-option__radio--unchecked"
-                            alt="">
-                        <span class="settings-option__label">
-                            16 cards
-                        </span>
-                    </li>
+                <!-- BOARD-16-CARDS -->
+                <label class="settings-option__choice">
+                    <input
+                        type="radio"
+                        name="board-size"
+                        value="16"
+                        class="settings-option__radio"
+                        data-label="Board-16 Cards"
+                    >
+                    <span class="settings-option__label">
+                        16 cards
+                    </span>
+                </label>
 
-                    <!-- BOARD-24-CARDS -->
-                    <li class="settings-option__list-item"
-                        role="radio"
-                        aria-checked="false"
-                        tabindex="0"
-                        data-value="24"
-                        data-label="Board-24 Cards">
-                        <img
-                            src="./assets/img/radio-checked.png"
-                            class="settings-option__radio--checked d-none"
-                            alt="">
-                        <img
-                            src="./assets/img/radio-unchecked.png"
-                            class="settings-option__radio--unchecked"
-                            alt="">
-                        <span class="settings-option__label">
-                            24 cards
-                        </span>
-                    </li>
+                <!-- BOARD-24-CARDS -->
+                <label class="settings-option__choice">
+                    <input
+                        type="radio"
+                        name="board-size"
+                        value="24"
+                        class="settings-option__radio"
+                        data-label="Board-24 Cards"
+                    >
+                    <span class="settings-option__label">
+                        24 cards
+                    </span>
+                </label>
 
-                    <!-- BOARD-36-CARDS -->
-                    <li class="settings-option__list-item"
-                        role="radio"
-                        aria-checked="false"
-                        tabindex="0"
-                        data-value="36"
-                        data-label="Board-36 Cards">
-                        <img
-                            src="./assets/img/radio-checked.png"
-                            class="settings-option__radio--checked d-none"
-                            alt="">
-                        <img
-                            src="./assets/img/radio-unchecked.png"
-                            class="settings-option__radio--unchecked"
-                            alt="">
-                        <span class="settings-option__label">
-                            36 cards
-                        </span>
-                    </li>
-                </ul>
-            </section>
+                <!-- BOARD-36-CARDS -->
+                <label class="settings-option__choice">
+                    <input
+                        type="radio"
+                        name="board-size"
+                        value="36"
+                        class="settings-option__radio"
+                        data-label="Board-36 Cards"
+                    >
+                    <span class="settings-option__label">
+                        36 cards
+                    </span>
+                </label>
+            </fieldset>
 
-        </div>
+        </section>
 
         <!-- RIGHT COLUMN: SUMMARY -->
         <section class="settings-page__summary" aria-label="Selection summary">

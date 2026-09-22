@@ -16,16 +16,6 @@ const PENDING_LABELS: Record<string, string> = {};
 let isProgressUnlocked = false;
 
 /**
- * Modifier class of the selected option.
- */
-const ACTIVE_CLASS = "settings-option__list-item--active";
-
-/**
- * Modifier class of the option that is shown as chosen.
- */
-const HIGHLIGHT_CLASS = "settings-option__list-item--highlighted";
-
-/**
  * Modifier class that plays the bounce animation of the progress bar.
  */
 const BOUNCE_CLASS = "settings-progress--bounce";
@@ -59,9 +49,8 @@ const HINT_VISIBLE_DURATION = 1500;
  * Registers all event listeners required for the settings page.
  */
 export function initSettingsListeners(): void {
-  initSelectOptionListeners(document.getElementById("game-themes") as HTMLElement, true);
-  initSelectOptionListeners(document.getElementById("choose-player") as HTMLElement, false);
-  initSelectOptionListeners(document.getElementById("board-size") as HTMLElement, false);
+  document.querySelector(".settings-page__options")?.addEventListener("change", handleOptionChange);
+  initThemePreviewListeners();
   document.querySelector<HTMLElement>(".settings-progress")?.addEventListener("click", unlockProgressBar);
   document
     .querySelector<HTMLAnchorElement>(".settings-progress__start-button")
@@ -69,124 +58,54 @@ export function initSettingsListeners(): void {
 }
 
 /**
- * Attaches the selection listeners to every option of a group.
- * Optionally adds a hover preview of the radio icons.
- * @param optionList - The list element holding the options.
- * @param withHoverPreview - True adds the hover preview behaviour.
+ * Stores the label of a newly selected option.
+ * Updates the preview image when the theme changes.
+ * @param event - The change event of a radio button.
  */
-function initSelectOptionListeners(
-  optionList: HTMLElement,
-  withHoverPreview: boolean
-): void {
-  const listItems = optionList.querySelectorAll<HTMLLIElement>(
-    ".settings-option__list-item"
+function handleOptionChange(event: Event): void {
+  const radio = event.target as HTMLInputElement;
+
+  rememberProgressLabel(radio);
+  if (radio.name === "theme") updateThemeImg(radio.value);
+}
+
+/**
+ * Previews a theme while its option is hovered and restores the selection afterwards.
+ */
+function initThemePreviewListeners(): void {
+  const choices = document.querySelectorAll<HTMLLabelElement>(
+    ".settings-option--preview .settings-option__choice"
   );
 
-  listItems.forEach((listItem) => {
-    addSelectListeners(optionList, listItems, listItem);
-    if (withHoverPreview) addHoverPreviewListeners(listItems, listItem);
+  choices.forEach((choice) => {
+    const radio = choice.querySelector<HTMLInputElement>(".settings-option__radio");
+    choice.addEventListener("mouseenter", () => updateThemeImg(radio?.value ?? ""));
+    choice.addEventListener("mouseleave", restoreThemeImg);
   });
 }
 
 /**
- * Selects an option on click and on Enter or Space.
- * @param optionList - The list element holding the options.
- * @param listItems - All options of the group.
- * @param listItem - The option receiving the listeners.
+ * Shows the preview image of the selected theme again.
  */
-function addSelectListeners(
-  optionList: HTMLElement,
-  listItems: NodeListOf<HTMLLIElement>,
-  listItem: HTMLLIElement
-): void {
-  listItem.addEventListener("click", () =>
-    selectOption(optionList, listItems, listItem)
-  );
-  listItem.addEventListener("keydown", handleOptionKeydown);
-}
-
-/**
- * Lets keyboard users select an option with Enter or Space.
- * Reuses the click logic of the option.
- * @param event - The keydown event on an option.
- */
-function handleOptionKeydown(event: KeyboardEvent): void {
-  if (event.key !== "Enter" && event.key !== " ") return;
-
-  event.preventDefault();
-  (event.currentTarget as HTMLLIElement).click();
-}
-
-/**
- * Previews an option while it is hovered and restores the selection afterwards.
- * @param listItems - All options of the group.
- * @param listItem - The option receiving the listeners.
- */
-function addHoverPreviewListeners(
-  listItems: NodeListOf<HTMLLIElement>,
-  listItem: HTMLLIElement
-): void {
-  listItem.addEventListener("mouseenter", () =>
-    previewOption(listItems, listItem)
-  );
-  listItem.addEventListener("mouseleave", () => restoreSelectedOption(listItems));
+function restoreThemeImg(): void {
+  updateThemeImg(readSelectedValue("theme"));
 }
 
 /**
  * Fills the pending labels with the options preselected in the markup.
  */
 export function initPendingLabels(): void {
-  const optionLists = [
-    document.getElementById("game-themes") as HTMLElement,
-    document.getElementById("choose-player") as HTMLElement,
-    document.getElementById("board-size") as HTMLElement,
-  ];
-
-  optionLists.forEach((optionList) => {
-    const activeItem = optionList.querySelector<HTMLLIElement>(`.${ACTIVE_CLASS}`);
-    if (activeItem) {
-      setOptionState(activeItem, true);
-      rememberProgressLabel(optionList, activeItem);
-    }
-  });
+  document
+    .querySelectorAll<HTMLInputElement>(".settings-option__radio:checked")
+    .forEach((radio) => rememberProgressLabel(radio));
 }
 
 /**
- * Previews the hovered option without changing the actual selection.
- * @param listItems - All options of the group.
- * @param hoveredItem - The option the user hovers.
+ * Updates the preview image according to a theme.
+ * @param themeKey - The value of the theme option.
  */
-function previewOption(
-  listItems: NodeListOf<HTMLLIElement>,
-  hoveredItem: HTMLLIElement
-): void {
-  listItems.forEach((listItem) => {
-    setOptionState(listItem, listItem === hoveredItem);
-  });
-  updateThemeImg(hoveredItem);
-}
-
-/**
- * Restores the radio icons based on the currently selected option.
- * @param listItems - All options of the group.
- */
-function restoreSelectedOption(listItems: NodeListOf<HTMLLIElement>): void {
-  listItems.forEach((listItem) => {
-    const isActive = listItem.classList.contains(ACTIVE_CLASS);
-    setOptionState(listItem, isActive);
-    if (isActive) updateThemeImg(listItem);
-  });
-}
-
-/**
- * Updates the preview image according to the theme of an option.
- * @param listItem - The option holding the theme key.
- */
-function updateThemeImg(listItem: HTMLElement): void {
+function updateThemeImg(themeKey: string): void {
   const themeImg = document.getElementById("theme-img") as HTMLImageElement;
-  const themeKey = listItem.dataset.value;
-  if (!themeKey) return;
-
   const preview = config.THEME_PREVIEWS[themeKey];
   if (!preview) return;
 
@@ -195,53 +114,13 @@ function updateThemeImg(listItem: HTMLElement): void {
 }
 
 /**
- * Selects the clicked option and resets all other options in the group.
- * @param optionList - The list element holding the options.
- * @param listItems - All options of the group.
- * @param selectedItem - The option the user clicked.
- */
-function selectOption(
-  optionList: HTMLElement,
-  listItems: NodeListOf<HTMLLIElement>,
-  selectedItem: HTMLLIElement
-): void {
-  listItems.forEach((listItem) => {
-    const isSelected = listItem === selectedItem;
-    listItem.classList.toggle(ACTIVE_CLASS, isSelected);
-    listItem.setAttribute("aria-checked", String(isSelected));
-    setOptionState(listItem, isSelected);
-  });
-  rememberProgressLabel(optionList, selectedItem);
-}
-
-/**
- * Applies the visual state of a single option.
- * Swaps the radio icons and toggles the highlight styling.
- * @param listItem - The option whose appearance is updated.
- * @param isHighlighted - True shows the option as chosen.
- */
-function setOptionState(listItem: HTMLLIElement, isHighlighted: boolean): void {
-  listItem
-    .querySelector(".settings-option__radio--checked")
-    ?.classList.toggle(config.HIDDEN_CLASS, !isHighlighted);
-  listItem
-    .querySelector(".settings-option__radio--unchecked")
-    ?.classList.toggle(config.HIDDEN_CLASS, isHighlighted);
-  listItem.classList.toggle(HIGHLIGHT_CLASS, isHighlighted);
-}
-
-/**
- * Stores the label of the selected option.
+ * Stores the label of a selected option.
  * Writes it through directly once the progress bar is unlocked.
- * @param optionList - The list element holding the options.
- * @param selectedItem - The option the user clicked.
+ * @param radio - The selected radio button.
  */
-function rememberProgressLabel(
-  optionList: HTMLElement,
-  selectedItem: HTMLLIElement
-): void {
-  const stepId = optionList.dataset.step;
-  const label = selectedItem.dataset.label;
+function rememberProgressLabel(radio: HTMLInputElement): void {
+  const stepId = radio.closest<HTMLElement>(".settings-option")?.dataset.step;
+  const label = radio.dataset.label;
   if (!stepId || !label) return;
 
   PENDING_LABELS[stepId] = label;
@@ -369,17 +248,19 @@ function flashStartHint(): void {
  * Saves the selected settings before leaving the page.
  */
 function saveSelectedSettings(): void {
-  sessionStorage.setItem(config.STORAGE_KEYS.theme, readSelectedValue(document.getElementById("game-themes") as HTMLElement));
-  sessionStorage.setItem(config.STORAGE_KEYS.player, readSelectedValue(document.getElementById("choose-player") as HTMLElement));
-  sessionStorage.setItem(config.STORAGE_KEYS.boardSize, readSelectedValue(document.getElementById("board-size") as HTMLElement));
+  sessionStorage.setItem(config.STORAGE_KEYS.theme, readSelectedValue("theme"));
+  sessionStorage.setItem(config.STORAGE_KEYS.player, readSelectedValue("player"));
+  sessionStorage.setItem(config.STORAGE_KEYS.boardSize, readSelectedValue("board-size"));
 }
 
 /**
- * Reads the data value of the active option of a group.
- * @param optionList - The list element holding the options.
- * @returns The value of the active option, or an empty string.
+ * Reads the value of the checked radio button of a group.
+ * @param groupName - The name attribute of the radio group.
+ * @returns The value of the checked option, or an empty string.
  */
-function readSelectedValue(optionList: HTMLElement): string {
-  const activeItem = optionList.querySelector<HTMLLIElement>(`.${ACTIVE_CLASS}`);
-  return activeItem?.dataset.value ?? "";
+function readSelectedValue(groupName: string): string {
+  const checkedRadio = document.querySelector<HTMLInputElement>(
+    `.settings-option__radio[name="${groupName}"]:checked`
+  );
+  return checkedRadio?.value ?? "";
 }
