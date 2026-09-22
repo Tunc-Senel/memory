@@ -6,7 +6,7 @@
 /* === DA PROJECTS THEME === */
 .theme-da-projects {
     font-family: variables.$font-tertiary;
-    @include mixins.page-padding(8px);
+    @include mixins.page-padding(8px, 8px);
 }
 
 /* === GAME-HEADER === */

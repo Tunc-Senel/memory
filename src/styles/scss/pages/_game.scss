@@ -9,7 +9,7 @@
     background-color: var(--page-bg);
     min-height: 100vh;
     color: var(--text);
-    @include mixins.page-padding(40px);
+    @include mixins.page-padding(40px, 20px);
 }
 
 /* === GAME-HEADER === */

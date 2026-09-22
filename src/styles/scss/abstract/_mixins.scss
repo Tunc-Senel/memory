@@ -45,18 +45,11 @@
 /* === PAGE LAYOUT === */
 /// Applies the responsive side padding shared by the game page and its themes.
 /// @param {Number} $top - The top padding of the page.
-@mixin page-padding($top) {
-    padding: $top 160px 0;
-
-    @include bp.respond("desktop") {
-        padding: $top 80px 0;
-    }
-
-    @include bp.respond("tablet") {
-        padding: $top 40px 0;
-    }
+/// @param {Number} $top-mobile - The top padding of the page on mobile devices.
+@mixin page-padding($top, $top-mobile) {
+    padding: $top 40px 0;
 
     @include bp.respond("mobile") {
-        padding: $top 8px 0;
+        padding: $top-mobile 8px 0;
     }
 }
