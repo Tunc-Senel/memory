@@ -31,7 +31,7 @@ function initGamePage(): void {
  */
 function initSettingsPage(): void {
   settings.initSettingsListeners();
-  settings.initPendingLabels();
+  settings.initProgressLabels();
 }
 
 window.onload = init;
