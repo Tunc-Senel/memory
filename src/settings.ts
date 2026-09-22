@@ -6,14 +6,9 @@ import * as config from "./config";
 const OPTION_GROUP_COUNT = 3;
 
 /**
- * Stores the labels of the selected options until the progress bar is unlocked.
+ * Tracks whether every group has a selection and the progress bar has played its animation.
  */
-const PENDING_LABELS: Record<string, string> = {};
-
-/**
- * Tracks whether the progress bar already shows the selected labels.
- */
-let isProgressUnlocked = false;
+let isProgressComplete = false;
 
 /**
  * Modifier class that plays the bounce animation of the progress bar.
@@ -47,14 +42,14 @@ export function initSettingsListeners(): void {
 }
 
 /**
- * Stores the label of a newly selected option.
+ * Shows the label of a newly selected option in the progress bar.
  * Updates the preview image when the theme changes.
  * @param event - The change event of a radio button.
  */
 function handleOptionChange(event: Event): void {
   const radio = event.target as HTMLInputElement;
 
-  rememberProgressLabel(radio);
+  showProgressLabel(radio);
   if (radio.name === "theme") updateThemeImg(radio.value);
 }
 
@@ -81,12 +76,12 @@ function restoreThemeImg(): void {
 }
 
 /**
- * Fills the pending labels with the options preselected in the markup.
+ * Shows the labels of the options preselected in the markup in the progress bar.
  */
-export function initPendingLabels(): void {
+export function initProgressLabels(): void {
   document
     .querySelectorAll<HTMLInputElement>(".settings-option__radio:checked")
-    .forEach((radio) => rememberProgressLabel(radio));
+    .forEach((radio) => showProgressLabel(radio));
 }
 
 /**
@@ -103,54 +98,17 @@ function updateThemeImg(themeKey: string): void {
 }
 
 /**
- * Stores the label of a selected option.
- * Writes it through directly once the progress bar is unlocked.
+ * Writes the label of a selected option into its progress step.
+ * Completes the progress bar once every group has a selection.
  * @param radio - The selected radio button.
  */
-function rememberProgressLabel(radio: HTMLInputElement): void {
+function showProgressLabel(radio: HTMLInputElement): void {
   const stepId = radio.closest<HTMLElement>(".settings-option")?.dataset.step;
   const label = radio.dataset.label;
   if (!stepId || !label) return;
 
-  PENDING_LABELS[stepId] = label;
-  if (isProgressUnlocked) writeProgressLabel(stepId, label);
-  markProgressReady();
-}
-
-/**
- * Enables the start button and opens the progress bar once every group has a selection.
- */
-function markProgressReady(): void {
-  const startButton = document.querySelector(".settings-progress__start-button");
-  if (Object.keys(PENDING_LABELS).length < OPTION_GROUP_COUNT) return;
-
-  startButton?.classList.remove(DISABLED_CLASS);
-  startButton?.setAttribute("aria-disabled", "false");
-  startButton?.removeAttribute("aria-describedby");
-  unlockProgressBar();
-}
-
-/**
- * Shows the selected labels in the progress bar and plays its animation.
- * Runs only once, later changes are written through directly.
- */
-function unlockProgressBar(): void {
-  if (isProgressUnlocked) return;
-
-  isProgressUnlocked = true;
-  writePendingLabels();
-  swapProgressDividers();
-  markProgressSteps();
-}
-
-/**
- * Writes all pending labels into their progress steps.
- */
-function writePendingLabels(): void {
-  Object.entries(PENDING_LABELS).forEach(([stepId, label]) => {
-    writeProgressLabel(stepId, label);
-  });
-  restartBounce();
+  writeProgressLabel(stepId, label);
+  completeProgress();
 }
 
 /**
@@ -161,6 +119,38 @@ function writePendingLabels(): void {
 function writeProgressLabel(stepId: string, label: string): void {
   const step = document.getElementById(stepId);
   if (step) step.textContent = label;
+}
+
+/**
+ * Enables the start button and plays the progress animation once every group has a selection.
+ * Runs only once, later changes only update the labels.
+ */
+function completeProgress(): void {
+  if (isProgressComplete || countSelectedGroups() < OPTION_GROUP_COUNT) return;
+
+  isProgressComplete = true;
+  enableStartButton();
+  swapProgressDividers();
+  restartBounce();
+}
+
+/**
+ * Counts the option groups that already have a selection.
+ * @returns The number of checked radio buttons.
+ */
+function countSelectedGroups(): number {
+  return document.querySelectorAll(".settings-option__radio:checked").length;
+}
+
+/**
+ * Enables the start button for mouse, keyboard and screen reader users.
+ */
+function enableStartButton(): void {
+  const startButton = document.querySelector(".settings-progress__start-button");
+
+  startButton?.classList.remove(DISABLED_CLASS);
+  startButton?.setAttribute("aria-disabled", "false");
+  startButton?.removeAttribute("aria-describedby");
 }
 
 /**
@@ -185,15 +175,6 @@ function swapProgressDividers(): void {
   document
     .querySelectorAll(".settings-progress__divider-applied")
     .forEach((img) => img.classList.remove(config.HIDDEN_CLASS));
-}
-
-/**
- * Gives every progress step the width reserved for its label.
- */
-function markProgressSteps(): void {
-  document
-    .querySelectorAll(".settings-progress__step")
-    .forEach((step) => step.classList.add("settings-progress__step--option"));
 }
 
 /**

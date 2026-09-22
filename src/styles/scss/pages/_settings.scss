@@ -151,12 +151,12 @@
 
 /* === CHECKED STATE === */
 .settings-option__radio:checked,
-.settings-option--preview .settings-option__choice:hover .settings-option__radio {
+.settings-option .settings-option__choice:hover .settings-option__radio {
     background-image: url("../../../../public/assets/img/radio-checked.png");
 }
 
 .settings-option__radio:checked + .settings-option__label,
-.settings-option--preview .settings-option__choice:hover .settings-option__label {
+.settings-option .settings-option__choice:hover .settings-option__label {
     font-weight: variables.$font-weight-bold;
 
     &::after {
@@ -171,11 +171,11 @@
 }
 
 /* === HOVER PREVIEW === */
-.settings-option--preview:has(.settings-option__choice:hover) .settings-option__choice:not(:hover) .settings-option__radio {
+.settings-option:has(.settings-option__choice:hover) .settings-option__choice:not(:hover) .settings-option__radio {
     background-image: url("../../../../public/assets/img/radio-unchecked.png");
 }
 
-.settings-option--preview:has(.settings-option__choice:hover) .settings-option__choice:not(:hover) .settings-option__label {
+.settings-option:has(.settings-option__choice:hover) .settings-option__choice:not(:hover) .settings-option__label {
     font-weight: variables.$font-weight-regular;
 
     &::after {
@@ -199,7 +199,7 @@
 
 /* === PROGRESS BAR === */
 .settings-progress {
-    @include mixins.flex(row, $justify: flex-end, $align: center, $gap: 24px);
+    @include mixins.flex(row, $justify: flex-end, $align: center, $gap: 8px);
     background-color: #f6f6f6;
     margin: 25px 0 0;
     padding: 16px 16px;
@@ -214,7 +214,7 @@
         margin: 40px 0 0;
         padding: 8px 24px;
         padding-inline-start: 20px;
-        gap: 20px;
+        gap: 4px;
         font-size: fct.px-to-rem(16);
     }
 
@@ -230,6 +230,7 @@
 
 /* === PROGRESS STEPS === */
 .settings-progress__step {
+    min-width: 17ch;
     text-align: center;
 
     @include bp.respond("tablet") {
@@ -240,14 +241,6 @@
 .settings-progress__divider {
     @include bp.respond("tablet") {
         display: none;
-    }
-}
-
-.settings-progress__step--option {
-    min-width: 160px;
-
-    @include bp.respond("wide") {
-        min-width: 120px;
     }
 }
 
