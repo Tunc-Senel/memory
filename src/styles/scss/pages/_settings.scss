@@ -6,17 +6,18 @@
 /* === SETTINGS PAGE === */
 .settings-page {
     @include mixins.flex(column);
-    padding: 40px 40px 0;
+    padding: 40px;
     min-height: 100vh;
 
     @include bp.respond("mobile") {
-        padding: 20px 8px 0;
+        padding: 20px 8px;
     }
 }
 
 /* === SETTINGS-CONTENT === */
 .settings-page__main {
     @include mixins.flex(row, $justify: space-between, $align: flex-start);
+    margin-bottom: auto;
 
     @include bp.respond("desktop") {
         flex-direction: column;
@@ -47,6 +48,7 @@
 .settings-header {
     @include mixins.flex(column);
     position: relative;
+    margin-top: auto;
     padding: 0 0 48px 18px;
 
     @include bp.respond("desktop") {
@@ -201,7 +203,7 @@
 .settings-progress {
     @include mixins.flex(row, $justify: flex-end, $align: center, $gap: 8px);
     background-color: #f6f6f6;
-    margin: 25px 0 0;
+    margin: 29px 0 0;
     padding: 16px 16px;
     padding-inline-start: 24px;
     list-style: none;
@@ -211,7 +213,7 @@
     transform-origin: right center;
 
     @include bp.respond("wide") {
-        margin: 40px 0 0;
+        margin: 46px 0 0;
         padding: 8px 24px;
         padding-inline-start: 20px;
         gap: 4px;
