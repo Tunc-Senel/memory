@@ -14,31 +14,14 @@
 
 /* === BACKGROUND DECORATION === */
 .home__controller-background {
-    display: none;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 0;
     width: 300px;
     height: auto;
 
-    @include bp.respond("wide") {
-        display: block;
-    }
-
     @include bp.respond("tablet") {
         width: 160px;
-    }
-}
-
-.home__controller-background-wide {
-    position: absolute;
-    top: 50%;
-    left: -225px;
-    width: 300px;
-    height: auto;
-
-    @include bp.respond("wide") {
-        display: none;
     }
 }
 
